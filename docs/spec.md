@@ -6,7 +6,7 @@ The Fluid Pay has a simulation tool over on it’s API. That's to simulate the u
 
 ## Design
 
-[Our designer created a UI design what should be followed.](https://xd.adobe.com/view/a7180f10-a3c2-468f-4547-5b2fd976871e-d129/)
+[Our designer created a UI design what should be followed.](https://xd.adobe.com/view/c79256d8-5c9b-4ed9-722f-5607d2d28a93-b1a3/)
 
 ## Phase 1 - Main requirements
 - Two Restful endpoints (Initializer, Updater)
