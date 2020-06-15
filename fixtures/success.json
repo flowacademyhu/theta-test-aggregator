@@ -1,0 +1,15 @@
+{
+    "id":"ce7da1ec-2784-4637-8288-628c385334a1",
+    "triggered_by":"Ferenc",
+    "branch_name":"random-branch",
+    "start_timestamp":1592248097,
+    "end_timestamp":1592249097,
+    "commit_hash":"6789dfa9a2c0ecc80cfee10ab9b9b70d8a7f9b2a",
+    "status":"success",
+    "error_message":"",
+    "short_desciption":"",
+    "payload":{
+       "data":"{\"Stage 1\":[{\"error\":null,\"endpoint\":{\"Path\":\"\",\"Method\":\"\"},\"request\":null,\"response\":null,\"failed_message\":\"\",\"measurement\":\"\",\"status_code\":0}],\"Stage 2\":[{\"error\":null,\"endpoint\":{\"Path\":\"\",\"Method\":\"\"},\"request\":null,\"response\":null,\"failed_message\":\"\",\"measurement\":\"\",\"status_code\":0}],\"Stage 3\":[{\"error\":null,\"endpoint\":{\"Path\":\"\",\"Method\":\"\"},\"request\":null,\"response\":null,\"failed_message\":\"\",\"measurement\":\"\",\"status_code\":0}]}",
+       "text":"<div class=\"content\"><ul><li class=\"success\"><p class=\"success\"><strong>Stage 1</strong></p></li><li class=\"success\"><p class=\"success\"><strong>Stage 2</strong></p></li><li class=\"success\"><p class=\"success\"><strong>Stage 3</strong></p></li></ul></div>"
+    }
+}
