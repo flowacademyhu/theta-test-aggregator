@@ -1,0 +1,15 @@
+{
+    "id":"ce7da1ec-2784-4637-8288-628c385334a1",
+    "triggered_by":"Ferenc",
+    "branch_name":"random-branch",
+    "start_timestamp":1592248097,
+    "end_timestamp":1592249097,
+    "commit_hash":"6789dfa9a2c0ecc80cfee10ab9b9b70d8a7f9b2a",
+    "status":"failed",
+    "error_message":"",
+    "short_desciption":"shit",
+    "payload":{
+       "data":"{\"Stage 1\":[{\"error\":null,\"endpoint\":{\"Path\":\"\",\"Method\":\"\"},\"request\":null,\"response\":null,\"failed_message\":\"\",\"measurement\":\"\",\"status_code\":0}],\"Stage 2\":[{\"error\":null,\"endpoint\":{\"Path\":\"\",\"Method\":\"\"},\"request\":null,\"response\":null,\"failed_message\":\"\",\"measurement\":\"\",\"status_code\":0}],\"Stage 3\":[{\"error\":null,\"endpoint\":{\"Path\":\"/endpoint\",\"Method\":\"POST\"},\"request\":\"{\"data\", 1234}\",\"response\":\"{\"data\", 5678}\",\"failed_message\":\"Shit\",\"measurement\":\"\",\"status_code\":400}]}",
+       "text":"<div class=\"content\"><ul><li class=\"success\"><p class=\"success\"><strong>Stage 1</strong></p></li><li class=\"success\"><p class=\"success\"><strong>Stage 2</strong></p></li><li class=\"failed\"><p class=\"failed\"><strong>Stage 3</strong><div class=\"failed-endpoint\">POST http://100.113.104.12:8001/api/endpoint</div><div class=\"failed-status-code\">400</div><div class=\"failed-message\">Shit</div><div class=\"failed-request\">{&#34;data&#34;, 1234}</div><div class=\"failed-response\">{&#34;data&#34;, 5678}</div></p></li></ul></div>"
+    }
+}
