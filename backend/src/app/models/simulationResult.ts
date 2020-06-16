@@ -14,4 +14,4 @@ export interface SimulationResult {
   invalid?: number;
   createdt_at?: string;
   updated_at?: string
-}
+};
