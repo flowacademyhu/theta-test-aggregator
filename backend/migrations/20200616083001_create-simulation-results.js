@@ -1,4 +1,3 @@
-
 exports.up = (knex) => {
   return knex.schema.createTable('simulation_results', (table) => {
     table.string('id', [50]).primary();
