@@ -1,6 +1,6 @@
 
 exports.up = (knex) => {
-  return knex.schema.createTable('simulation-results', (table) => {
+  return knex.schema.createTable('simulation_results', (table) => {
     table.string('id', [50]).primary();
     table.string('triggered_by', [50]);
     table.string('branch_name', [250]);
@@ -20,5 +20,5 @@ exports.up = (knex) => {
 };
 
 exports.down = (knex) => {
-  return knex.schema.dropTable('simulation-results');
+  return knex.schema.dropTable('simulation_results');
 };
