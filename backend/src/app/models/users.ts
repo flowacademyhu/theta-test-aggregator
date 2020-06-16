@@ -3,13 +3,13 @@ export interface Users {
   password_hash?: string;
   email?: string;
   git_user?: string;
-  role?: userRoles;
+  role?: userRole;
   notification?: boolean;
   created_at?: string;
   updated_at?: string
 }
 
-enum userRoles {
+enum userRole {
   ADMIN,
   USER
 }
