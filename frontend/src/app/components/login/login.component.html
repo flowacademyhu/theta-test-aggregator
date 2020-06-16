@@ -1,0 +1,46 @@
+<div class="login-form">
+  <header>
+    <span><img
+      src="assets/logo.svg"
+      alt="Fluidpay Logo"/>
+    </span>
+  </header>
+  <form #form="ngForm">
+    <mat-form-field class="login-form-full-width" appearance="outline">
+      <input
+        matInput
+        type="email"
+        id="email"
+        name="email"
+        placeholder="email address"
+        #email="ngModel"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <span class="login-warning" *ngIf="email.invalid && email.touched">Email is invalid!</span>
+    <br/>
+    <mat-form-field class="login-form-full-width" appearance="outline">
+      <input
+        matInput
+        type="password"
+        id="password"
+        name="password"
+        placeholder="password"
+        #password="ngModel"
+        ngModel
+        required
+      />
+    </mat-form-field>
+    <span class="login-warning" *ngIf="password.invalid && password.touched">Password is required!</span>
+    <br/>
+    <div class="login-others">
+      <mat-checkbox color="primary">Remember me</mat-checkbox>
+      <br/>
+      <a routerLink="#">Forgot your password?</a>
+    </div>
+    <br/>
+    <button class="login-button" mat-raised-button color="primary">Sign in</button>
+  </form>
+</div>
+
