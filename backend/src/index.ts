@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import * as createMiddleware from 'swagger-express-middleware';
 import { SwaggerMiddleware } from 'swagger-express-middleware';
 import { database } from './lib/database';
-import { authentication } from './lib/auth';
+import { authentication } from './lib/authentication';
 
 const app = express();
 const { PORT = 3000 } = process.env;
