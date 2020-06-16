@@ -5,7 +5,7 @@ export interface SimulationResult {
   start_timestamp: number;
   end_timestamp: number;
   commit_hash: string;
-  status: 'SUCCESS' | 'FAILED' | 'ERROR' | 'UNKNOWN';
+  status: SimulationResultStatus;
   error_message: string;
   short_description: string;
   payload_data: JSON;
@@ -14,4 +14,11 @@ export interface SimulationResult {
   invalid?: number;
   createdt_at?: string;
   updated_at?: string
+};
+
+enum SimulationResultStatus {
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+  ERROR = 'ERROR',
+  UNKNOWN = 'UNKNOWN'
 };
