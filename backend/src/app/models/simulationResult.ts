@@ -1,17 +1,17 @@
 export interface SimulationResult {
   id: string;
-  triggeredBy: string;
-  branchName: string;
-  startTimestamp: number;
-  endTimestamp: number;
-  commitHash: string;
+  triggered_by: string;
+  branch_name: string;
+  start_timestamp: number;
+  end_timestamp: number;
+  commit_hash: string;
   status: 'SUCCESS' | 'FAILED' | 'ERROR' | 'UNKNOWN';
-  errorMessage: string;
-  shortDescription: string;
-  payloadData: JSON;
-  payloadText: string;
-  sequenceNumber?: number;
+  error_message: string;
+  short_description: string;
+  payload_data: JSON;
+  payload_text: string;
+  sequence_number?: number;
   invalid?: number;
-  createdAt?: string;
-  updatedAt?: string
+  createdt_at?: string;
+  updated_at?: string
 }
