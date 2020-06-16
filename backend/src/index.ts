@@ -31,6 +31,4 @@ createMiddleware('config/swagger.json', app, (err, middleware: SwaggerMiddleware
   });
 
   app.use(authentication);
-
-  
 });
