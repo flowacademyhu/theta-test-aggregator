@@ -1,6 +1,6 @@
 export interface Users {
-  id?: number;
-  passwordHash?: string;
+  id?: string;
+  password_hash?: string;
   email?: string;
   git_user?: number;
   role?: 'admin' | 'user';
