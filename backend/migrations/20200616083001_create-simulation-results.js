@@ -11,8 +11,8 @@ exports.up = (knex) => {
     table.string('short_description', [250]);
     table.json('payload_data');
     table.text('payload_text');
-    table.integer('sequence_number');
-    table.specificType('invalid', 'tinyint');
+    table.integer('sequence_number').unsigned().unique();
+    table.boolean('invalid').defaultTo(false);
     table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
     table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
   });
