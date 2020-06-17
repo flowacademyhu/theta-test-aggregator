@@ -13,4 +13,4 @@ export const filterHandler = (req: Request, query: QueryBuilder): QueryBuilder =
   query = filterSimulationStartTime(req, query);
   query = filterSimulationEndTime(req, query);
   return query;
-}
+};
