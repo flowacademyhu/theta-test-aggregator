@@ -1,10 +1,11 @@
 import { User } from "../models/user";
+import { userRole } from "../models/user"
 
 export interface UserSerializer {
   password_hash: string;
   email: string;
   git_user: string;
-  role: 'admin' | 'user';
+  role: userRole;
   notification: boolean;
   
 }
