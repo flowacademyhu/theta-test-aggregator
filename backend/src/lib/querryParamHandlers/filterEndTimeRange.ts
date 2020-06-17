@@ -6,4 +6,4 @@ export const filterSimulationStartTime = (req: Request, query: QueryBuilder) => 
     query.whereBetween('start_timestamp', [req.query.ended_after, req.query.ended_before])
   }
   return query;
-}
+};
