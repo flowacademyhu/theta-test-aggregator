@@ -8,7 +8,7 @@ export interface SimulationResult {
   status: SimulationResultStatus;
   error_message: string;
   short_description: string;
-  payload_data: JSON;
+  payload_data: any;
   payload_text: string;
   sequence_number?: number;
   invalid?: number;
