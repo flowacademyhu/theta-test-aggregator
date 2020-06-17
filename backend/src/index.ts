@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import * as createMiddleware from 'swagger-express-middleware';
 import { SwaggerMiddleware } from 'swagger-express-middleware';
 import { database } from './lib/database';
+import { authentication } from './lib/authentication';
 
 const app = express();
 const { PORT = 3000 } = process.env;
@@ -28,4 +29,6 @@ createMiddleware('config/swagger.json', app, (err, middleware: SwaggerMiddleware
   app.listen(PORT, () => {
     console.log(`server started at http://localhost:${PORT}`);
   });
+
+  app.use(authentication);
 });
