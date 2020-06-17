@@ -4,6 +4,8 @@ import * as createMiddleware from 'swagger-express-middleware';
 import { SwaggerMiddleware } from 'swagger-express-middleware';
 import { database } from './lib/database';
 import { authentication } from './lib/authentication';
+import { mailer } from "./lib/mailer";
+
 
 const app = express();
 const { PORT = 3000 } = process.env;
