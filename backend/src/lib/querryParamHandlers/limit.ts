@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { QueryBuilder } from 'knex';
 
 export const limitQuery = (req: Request, query: QueryBuilder) => {
