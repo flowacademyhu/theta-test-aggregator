@@ -9,7 +9,7 @@ export interface User {
   updated_at?: string
 }
 
-enum userRole {
+export enum userRole {
   ADMIN = 'admin',
   USER = 'user'
 }
