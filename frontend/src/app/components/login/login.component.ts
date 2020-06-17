@@ -17,10 +17,11 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
   private loggedInUser: User;
+  public isChecked: boolean;
 
   public login() {
     this.authService
-      .login(this.loginForm.get('email').value, this.loginForm.get('password').value)
+      .login(this.loginForm.get('email').value, this.loginForm.get('password').value, this.isChecked)
       .then(() => {
         this.router.navigate(['logged-in']).then(r => {
           console.log('Successful login');
@@ -29,6 +30,10 @@ export class LoginComponent implements OnInit {
       .catch(() => {
         console.log('Wrong email or password');
       });
+  }
+
+  rememberMe() {
+    this.isChecked = !this.isChecked;
   }
 
   ngOnInit(): void {

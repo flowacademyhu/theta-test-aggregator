@@ -10,7 +10,7 @@ export class LoggedInComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('user')).git_user);
+    console.log(JSON.parse(sessionStorage.getItem('user')).git_user);
   }
 
 }
