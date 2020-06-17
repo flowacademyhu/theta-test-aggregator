@@ -11,7 +11,7 @@ export const create = async (req: Request, res: Response) => {
     const user: User = await database('users').select().where({ 
       email: req.body.email
     }).first();
-    if (typeof user !== 'undefined' && bycrypt.compareSync(req.body.password, user.password)) {
+    if (typeof user !== 'undefined' && bycrypt.compareSync(req.body.password, user.password_hash)) {
       const info = { userId: user.id };
       const token = jwt.sign(info, jwtConfig.secret);
       res.json(loginSerializer.create(token, user));
