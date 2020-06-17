@@ -2,37 +2,33 @@
   <header>
     <span><img
       src="assets/logo.svg"
-      alt="Fluidpay Logo"/>
+      alt="FluidPay Logo"/>
     </span>
   </header>
-  <form #form="ngForm">
+  <form [formGroup]="loginForm">
     <mat-form-field class="login-form-full-width" appearance="outline">
       <input
         matInput
         type="email"
+        formControlName="email"
         id="email"
         name="email"
         placeholder="email address"
-        #email="ngModel"
-        ngModel
-        required
       />
     </mat-form-field>
-    <span class="login-warning" *ngIf="email.invalid && email.touched">Email is invalid!</span>
+    <span class="login-warning" *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">Email is required.</span>
     <br/>
     <mat-form-field class="login-form-full-width" appearance="outline">
       <input
         matInput
         type="password"
+        formControlName="password"
         id="password"
         name="password"
         placeholder="password"
-        #password="ngModel"
-        ngModel
-        required
       />
     </mat-form-field>
-    <span class="login-warning" *ngIf="password.invalid && password.touched">Password is required!</span>
+    <span class="login-warning" *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">Password is required.</span>
     <br/>
     <div class="login-others">
       <mat-checkbox color="primary">Remember me</mat-checkbox>
@@ -40,7 +36,7 @@
       <a routerLink="#">Forgot your password?</a>
     </div>
     <br/>
-    <button class="login-button" mat-raised-button color="primary">Sign in</button>
+    <button class="login-button" mat-raised-button color="primary" (click)="login()" [disabled]="loginForm.invalid" >Sign in</button>
   </form>
 </div>
 
