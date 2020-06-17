@@ -43,7 +43,8 @@ export class UserService {
     }
   ]
 
-  public deleteUser (index: number) {
+  public deleteUser (id: string) {
+    const index: number = this.users.indexOf(this.users.find(u => u.id === id));
     this.users.splice(index, 1);
   }
 

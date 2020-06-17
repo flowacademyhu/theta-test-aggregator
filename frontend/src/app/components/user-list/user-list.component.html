@@ -17,7 +17,7 @@
     [git_user]="user.git_user"
     *ngIf="openModal"
     (close)="toggleModal()"
-    (confirm)="onDelete(i)"
+    (confirm)="onDelete(user.id)"
     (confirm)="toggleModal()">
     </app-confirm-delete-modal>
     <mat-action-row>

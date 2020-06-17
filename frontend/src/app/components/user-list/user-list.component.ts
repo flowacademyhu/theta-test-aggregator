@@ -1,7 +1,6 @@
 import { Component, OnInit, DoCheck, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
-import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
 
 @Component({
   selector: 'app-user-list',
@@ -24,8 +23,9 @@ export class UserListComponent implements OnInit {
     this.openModal = false;
   }
 
-  public onDelete(index: number) {
-    this.userService.deleteUser(index);
+  public onDelete(id: string) {
+    console.log(id);
+    this.userService.deleteUser(id);
   }
 
   @HostListener('document:click', ['$event'])
