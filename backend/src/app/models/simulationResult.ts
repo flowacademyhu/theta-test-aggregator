@@ -11,12 +11,17 @@ export interface SimulationResult {
   payload_data: any;
   payload_text: string;
   sequence_number?: number;
-  invalid?: number;
+  invalid?: SimulationResultValidity;
   createdt_at?: string;
   updated_at?: string
 };
 
-enum SimulationResultStatus {
+export enum SimulationResultValidity {
+  VALID = 0,
+  INVALID = 1
+};
+
+export enum SimulationResultStatus {
   SUCCESS = 'SUCCESS',
   FAILED = 'FAILED',
   ERROR = 'ERROR',
