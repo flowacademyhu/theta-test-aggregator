@@ -1,9 +1,8 @@
 import * as nodemailer from 'nodemailer';
 
- export const  mailer = async() => {
-  let message = 'something';
-  let receiver = 'szankabal@gmail.com';
-  let mailsubject = 'this is subject to change';
+ export const  mailer = async(receiver: string) => {
+  const message = 'something';
+  const mailsubject = 'this is subject to change';
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
