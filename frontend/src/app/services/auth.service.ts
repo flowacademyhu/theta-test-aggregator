@@ -1,18 +1,22 @@
 import {Injectable} from '@angular/core';
-import {User, Role} from '../models/user.model';
+import {User, UserRole} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
+
+  constructor() {
+  }
+
   public users: User[] = [
     {
       id: 'user1',
       password: 'user1234',
       email: 'user1@email.com',
       git_user: 'Mate',
-      role: Role.USER,
+      role: UserRole.USER,
       notification: true
     },
     {
@@ -20,7 +24,7 @@ export class AuthService {
       password: 'admin1234',
       email: 'admin1@email.com',
       git_user: 'Feri',
-      role: Role.ADMIN,
+      role: UserRole.ADMIN,
       notification: false
     },
     {
@@ -28,7 +32,7 @@ export class AuthService {
       password: 'user1234',
       email: 'user2@email.com',
       git_user: 'Imi',
-      role: Role.USER,
+      role: UserRole.USER,
       notification: false
     },
     {
@@ -36,7 +40,7 @@ export class AuthService {
       password: 'admin1234',
       email: 'admin2@email.com',
       git_user: 'Tamas',
-      role: Role.ADMIN,
+      role: UserRole.ADMIN,
       notification: true
     }
   ];
@@ -65,7 +69,7 @@ export class AuthService {
   }
 
   public authenticateAsync(): Promise<User> {
-    return new Promise<User>((resolve) => {
+    return new Promise<User>((resolve, reject) => {
       setTimeout(() => {
         resolve(this.loggedInUser);
       }, 100);

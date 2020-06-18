@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { SettingsComponent } from './components/settings/settings.component';
-import { ApiKeyManagerComponent } from './components/api-key-manager/api-key-manager.component'
+import { ApiKeyManagerComponent } from './components/api-key-manager/api-key-manager.component',
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     AngularMaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes)
   ],
   providers: [],
