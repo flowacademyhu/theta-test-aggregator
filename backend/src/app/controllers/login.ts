@@ -6,12 +6,16 @@ import * as jwt from 'jsonwebtoken';
 import * as jwtConfig from '../../../config/jwt.json';
 import * as bycrypt from 'bcrypt';
 
+const isCorrectPassword = (user: User, password: string): boolean => {
+  return typeof user !== 'undefined' && bycrypt.compareSync(password, user.password_hash);
+  }
+
 export const create = async (req: Request, res: Response) => {
   try {
     const user: User = await database('users').select().where({ 
       email: req.body.email
     }).first();
-    if (typeof user !== 'undefined' && bycrypt.compareSync(req.body.password, user.password_hash)) {
+    if (isCorrectPassword(user , req.body.password)) {
       const info = { userId: user.id };
       const token = jwt.sign(info, jwtConfig.secret);
       res.json(loginSerializer.create(token, user));
@@ -23,3 +27,4 @@ export const create = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
+
