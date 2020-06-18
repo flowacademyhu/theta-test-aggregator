@@ -1,5 +1,5 @@
-import { SimulationResultValidity } from "../../lib/enums/enum";
-import { SimulationResultStatus } from "../../lib/enums/enum";
+import { SimulationResultValidity } from "../../lib/enums";
+import { SimulationResultStatus } from "../../lib/enums";
 
 export interface SimulationResult {
   id: string;
