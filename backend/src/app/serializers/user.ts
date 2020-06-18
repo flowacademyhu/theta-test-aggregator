@@ -1,5 +1,5 @@
 import { User } from "../models/user";
-import { userRole } from "../models/user"
+import { userRole } from "../../lib/enums"
 
 export interface UserSerializer {
   password_hash: string;
