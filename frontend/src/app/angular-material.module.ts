@@ -20,6 +20,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu'; 
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 @NgModule({
   imports: [
@@ -42,9 +45,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatDialogModule,
   ],
   exports: [
+    CommonModule,
     MatBadgeModule,
     MatButtonModule,
     MatCardModule,
@@ -63,7 +70,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSidenavModule,
     MatTableModule,
     MatToolbarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatExpansionModule
   ],
   providers: [
     MatDatepickerModule,
