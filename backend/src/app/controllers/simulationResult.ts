@@ -2,9 +2,9 @@ import { SimulationResult, SimulationResultStatus, SimulationResultValidity } fr
 import { Request, Response } from 'express';
 import { database } from '../../lib/database';
 import { QueryBuilder } from 'knex';
-import { limitQuery } from '../../lib/querryParamHandlers/limit';
-import { offsetQuery } from '../../lib/querryParamHandlers/offset';
-import { filterHandler } from '../../lib/querryParamHandlers/filterHandler';
+import { limitQuery } from '../../lib/queryParamHandlers/limit';
+import { offsetQuery } from '../../lib/queryParamHandlers/offset';
+import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
 
 export const index = async (req: Request, res: Response) => {
