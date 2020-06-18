@@ -8,17 +8,28 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { RouterModule, Routes } from '@angular/router';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { NotificationsPipe } from './pipes/notifications.pipe';
+import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
+import { HeaderComponent } from './components/header/header.component';
+
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'logged-in', component: LoggedInComponent},
+  {path: 'users', component: UserListComponent},
+  {path: 'profile', component: LoggedInComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LoggedInComponent
+    LoggedInComponent,
+    NotificationsPipe,
+    UserListComponent,
+    ConfirmDeleteModalComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,9 +37,10 @@ const routes: Routes = [
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

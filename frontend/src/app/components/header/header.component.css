@@ -1,0 +1,43 @@
+.menu {
+  align-self: flex-end;
+  position: absolute;
+  top: 10px;
+  right: 70px;
+}
+.matButton {
+  background-color: #243441;
+  color: white;
+  height: 40px;
+  width: 60px;
+  align-items: flex-start;
+}
+.mat-card-avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  align-self: flex-end;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.navbar {
+  background-color: #243441;
+}
+::ng-deep .mat-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.mat-menu-item{
+  line-height:35px;
+  height:35px;
+  background-color: #243441 ;
+  color: white;
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+.mat-menu-item:hover{
+  display: block;
+  background-color: #243441d2;
+}

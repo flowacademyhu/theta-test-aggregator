@@ -1,4 +1,4 @@
-import { Component, OnInit, DoCheck, ViewChild, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
 
@@ -39,7 +39,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngDoCheck(): void {
-    this.users = this.userService.fetchUsers();
+    this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
   }
 
 }

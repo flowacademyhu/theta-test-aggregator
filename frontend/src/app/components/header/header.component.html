@@ -1,0 +1,18 @@
+<mat-toolbar color="primary" class="navbar">
+  <div>
+    <img
+    src="../../../assets/logo.svg"
+    alt="FluidPay logo"
+    width="189px" height="54px"
+    [routerLink]="['/profile']">
+  </div>
+    <div>
+        <img mat-card-avatar src="../../../assets/avatar.png" [matMenuTriggerFor]="afterMenu">
+        <mat-menu  #afterMenu="matMenu" xPosition="after">
+          <button routerLink="/profile" mat-menu-item>User profile</button>
+          <button *ngIf="user.role === 'admin'" routerLink="/api-key-manager" mat-menu-item>Manage API keys</button>
+          <button *ngIf="user.role === 'admin'" routerLink="/users" mat-menu-item>Users</button>
+          <button routerLink="/login" mat-menu-item>Sign out</button>
+        </mat-menu>
+    </div>
+</mat-toolbar>

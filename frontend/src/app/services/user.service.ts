@@ -11,7 +11,7 @@ export class UserService {
   public users: User[] = [
     {
       id: 'user1',
-      password: 'user1',
+      password: 'user1234',
       email: 'user1@email.com',
       git_user: 'Mate',
       role: UserRole.USER,
@@ -19,7 +19,7 @@ export class UserService {
     },
     {
       id: 'admin1',
-      password: 'admin1',
+      password: 'admin1234',
       email: 'admin1@email.com',
       git_user: 'Feri',
       role: UserRole.ADMIN,
@@ -27,7 +27,7 @@ export class UserService {
     },
     {
       id: 'user2',
-      password: 'user2',
+      password: 'user1234',
       email: 'user2@email.com',
       git_user: 'Imi',
       role: UserRole.USER,
@@ -35,7 +35,7 @@ export class UserService {
     },
     {
       id: 'admin2',
-      password: 'admin2',
+      password: 'admin1234',
       email: 'admin2@email.com',
       git_user: 'Tamas',
       role: UserRole.ADMIN,
@@ -48,7 +48,12 @@ export class UserService {
     this.users.splice(index, 1);
   }
 
-  public fetchUsers(): User[] {
+  public fetchOtherUsers(id: string): User[] {
+    return [...this.users].filter(u => u.id !== id);
+  }
+
+  public fetcUsers(): User[] {
     return [...this.users];
   }
+
 }
