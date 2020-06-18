@@ -38,6 +38,7 @@ export const create = async (req: Request, res: Response) => {
     const encryptedPassword = bcrypt.hashSync(pw, 10);
     console.log('REQ', req.body.password_hash, 'HASH', encryptedPassword);
     const users: User = {
+      id: req.body.id,
       password_hash: encryptedPassword,
       email: req.body.email,
       git_user: req.body.git_user,
@@ -55,8 +56,13 @@ export const create = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
   try {
     const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();
+    const pw = req.body.password_hash;
+    const encryptedPassword = bcrypt.hashSync(pw, 10);
+    console.log('REQ', req.body.password_hash, 'HASH', encryptedPassword);
     if (user) {
       const newUser: User = {
+        id: req.body.id,
+        password_hash: encryptedPassword,
         email: req.body.email,
         git_user: req.body.git_user,
         role: req.body.role,
