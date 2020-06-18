@@ -1,3 +1,6 @@
+import { SimulationResultValidity } from "../../lib/enums/enum";
+import { SimulationResultStatus } from "../../lib/enums/enum";
+
 export interface SimulationResult {
   id: string;
   triggered_by: string;
@@ -14,16 +17,4 @@ export interface SimulationResult {
   invalid?: SimulationResultValidity;
   createdt_at?: string;
   updated_at?: string
-};
-
-export enum SimulationResultValidity {
-  VALID = 0,
-  INVALID = 1
-};
-
-export enum SimulationResultStatus {
-  SUCCESS = 'SUCCESS',
-  FAILED = 'FAILED',
-  ERROR = 'ERROR',
-  UNKNOWN = 'UNKNOWN'
 };
