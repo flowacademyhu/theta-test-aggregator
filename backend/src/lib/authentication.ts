@@ -3,7 +3,7 @@ import { User } from "../app/models/user";
 import { database } from "./database";
 import * as jwt from "jsonwebtoken";
 import * as jwtConfig from '../../config/jwt.json';
-import { Method } from "./enums/enum";
+import { Method } from "./enums";
 import { tableName } from "./tableName";
 
 interface AnonymusEndpoint {
