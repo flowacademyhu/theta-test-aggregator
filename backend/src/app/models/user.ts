@@ -1,3 +1,5 @@
+import { userRole } from "../../lib/enums/enum"
+
 export interface User {
   id?: string;
   password_hash?: string;
@@ -7,9 +9,4 @@ export interface User {
   notification?: boolean;
   created_at?: string;
   updated_at?: string
-}
-
-export enum userRole {
-  ADMIN = 'admin',
-  USER = 'user'
 }
