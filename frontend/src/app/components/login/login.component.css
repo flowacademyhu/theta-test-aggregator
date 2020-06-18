@@ -41,11 +41,6 @@ header {
   font-size: 1.2em;
 }
 
-/* mat-icon-stepper selected color change */
-::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
-  background-color: red !important;
-}
-
 /* input outline color */
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
   color: #aaaaaa !important;
@@ -69,22 +64,21 @@ header {
 
 /* mat-input error carent color */
 ::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
-  caret-color: #aaaaaa !important;
+  caret-color: red !important;
 }
 
 /* mat-label normal state style */
 ::ng-deep .mat-form-field-label {
-  color: rgba(0, 0, 0, .6) !important;
+  color: rgba(0, 255, 0, .6) !important;
 }
 
 /* mat-label focused style */
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #aaaaaa !important;
+  color: #ffffff !important;
 }
-
-/* mat-label error style */
-::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-  color: #aaaaaa !important;
+/* mat-checkbox-frame */
+::ng-deep .mat-checkbox-frame {
+  border-color: #aaaaaa;
 }
 
 a:link, a:visited, a:active {
