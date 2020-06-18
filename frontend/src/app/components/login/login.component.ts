@@ -14,13 +14,16 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  public loginForm: FormGroup;
+  public loginForm: FormGroup = new FormGroup({
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [Validators.required, Validators.minLength(8)])
+  });
 
   private loggedInUser: User;
 
   public login() {
     this.authService
-      .login(this.loginForm.get('email').value, this.loginForm.get('password').value)
+      .login(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
         this.router.navigate(['logged-in']).then(r => {
           console.log('Successful login');
@@ -32,9 +35,5 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)])
-    });
   }
 }
