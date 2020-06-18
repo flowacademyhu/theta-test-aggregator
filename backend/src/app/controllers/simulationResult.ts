@@ -6,8 +6,8 @@ import { limitQuery } from '../../lib/queryParamHandlers/limit';
 import { offsetQuery } from '../../lib/queryParamHandlers/offset';
 import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
-import { SimulationResultValidity } from "../../lib/enums/enum";
-import { SimulationResultStatus } from "../../lib/enums/enum";
+import { SimulationResultValidity } from "../../lib/enums";
+import { SimulationResultStatus } from "../../lib/enums";
 
 export const index = async (req: Request, res: Response) => {
   try {
