@@ -11,6 +11,7 @@
         <mat-menu  #afterMenu="matMenu" xPosition="after">
           <button routerLink="/profile" mat-menu-item>User profile</button>
           <button *ngIf="user.role === 'admin'" routerLink="/api-key-manager" mat-menu-item>Manage API keys</button>
+          <button *ngIf="user.role === 'admin'" routerLink="/users" mat-menu-item>Users</button>
           <button routerLink="/login" mat-menu-item>Sign out</button>
         </mat-menu>
     </div>
