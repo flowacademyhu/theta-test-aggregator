@@ -56,4 +56,8 @@ export class UserService {
     return [...this.users];
   }
 
+  public addUser(user: User) {
+    this.users.push(user);
+  }
+
 }
