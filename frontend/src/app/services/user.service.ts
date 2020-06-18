@@ -56,4 +56,13 @@ export class UserService {
     return [...this.users];
   }
 
+  public fetchUser(id: string): User {
+    return [...this.users].find(u => u.id === id);
+  }
+
+  public updateUser(id: string, user: User) {
+    const index = this.users.findIndex(u => u.id === id);
+    this.users[index] = user;
+  }
+
 }

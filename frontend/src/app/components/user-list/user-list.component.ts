@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -9,7 +10,7 @@ import { User } from 'src/app/models/user-model';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private userService: UserService, private eref: ElementRef) {
+  constructor(private userService: UserService, private eref: ElementRef, private router: Router) {
   }
 
   public users: User[];
@@ -28,6 +29,10 @@ export class UserListComponent implements OnInit {
     this.userService.deleteUser(id);
   }
 
+  public update(id: string) {
+    this.router.navigate([`users/edit/${id}`]);
+  }
+
   @HostListener('document:click', ['$event'])
   public onClick(event) {
     if (!this.eref.nativeElement.contains(event.target)) {
@@ -36,6 +41,8 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
+    console.log(this.users);
   }
 
   ngDoCheck(): void {

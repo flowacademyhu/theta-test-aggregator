@@ -21,6 +21,7 @@
     (confirm)="toggleModal()">
     </app-confirm-delete-modal>
     <mat-action-row>
+      <button mat-raised-button color="primary" (click)="update(user.id)">Update</button>
       <button mat-raised-button color="warn" (click)="toggleModal()">Delete</button>
     </mat-action-row>
   </mat-expansion-panel><br>
