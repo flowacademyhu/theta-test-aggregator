@@ -16,7 +16,7 @@ export interface SimulationResult {
   updated_at?: string
 };
 
-enum SimulationResultStatus {
+export enum SimulationResultStatus {
   SUCCESS = 'SUCCESS',
   FAILED = 'FAILED',
   ERROR = 'ERROR',
