@@ -81,6 +81,11 @@ header {
   border-color: #aaaaaa;
 }
 
+/* mat-label error style */
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: #ff0000 !important;
+}
+
 a:link, a:visited, a:active {
   color: #aaaaaa;
   text-decoration: none;
