@@ -54,7 +54,7 @@ export const create = async (req: Request, res: Response) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const user: User = await database(tableName.USERS).select().where({ id: req.params.id }).first();
+    const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();
     if (user) {
       const newUser: User = {
         email: req.body.email,
