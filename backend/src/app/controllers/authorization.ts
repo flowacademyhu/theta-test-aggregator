@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { userRole } from "../../lib/enums/enum"
+import { userRole } from "../../lib/enums"
 
 export const authorization = (req: Request, res: Response, next: NextFunction) => {
   if(res.locals.user.role === userRole.ADMIN) {
