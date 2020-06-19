@@ -35,22 +35,22 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserListComponent,
-    canActivateChild: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'profile',
     component: UserComponent,
-    canActivateChild: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'settings',
     component: SettingsComponent,
-    canActivateChild: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: 'api-key-manager',
     component: ApiKeyManagerComponent,
-    canActivateChild: [AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

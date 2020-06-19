@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   });
 
   private loggedInUser: User;
-  public isChecked: boolean;
+  public isChecked = false;
 
   public login() {
     this.authService

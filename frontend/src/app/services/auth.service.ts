@@ -20,13 +20,12 @@ export class AuthService {
       setTimeout(() => {
         const user = this.users.find(u => u.email === email && u.password === password);
         if (user) {
-          console.log('ischecked: ' + isChecked);
           this.loggedInUser = user;
           if (isChecked) {
             localStorage.setItem('user', JSON.stringify(user));
             resolve(true);
           } else {
-            localStorage.setItem('user', JSON.stringify(user));
+            sessionStorage.setItem('user', JSON.stringify(user));
             resolve(true);
           }
         }
