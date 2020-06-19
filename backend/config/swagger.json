@@ -2,6 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Theta Test Aggregator",
+    "version": "1.0.0"
   },
   "schemes": [
     "http"
@@ -13,13 +14,395 @@
     "application/json"
   ],
   "paths": {
-    "/": {
-      "get": {
-        "summary": "Hello World",
-        "operationId": "helloWorld",
+    "/login": {
+      "post": {
+        "summary": "Login with user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [ "email", "password" ]
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Return with Hello World message"
+            "description": "Token with user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "password_hash": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "git_user": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": ["admin", "user"]
+                    },
+                    "notification": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Users index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "User create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/UserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "Get a user by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user",
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/UserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete successful"
+          }
+        }
+      }
+    },
+    "/simulationResult": {
+      "get": {
+        "summary": "Simulation result index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All simulation results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/SimulationResult"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Simulation result create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/SimulationResultRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Simulation result created"
+          }
+        }
+      }
+    },
+    "/simulationResult/{id}": {
+      "get": {
+        "summary": "Get a simulation result by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The simulation result",
+            "schema": {
+              "$ref": "#definitions/SimulationResult"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update simulation result by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/SimulationResultRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete simulation result",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete successful"
+          }
+        }
+      }
+    },
+    "definitions": {
+      "UserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password_hash": {
+            "type": "string"
+          },
+          "git_user": {
+            "type": "string"
+          },
+          "role": {
+            "type": "enum"
+          },
+          "notification": {
+            "type": "boolean"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "git_user": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "enum"
+          },
+          "notification": {
+            "type": "boolean"
+          }
+        }      
+      },
+      "SimulationResult": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "triggered_by": {
+            "type": "string"
+          },
+          "branch_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "enum"
+          },
+          "sequence_number": {
+            "type": "number"
+          }
+        }
+      },
+      "SimulationResultRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "triggered_by": {
+            "type": "string"
+          },
+          "branch_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "enum"
+          },
+          "sequence_number": {
+            "type": "number"
+          },
+          "start_timestamp": {
+            "type": "number"
+          },
+          "end_timestamp":  {
+            "type": "number"
+          },
+          "commit_hash": {
+            "type": "string"
+          },
+          "error_message": {
+            "type": "string"
+          },
+          "short_description": {
+            "type": "string"
+          },
+          "payload_dat": {
+            "type": "object"
+          },
+          "payload_text": {
+            "type": "string"
+          },
+          "invalid": {
+            "type": "number"
           }
         }
       }
