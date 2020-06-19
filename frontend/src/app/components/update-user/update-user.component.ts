@@ -27,15 +27,8 @@ export class UpdateUserComponent implements OnInit {
     } else if (this.updateForm.get('notification').value === "false") {
       myBool = false;
     }
-    this.updatedUser = {
-      id: this.updateForm.value.id,
-      password: this.updateForm.value.password,
-      email: this.updateForm.value.email,
-      git_user: this.updateForm.value.git_user,
-      role: this.updateForm.value.role,
-      notification: myBool,
-      google_auth: this.updateForm.value.google_auth
-    }
+    this.updatedUser = this.updateForm.value;
+    this.updatedUser.notification = myBool;
     this.userService.updateUser(this.user.id, this.updatedUser);
   }
 
