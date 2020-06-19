@@ -13,7 +13,15 @@ export class AddUserComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  public addForm: FormGroup;
+  public addForm: FormGroup  = new FormGroup({
+    id: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    git_user: new FormControl(null, [Validators.required]),
+    role: new FormControl(null, [Validators.required]),
+    notification: new FormControl(null, [Validators.required])
+  });
+
   public user: User;
 
   public onAdd() {
@@ -35,14 +43,5 @@ export class AddUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addForm = new FormGroup({
-      id: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      git_user: new FormControl(null, [Validators.required]),
-      role: new FormControl(null, [Validators.required]),
-      notification: new FormControl(null, [Validators.required])
-    })
   }
-
 }
