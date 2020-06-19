@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {User, UserRole} from '../models/user.model';
+import { Injectable } from '@angular/core';
+import { User, UserRole } from '../models/user.model';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -15,13 +15,20 @@ export class AuthService {
 
   private loggedInUser: User;
 
-  public login(email: string, password: string): Promise<boolean> {
+  public login(email: string, password: string, isChecked: boolean): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {
       setTimeout(() => {
         const user = this.users.find(u => u.email === email && u.password === password);
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          resolve(true);
+          console.log('ischecked: ' + isChecked);
+          this.loggedInUser = user;
+          if (isChecked) {
+            localStorage.setItem('user', JSON.stringify(user));
+            resolve(true);
+          } else {
+            localStorage.setItem('user', JSON.stringify(user));
+            resolve(true);
+          }
         }
         reject(false);
       }, 128);

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../models/user.model';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +20,11 @@ export class LoginComponent implements OnInit {
   });
 
   private loggedInUser: User;
+  public isChecked: boolean;
 
   public login() {
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
+    .login(this.loginForm.value.email, this.loginForm.value.password, this.isChecked)
       .then(() => {
         this.router.navigate(['logged-in']).then(r => {
           console.log('Successful login');
@@ -32,6 +33,10 @@ export class LoginComponent implements OnInit {
       .catch(() => {
         console.log('Wrong email or password');
       });
+  }
+
+  rememberMe() {
+    this.isChecked = !this.isChecked;
   }
 
   ngOnInit(): void {

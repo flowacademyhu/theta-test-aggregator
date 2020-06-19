@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule } from '@angular/forms';
@@ -16,15 +16,47 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { NotificationsPipe } from './pipes/notifications.pipe';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
-  { path: "login", component: LoginComponent },
-  { path: "logged-in", component: LoggedInComponent},
-  { path: "users", component: UserListComponent},
-  { path: "profile", component: UserComponent },
-  { path: "settings", component: SettingsComponent },
-  { path: "api-key-manager", component: ApiKeyManagerComponent}
+  {
+    path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'logged-in',
+    component: LoggedInComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'users',
+    component: UserListComponent,
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: UserComponent,
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: 'api-key-manager',
+    component: ApiKeyManagerComponent,
+    canActivateChild: [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
+
 ];
 
 @NgModule({
