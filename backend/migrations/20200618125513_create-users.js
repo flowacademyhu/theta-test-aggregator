@@ -3,7 +3,7 @@ exports.up = (knex) => {
     table.uuid('id').primary();
     table.string('password_hash');
     table.string('email');
-    table.integer('git_user');
+    table.string('git_user');
     table.enum('role', ['admin', 'user']).defaultTo('user');
     table.boolean('notification');
     table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
