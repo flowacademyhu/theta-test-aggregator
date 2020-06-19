@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .then(() => {
-        this.router.navigate(['profile']).then(r => {
+        this.router.navigate(['logged-in']).then(r => {
           console.log('Successful login');
         });
       })

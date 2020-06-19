@@ -1,0 +1,29 @@
+<div>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let user of users; let i=index"  class="header">
+    <mat-expansion-panel-header (click)="clickOutside()">
+      <mat-panel-title class="title">
+        {{user.git_user}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="user-data">
+    <p>Email: {{user.email}}</p>
+    <p>Git user: {{user.git_user}}</p>
+    <p>Role: {{user.role}}</p>
+    <p>Notifications: {{user.notification | notifications}}</p>
+    </div>
+    <app-confirm-delete-modal
+    (click)="onClick($event)"
+    [git_user]="user.git_user"
+    *ngIf="openModal"
+    (close)="toggleModal()"
+    (confirm)="onDelete(user.id)"
+    (confirm)="toggleModal()">
+    </app-confirm-delete-modal>
+    <mat-action-row>
+      <button mat-raised-button color="warn" (click)="toggleModal()">Delete</button>
+    </mat-action-row>
+  </mat-expansion-panel><br>
+</mat-accordion>
+<button [routerLink]="['/logged-in']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
+</div>

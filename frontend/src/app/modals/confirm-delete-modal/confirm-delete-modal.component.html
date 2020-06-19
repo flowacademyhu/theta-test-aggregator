@@ -1,0 +1,7 @@
+<div class="modal-backdrop" (click)="onClose()"></div>
+<div class="confirm-modal">
+  <h3>Are you sure you want to delete:</h3>
+  <h4>{{git_user}}</h4>
+  <button class="btn btn-primary" (click)="onClose()" mat-raised-button>Cancel</button>
+  <button class="btn btn-danger" (click)="onConfirm()" mat-raised-button color="warn">Confirm Delete</button>
+</div>
