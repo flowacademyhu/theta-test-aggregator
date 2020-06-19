@@ -31,14 +31,8 @@ export class AddUserComponent implements OnInit {
     } else if (this.addForm.get('notification').value === 'false') {
       myBool = false;
     }
-    this.user = {
-      id: this.addForm.value.id,
-      password: this.addForm.value.password,
-      email: this.addForm.value.email,
-      git_user: this.addForm.value.git_user,
-      role: this.addForm.value.role,
-      notification: myBool
-    }
+    this.user = this.addForm.value;
+    this.user.notification = myBool;
     this.userService.addUser(this.user);
   }
 
