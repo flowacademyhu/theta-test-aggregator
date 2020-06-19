@@ -322,7 +322,11 @@
           "type": "string"
         },
         "role": {
-          "type": "enum"
+          "type": "string",
+          "enum": [
+            "admin",
+            "user"
+          ]
         },
         "notification": {
           "type": "boolean"
@@ -342,7 +346,11 @@
           "type": "string"
         },
         "role": {
-          "type": "enum"
+          "type": "string",
+          "enum": [
+            "admin",
+            "user"
+          ]
         },
         "notification": {
           "type": "boolean"
@@ -362,7 +370,13 @@
           "type": "string"
         },
         "status": {
-          "type": "enum"
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "FAILED",
+            "ERROR",
+            "UNKNOWN"
+          ]
         },
         "sequence_number": {
           "type": "number"
@@ -382,7 +396,13 @@
           "type": "string"
         },
         "status": {
-          "type": "enum"
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "FAILED",
+            "ERROR",
+            "UNKNOWN"
+          ]
         },
         "sequence_number": {
           "type": "number"
