@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {User, UserRole} from '../models/user.model';
 import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,23 +9,24 @@ import { UserService } from './user.service';
 
 export class AuthService {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient) {
   }
 
   public users: User[] = this.userService.fetcUsers();
 
-  private loggedInUser: User;
+  public loggedInUser;
+  public token;
+  public users$;
 
-  public login(email: string, password: string): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      setTimeout(() => {
-        const user = this.users.find(u => u.email === email && u.password === password);
-        if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          resolve(true);
-        }
-        reject(false);
-      }, 128);
+  public login(email: string, password: string) {
+    this.http.post<any>('http://localhost:3000/login', {email: email, password: password})
+    .subscribe(data => {
+      if (data.status !== 404) {
+        this.token = data.token;
+        this.loggedInUser = data.user;
+      } else {
+        console.log("unauthorized");
+      }
     });
   }
 

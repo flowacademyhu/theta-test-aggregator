@@ -13,6 +13,8 @@ export const index = async (req: Request, res: Response) => {
   query = limitQuery(req, query);
   query = offsetQuery(req, query);
   const user: Array<User> = await query;
+  console.log(user);
+  console.log(req);
   res.json(userSerializer.index(user));
 };
 

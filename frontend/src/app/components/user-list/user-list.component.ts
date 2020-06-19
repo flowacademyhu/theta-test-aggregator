@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -13,6 +14,8 @@ export class UserListComponent implements OnInit {
   }
 
   public users: User[];
+  public beUsers: Array<User>;
+  public user$;
   public openModal: boolean = false;
 
   public toggleModal() {
@@ -35,7 +38,12 @@ export class UserListComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
+    this.user$ = this.userService.fetchUsersFromBackend().subscribe((value) => {
+      console.log(value);
+      this.beUsers = value;
+    });
   }
 
   ngDoCheck(): void {

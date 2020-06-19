@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {User} from '../../models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import {User} from '../../models/user.model';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) {
   }
 
   public loginForm: FormGroup = new FormGroup({
@@ -19,19 +20,14 @@ export class LoginComponent implements OnInit {
     password: new FormControl(null, [Validators.required, Validators.minLength(8)])
   });
 
-  private loggedInUser: User;
+  private loggedInUser;
 
   public login() {
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .then(() => {
-        this.router.navigate(['logged-in']).then(r => {
-          console.log('Successful login');
-        });
-      })
-      .catch(() => {
-        console.log('Wrong email or password');
-      });
+      .login(this.loginForm.value.email, this.loginForm.value.password);
+      if (this.authService.token) {
+        this.router.navigate(['/logged-in']);
+      }
   }
 
   ngOnInit(): void {

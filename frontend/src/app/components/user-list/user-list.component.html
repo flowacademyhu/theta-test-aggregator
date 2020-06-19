@@ -1,6 +1,6 @@
 <div>
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let user of users; let i=index"  class="header">
+  <mat-expansion-panel *ngFor="let user of beUsers; let i=index"  class="header">
     <mat-expansion-panel-header (click)="clickOutside()">
       <mat-panel-title class="title">
         {{user.git_user}}

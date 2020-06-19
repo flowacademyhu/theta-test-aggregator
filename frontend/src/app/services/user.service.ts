@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { User, UserRole } from '../models/user-model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  public headers: Headers;
   public users: User[] = [
     {
       id: 'user1',
@@ -54,6 +56,10 @@ export class UserService {
 
   public fetcUsers(): User[] {
     return [...this.users];
+  }
+
+  public fetchUsersFromBackend() {
+    return this.http.get<Array<User>>('http://localhost:3000/user');
   }
 
 }
