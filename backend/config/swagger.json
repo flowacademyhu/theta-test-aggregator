@@ -31,7 +31,10 @@
                   "type": "string"
                 }
               },
-              "required": [ "email", "password" ]
+              "required": [
+                "email",
+                "password"
+              ]
             }
           }
         ],
@@ -58,7 +61,10 @@
                     },
                     "role": {
                       "type": "string",
-                      "enum": ["admin", "user"]
+                      "enum": [
+                        "admin",
+                        "user"
+                      ]
                     },
                     "notification": {
                       "type": "boolean"
@@ -300,110 +306,130 @@
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "UserRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password_hash": {
+          "type": "string"
+        },
+        "git_user": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "admin",
+            "user"
+          ]
+        },
+        "notification": {
+          "type": "boolean"
+        }
+      }
     },
-    "definitions": {
-      "UserRequest": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "password_hash": {
-            "type": "string"
-          },
-          "git_user": {
-            "type": "string"
-          },
-          "role": {
-            "type": "enum"
-          },
-          "notification": {
-            "type": "boolean"
-          }
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "git_user": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "admin",
+            "user"
+          ]
+        },
+        "notification": {
+          "type": "boolean"
         }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "git_user": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "role": {
-            "type": "enum"
-          },
-          "notification": {
-            "type": "boolean"
-          }
-        }      
-      },
-      "SimulationResult": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "triggered_by": {
-            "type": "string"
-          },
-          "branch_name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "enum"
-          },
-          "sequence_number": {
-            "type": "number"
-          }
+      }
+    },
+    "SimulationResult": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "FAILED",
+            "ERROR",
+            "UNKNOWN"
+          ]
+        },
+        "sequence_number": {
+          "type": "number"
         }
-      },
-      "SimulationResultRequest": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "triggered_by": {
-            "type": "string"
-          },
-          "branch_name": {
-            "type": "string"
-          },
-          "status": {
-            "type": "enum"
-          },
-          "sequence_number": {
-            "type": "number"
-          },
-          "start_timestamp": {
-            "type": "number"
-          },
-          "end_timestamp":  {
-            "type": "number"
-          },
-          "commit_hash": {
-            "type": "string"
-          },
-          "error_message": {
-            "type": "string"
-          },
-          "short_description": {
-            "type": "string"
-          },
-          "payload_dat": {
-            "type": "object"
-          },
-          "payload_text": {
-            "type": "string"
-          },
-          "invalid": {
-            "type": "number"
-          }
+      }
+    },
+    "SimulationResultRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "FAILED",
+            "ERROR",
+            "UNKNOWN"
+          ]
+        },
+        "sequence_number": {
+          "type": "number"
+        },
+        "start_timestamp": {
+          "type": "number"
+        },
+        "end_timestamp": {
+          "type": "number"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "short_description": {
+          "type": "string"
+        },
+        "payload_dat": {
+          "type": "object"
+        },
+        "payload_text": {
+          "type": "string"
+        },
+        "invalid": {
+          "type": "number"
         }
       }
     }
