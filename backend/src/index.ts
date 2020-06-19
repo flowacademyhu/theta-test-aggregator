@@ -3,7 +3,7 @@ import { Application } from 'express';
 import * as createMiddleware from 'swagger-express-middleware';
 import { SwaggerMiddleware } from 'swagger-express-middleware';
 import { authentication } from './lib/authentication';
-import * as swaggerUi from 'swagger-ui';
+import * as swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from '../config/swagger.json';
 import { router } from './app/routers';
 
