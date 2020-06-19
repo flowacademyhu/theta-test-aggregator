@@ -300,7 +300,8 @@
           }
         }
       }
-    },
+    }
+  },
     "definitions": {
       "UserRequest": {
         "type": "object",
@@ -408,4 +409,3 @@
       }
     }
   }
-}
