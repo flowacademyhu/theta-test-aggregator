@@ -17,7 +17,6 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   public users: User[];
-  public openModal: boolean = false;
   subscriptions$: Subscription[] = [];
 
   public toggleDeleteModal(user) {
