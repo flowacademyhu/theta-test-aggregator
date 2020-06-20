@@ -40,4 +40,17 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     this.router.navigate(['login']);
   }
+
+  public authenticate(): User {
+    return this.loggedInUser$.getValue();
+  }
+
+  public authenticateAsync(): Promise<User> {
+    return new Promise<User>((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.loggedInUser$.getValue());
+      }, 100);
+    });
+  }
+
 }
