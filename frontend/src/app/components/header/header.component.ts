@@ -8,18 +8,13 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  user = JSON.parse(localStorage.getItem("user"));
-  role: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService)  {
-    authService.users.toString
+  public user = JSON.parse(localStorage.getItem('user'));
+  public role: string;
+
+  constructor() { }
+
+  ngOnInit(): void {
   }
 
- ngOnInit(): void {  
-   this.role = this.readLocalStorageValue('role');  
- }
-
- readLocalStorageValue(key: string): string {
-   return localStorage.getItem(key);
-}
 }
