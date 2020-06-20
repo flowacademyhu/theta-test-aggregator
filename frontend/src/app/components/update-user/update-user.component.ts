@@ -14,22 +14,12 @@ export class UpdateUserComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   public user: User;
-  public updatedUser;
-  public notify: boolean = true;
-  public noNotify: boolean = false;
 
   public updateForm: FormGroup;
 
   public onUpdate() {
-    let myBool: boolean;
-    if (this.updateForm.get('notification').value === "true") {
-      myBool = true;
-    } else if (this.updateForm.get('notification').value === "false") {
-      myBool = false;
-    }
-    this.updatedUser = this.updateForm.value;
-    this.updatedUser.notification = myBool;
-    this.userService.updateUser(this.user.id, this.updatedUser);
+    
+    this.userService.updateUser(this.user.id, this.updateForm.value);
   }
 
   ngOnInit(): void {
