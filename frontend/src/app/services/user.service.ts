@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User, UserRole } from '../models/user-model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -43,9 +44,12 @@ export class UserService {
     }
   ]
 
+  users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(this.users);
+
   public deleteUser (id: string) {
     const index: number = this.users.findIndex(u => u.id === id);
     this.users.splice(index, 1);
+    this.users$.next([...this.users]);
   }
 
   public fetchOtherUsers(id: string): User[] {
@@ -56,8 +60,13 @@ export class UserService {
     return [...this.users];
   }
 
+  public fetchUser(id: string): User {
+    return {...this.users.find(u => u.id === id)};
+  }
+
   public addUser(user: User) {
     this.users.push(user);
+    this.users$.next([...this.users]);
   }
 
 }

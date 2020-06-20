@@ -25,8 +25,7 @@ const routes: Routes = [
   { path: "users", component: UserListComponent},
   { path: "profile", component: UserComponent },
   { path: "settings", component: SettingsComponent },
-  { path: "api-key-manager", component: ApiKeyManagerComponent},
-  { path: "users/new", component: AddUserComponent}
+  { path: "api-key-manager", component: ApiKeyManagerComponent}
 ];
 
 @NgModule({

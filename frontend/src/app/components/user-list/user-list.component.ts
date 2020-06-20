@@ -1,45 +1,58 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
+import { Subscription } from 'rxjs';
+import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private userService: UserService, private eref: ElementRef) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
   }
 
   public users: User[];
   public openModal: boolean = false;
+  subscriptions$: Subscription[] = [];
 
-  public toggleModal() {
-    this.openModal = !this.openModal;
+  public toggleDeleteModal(user) {
+    const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      data: { git_user: git_userToDelete}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(user.id);
+      }
+    })
   }
 
-  public clickOutside() {
-    this.openModal = false;
-  }
-
-  public onDelete(id: string) {
-    console.log(id);
-    this.userService.deleteUser(id);
-  }
-
-  @HostListener('document:click', ['$event'])
-  public onClick(event) {
-    if (!this.eref.nativeElement.contains(event.target)) {
-      this.openModal = false;
-    }
+  public toggleAddUserModal() {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      height: '500px',
+      width: '300px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
 
   ngOnInit(): void {
+    this.subscriptions$.push(this.userService.users$.subscribe(users => {
+      this.users = users;
+    }));
   }
 
   ngDoCheck(): void {
     this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions$.forEach(sub => sub.unsubscribe());
   }
 
 }

@@ -1,8 +1,4 @@
 .parent {
-  height: 500px;
-  min-width: 150px;
-  max-width: 500px;
-  width: 50%;
   margin: 0 auto 0 auto;
   text-align: center;
 }
