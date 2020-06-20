@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
@@ -13,9 +13,7 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService, private eref: ElementRef) {
   }
 
-  public users: User[];
-  public beUsers: Array<User>;
-  public user$;
+  public users$: Observable<User[]> = this.userService.users;
   public openModal: boolean = false;
 
   public toggleModal() {
@@ -28,7 +26,8 @@ export class UserListComponent implements OnInit {
 
   public onDelete(id: string) {
     console.log(id);
-    this.userService.deleteUser(id);
+    this.userService.deleteUser(id)
+    .subscribe((user) => {});
   }
 
   @HostListener('document:click', ['$event'])
@@ -40,14 +39,10 @@ export class UserListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.user$ = this.userService.fetchUsersFromBackend().subscribe((value) => {
-      console.log(value);
-      this.beUsers = value;
-    });
+    this.userService.fetchUsers();
   }
 
   ngDoCheck(): void {
-    this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
   }
 
 }

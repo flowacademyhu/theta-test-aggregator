@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User, UserRole } from '../models/user-model';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { async } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +13,9 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  public users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(null);
   public headers: Headers;
-  public users: User[] = [
+  public usersArray: User[] = [
     {
       id: 'user1',
       password: 'user1234',
@@ -45,21 +50,30 @@ export class UserService {
     }
   ]
 
-  public deleteUser (id: string) {
-    const index: number = this.users.findIndex(u => u.id === id);
-    this.users.splice(index, 1);
+  public deleteUser (id: string): Observable<User> {
+    return this.http.delete<User>(environment.baseUrl + `user/${id}`)
+    .pipe(
+      tap(
+        () => this.fetchUsers()
+      )
+    )
   }
 
-  public fetchOtherUsers(id: string): User[] {
-    return [...this.users].filter(u => u.id !== id);
+  public fetchOtherUsers(id: string) {
+    this.http.get<Array<User>>(environment.baseUrl + 'user');
   }
 
-  public fetcUsers(): User[] {
-    return [...this.users];
+  public fetchUsers = async () => {
+    await this.http.get<Array<User>>(environment.baseUrl + 'user')
+    .subscribe((users) => {
+      this.users$.next(users);
+    },
+    (error) => {
+      console.log(error);
+    });
   }
 
-  public fetchUsersFromBackend() {
-    return this.http.get<Array<User>>('http://localhost:3000/user');
+  get users(): Observable<User[]> {
+    return this.users$;
   }
-
 }

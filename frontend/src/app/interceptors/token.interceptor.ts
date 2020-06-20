@@ -10,14 +10,14 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyMSIsImlhdCI6MTU5MjU2NDY5OX0.HzEIufzTqFcpo8DIt7Cy6pvkZ-0hyN3j2IKXDMoROC8'
+  token = localStorage.getItem('accessToken')
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.authService.token}`
+        Authorization: `Bearer ${this.token}`
       }
     });
     return next.handle(request);

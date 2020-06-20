@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import {AuthService} from '../../services/auth.service';
+import { User } from '../../models/user-model';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +9,19 @@ import {AuthService} from '../../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  public user = JSON.parse(localStorage.getItem('user'));
+  public user: User;
   public role: string;
 
-  constructor() { }
+  public onSignOut() {
+    this.authService.logout();
+  }
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.loggedInUser$.subscribe((value) => {
+      this.user = value;
+    })
   }
 
 }

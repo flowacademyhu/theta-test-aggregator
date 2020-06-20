@@ -8,10 +8,14 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  public loggedInUser
 
   ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('user')).git_user);
+    this.authService.loggedInUser$.subscribe((user) => {
+      this.loggedInUser = user;
+    })
   }
 
 }
