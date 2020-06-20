@@ -1,4 +1,4 @@
-import { SimulationResult, SimulationResultStatus, SimulationResultValidity } from '../models/simulationResult';
+import { SimulationResult } from '../models/simulationResult';
 import { Request, Response } from 'express';
 import { database } from '../../lib/database';
 import { QueryBuilder } from 'knex';
@@ -6,6 +6,8 @@ import { limitQuery } from '../../lib/queryParamHandlers/limit';
 import { offsetQuery } from '../../lib/queryParamHandlers/offset';
 import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
+import { SimulationResultValidity } from "../../lib/enums";
+import { SimulationResultStatus } from "../../lib/enums";
 
 export const index = async (req: Request, res: Response) => {
   try {

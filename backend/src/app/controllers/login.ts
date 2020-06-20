@@ -1,10 +1,11 @@
-import { User} from "../models/user";
+import { User } from "../models/user";
 import { database } from "../../lib/database";
 import { Request, Response } from "express";
 import * as loginSerializer from '../serializers/login';
 import * as jwt from 'jsonwebtoken';
 import * as jwtConfig from '../../../config/jwt.json';
 import * as bycrypt from 'bcrypt';
+import { tableName } from '../../lib/tableName';
 
 const isCorrectPassword = (user: User, password: string): boolean => {
   return typeof user !== 'undefined' && bycrypt.compareSync(password, user.password_hash);
@@ -12,7 +13,7 @@ const isCorrectPassword = (user: User, password: string): boolean => {
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const user: User = await database('users').select().where({ 
+    const user: User = await database(tableName.USERS).select().where({ 
       email: req.body.email
     }).first();
     if (isCorrectPassword(user , req.body.password)) {
@@ -27,4 +28,3 @@ export const create = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
