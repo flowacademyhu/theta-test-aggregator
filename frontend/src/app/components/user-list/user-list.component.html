@@ -1,7 +1,7 @@
 <div>
 <mat-accordion>
   <mat-expansion-panel *ngFor="let user of users; let i=index"  class="header">
-    <mat-expansion-panel-header (click)="clickOutside()">
+    <mat-expansion-panel-header>
       <mat-panel-title class="title">
         {{user.git_user}}
       </mat-panel-title>
@@ -12,17 +12,9 @@
     <p>Role: {{user.role}}</p>
     <p>Notifications: {{user.notification | notifications}}</p>
     </div>
-    <app-confirm-delete-modal
-    (click)="onClick($event)"
-    [git_user]="user.git_user"
-    *ngIf="openModal"
-    (close)="toggleModal()"
-    (confirm)="onDelete(user.id)"
-    (confirm)="toggleModal()">
-    </app-confirm-delete-modal>
     <mat-action-row>
-      <button mat-raised-button color="primary" (click)="update(user.id)">Update</button>
-      <button mat-raised-button color="warn" (click)="toggleModal()">Delete</button>
+      <button mat-raised-button color="primary" (click)="toggleUpdateModal(user)">Update</button>
+      <button mat-raised-button color="warn" (click)="toggleDeleteModal(user)">Delete</button>
     </mat-action-row>
   </mat-expansion-panel><br>
 </mat-accordion>

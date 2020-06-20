@@ -1,7 +1,10 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
-import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
   selector: 'app-user-list',
@@ -10,39 +13,35 @@ import { Router } from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private userService: UserService, private eref: ElementRef, private router: Router) {
+  constructor(private userService: UserService, private dialog: MatDialog) {
   }
 
   public users: User[];
-  public openModal: boolean = false;
+  subscriptions$: Subscription[] = [];
 
-  public toggleModal() {
-    this.openModal = !this.openModal;
+  public toggleDeleteModal(user) {
+    const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      data: { git_user: git_userToDelete}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(user.id);
+      }
+    })
   }
 
-  public clickOutside() {
-    this.openModal = false;
+  public toggleUpdateModal(userToDelete) {
+    const dialogRef = this.dialog.open(UpdateUserComponent, {
+      data: {user: userToDelete}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
   }
 
-  public onDelete(id: string) {
-    console.log(id);
-    this.userService.deleteUser(id);
-  }
-
-  public update(id: string) {
-    this.router.navigate([`users/edit/${id}`]);
-  }
-
-  @HostListener('document:click', ['$event'])
-  public onClick(event) {
-    if (!this.eref.nativeElement.contains(event.target)) {
-      this.openModal = false;
-    }
-  }
 
   ngOnInit(): void {
     this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
-    console.log(this.users);
   }
 
   ngDoCheck(): void {

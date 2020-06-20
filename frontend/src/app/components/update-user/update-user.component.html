@@ -1,4 +1,4 @@
-<mat-card class="parent">
+<mat-dialog-content class="parent">
 <form [formGroup]="updateForm" class="form">
   <div>
     <mat-form-field>
@@ -28,8 +28,8 @@
     <mat-form-field>
     <mat-label for="role">Role</mat-label><br>
     <mat-select name="role" formControlName="role">
-      <mat-option value="user">User</mat-option>
-      <mat-option value="admin">Admin</mat-option>
+      <mat-option value="{{roles[1]}}">User</mat-option>
+      <mat-option value="{{roles[0]}}">Admin</mat-option>
     </mat-select>
   </mat-form-field>
   </div>
@@ -42,7 +42,7 @@
     </mat-select>
     </mat-form-field>
   </div><br><br>
-  <button mat-raised-button [routerLink]="['/users']" routerLinkActive="router-link-active">Back</button>
-  <button mat-raised-button color="primary" (click)=onUpdate() [disabled]="updateForm.invalid" [routerLink]="['/users']" routerLinkActive="router-link-active">Update</button>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)=onUpdate() [disabled]="updateForm.invalid">Update</button>
 </form>
-</mat-card>
+</mat-dialog-content>
