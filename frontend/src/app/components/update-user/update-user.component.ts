@@ -15,7 +15,7 @@ export class UpdateUserComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,  private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   public user: User;
-  public roles: UserRole[] =[UserRole.ADMIN, UserRole.USER]
+  public roles: UserRole[] =[UserRole.ADMIN, UserRole.USER];
   public updateForm: FormGroup;
 
   public onUpdate() {
