@@ -306,7 +306,31 @@
           }
         }
       }
+    },
+    "/simulationResult/{id}/invalidate": {
+      "put": {
+        "summary": "Invalidate simulation result by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invalidate successful"
+          }
+        }
+      }
     }
+
   },
   "definitions": {
     "UserRequest": {
