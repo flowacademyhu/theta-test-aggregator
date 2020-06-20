@@ -8,3 +8,4 @@ router.get('/:id', simulationResultController.show);
 router.post('/', simulationResultController.initialize);
 router.put('/:id', simulationResultController.update);
 router.delete('/:id', simulationResultController.destroy);
+router.put('/:id/invalidate', simulationResultController.invalidate);
