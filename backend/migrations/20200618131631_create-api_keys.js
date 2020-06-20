@@ -1,7 +1,7 @@
 exports.up = (knex) => {
   return knex.schema.createTable('api_keys', (table) => {
     table.increments('id');
-    table.string('key');
+    table.string('key').unique();
     table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
     table.timestamp('expires_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
   });
