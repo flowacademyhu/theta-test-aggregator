@@ -114,4 +114,4 @@ export const invalidate = async (req: Request, res: Response) => {
     console.error(error);
     res.sendStatus(500);
   }
-}
+};
