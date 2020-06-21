@@ -7,6 +7,7 @@ import { QueryBuilder } from "knex";
 import { tableName } from '../../lib/tableName';
 import { limitQuery } from '../../lib/queryParamHandlers/limit';
 import { offsetQuery } from '../../lib/queryParamHandlers/offset';
+import { v4 as uuidv4 } from 'uuid';
 
 export const index = async (req: Request, res: Response) => {
   let query: QueryBuilder = database(tableName.USERS).select();
@@ -32,13 +33,16 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+const generateUUID = (): string => {
+  return uuidv4();
+}
+
 export const create = async (req: Request, res: Response) => {
   try {
-    const pw = req.body.password_hash;
+    const pw = req.body.password;
     const encryptedPassword = bcrypt.hashSync(pw, 10);
-    console.log('REQ', req.body.password_hash, 'HASH', encryptedPassword);
     const users: User = {
-      id: req.body.id,
+      id: generateUUID(),
       password_hash: encryptedPassword,
       email: req.body.email,
       git_user: req.body.git_user,
@@ -56,12 +60,10 @@ export const create = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
   try {
     const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();
-    const pw = req.body.password_hash;
+    const pw = req.body.password;
     const encryptedPassword = bcrypt.hashSync(pw, 10);
-    console.log('REQ', req.body.password_hash, 'HASH', encryptedPassword);
     if (user) {
-      const newUser: User = {
-        id: req.body.id,
+      const newUser: Partial<User> = {
         password_hash: encryptedPassword,
         email: req.body.email,
         git_user: req.body.git_user,
