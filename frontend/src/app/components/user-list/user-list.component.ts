@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
 import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { MatDialog } from '@angular/material/dialog';
 import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
@@ -11,7 +12,7 @@ import { UpdateUserComponent } from '../update-user/update-user.component';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
   constructor(private userService: UserService, private dialog: MatDialog) {
   }
@@ -31,6 +32,15 @@ export class UserListComponent implements OnInit {
     })
   }
 
+  public toggleAddUserModal() {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      height: '500px',
+      width: '300px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
+  }
+
   public toggleUpdateModal(userToDelete) {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
       data: {user: userToDelete}
@@ -39,13 +49,19 @@ export class UserListComponent implements OnInit {
     })
   }
 
-
   ngOnInit(): void {
-    this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
+    this.subscriptions$.push(this.userService.users$.subscribe(users => {
+      this.users = users;
+    }));
   }
+
 
   ngDoCheck(): void {
     this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions$.forEach(sub => sub.unsubscribe());
   }
 
 }
