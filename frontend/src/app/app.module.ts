@@ -16,6 +16,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { NotificationsPipe } from './pipes/notifications.pipe';
 import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -38,9 +40,9 @@ const routes: Routes = [
     ConfirmDeleteModalComponent,
     HeaderComponent,
     UserComponent,
-    UserComponent,
     SettingsComponent,
-    ApiKeyManagerComponent
+    ApiKeyManagerComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
