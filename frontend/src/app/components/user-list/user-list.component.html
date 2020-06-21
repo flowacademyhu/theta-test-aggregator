@@ -14,6 +14,7 @@
     <p>Notifications: {{user.notification | notifications}}</p>
     </div>
     <mat-action-row>
+      <button mat-raised-button color="primary" (click)="toggleUpdateModal(user)">Update</button>
       <button mat-raised-button color="warn" (click)="toggleDeleteModal(user)">Delete</button>
     </mat-action-row>
   </mat-expansion-panel><br>

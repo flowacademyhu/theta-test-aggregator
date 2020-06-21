@@ -46,6 +46,7 @@ export class UserService {
 
   users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(this.users);
 
+  
   public deleteUser (id: string) {
     const index: number = this.users.findIndex(u => u.id === id);
     this.users.splice(index, 1);
@@ -66,6 +67,12 @@ export class UserService {
 
   public addUser(user: User) {
     this.users.push(user);
+    this.users$.next([...this.users]);
+  }
+
+  public updateUser(id: string, user: User) {
+    const index = this.users.findIndex(u => u.id === id);
+    this.users[index] = user;
     this.users$.next([...this.users]);
   }
 

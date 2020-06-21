@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UpdateUserComponent } from '../update-user/update-user.component';
 
 @Component({
   selector: 'app-user-list',
@@ -40,11 +41,20 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
     })
   }
 
+  public toggleUpdateModal(userToDelete) {
+    const dialogRef = this.dialog.open(UpdateUserComponent, {
+      data: {user: userToDelete}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    })
+  }
+
   ngOnInit(): void {
     this.subscriptions$.push(this.userService.users$.subscribe(users => {
       this.users = users;
     }));
   }
+
 
   ngDoCheck(): void {
     this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
