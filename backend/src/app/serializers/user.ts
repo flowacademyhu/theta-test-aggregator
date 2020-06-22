@@ -3,7 +3,6 @@ import { userRole } from "../../lib/enums"
 
 export interface UserSerializer {
   id: string;
-  password_hash: string;
   email: string;
   git_user: string;
   role: userRole;
@@ -14,7 +13,6 @@ export interface UserSerializer {
 export const show = (user: User): UserSerializer => {
   return {
     id: user.id,
-    password_hash: user.password_hash,
     email: user.email,
     git_user: user.git_user,
     role: user.role,
