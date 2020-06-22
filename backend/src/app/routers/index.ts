@@ -5,7 +5,7 @@ import { router as apiKeyRouter } from './apiKey';
 import { Router } from 'express';
 
 export const router: Router = Router({mergeParams: true});
-router.use('/user', userRouter);
-router.use('/simulationResult', simulationResultRouter);
-router.use('/login', loginRouter);
-router.use('/apiKey', apiKeyRouter);
+router.use('/api/user', userRouter);
+router.use('/api/simulationResult', simulationResultRouter);
+router.use('/api/login', loginRouter);
+router.use('/api/apiKey', apiKeyRouter);
