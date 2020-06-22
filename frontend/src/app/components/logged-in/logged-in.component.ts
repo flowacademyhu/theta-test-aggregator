@@ -10,12 +10,12 @@ export class LoggedInComponent implements OnInit {
 
   constructor(private authService: AuthService) { }
 
-  public loggedInUser
+  public user;
 
   ngOnInit(): void {
-    this.authService.loggedInUser$.subscribe((user) => {
-      this.loggedInUser = user;
-    })
+    this.authService.getCurrentUser().subscribe((data) => {
+      this.user = data;
+    });
   }
 
 }
