@@ -28,7 +28,6 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
   public user: User;
 
   public toggleDeleteModal(user) {
-    console.log(this.users);
     const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
       data: { git_user: git_userToDelete}

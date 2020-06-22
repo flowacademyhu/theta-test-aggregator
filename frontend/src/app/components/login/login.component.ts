@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   });
 
   public login() {
-    console.log("Hello")
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((resp) => {
