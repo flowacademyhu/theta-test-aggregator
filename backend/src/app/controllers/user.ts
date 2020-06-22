@@ -57,19 +57,26 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
+const updatePassword = (req: Request, user: Partial<User>) => {
+  if (req.body.password) {
+    const pw = req.body.password;
+    const encryptedPassword = bcrypt.hashSync(pw, 10);
+    user.password_hash = encryptedPassword;
+  }
+}
+
 export const update = async (req: Request, res: Response) => {
   try {
     const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();
-    const pw = req.body.password;
-    const encryptedPassword = bcrypt.hashSync(pw, 10);
+   
     if (user) {
       const newUser: Partial<User> = {
-        password_hash: encryptedPassword,
         email: req.body.email,
         git_user: req.body.git_user,
         role: req.body.role,
         notification: req.body.notification
       }
+      updatePassword(req, newUser);
       await database(tableName.USERS).update(newUser).where({ id: req.params.id });
       res.sendStatus(200);
     } else {
