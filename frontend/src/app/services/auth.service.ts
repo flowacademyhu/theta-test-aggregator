@@ -34,6 +34,16 @@ export class AuthService {
     });
   }
 
+  public isLoggedIn() {
+    if (localStorage.getItem('user') || sessionStorage.getItem('user')) {
+      console.log('van storageban user');
+      return true;
+    } else {
+      console.log('nincs storageban user');
+      return false;
+    }
+  }
+
   public logout() {
     this.loggedInUser = null;
   }
