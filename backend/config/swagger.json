@@ -422,11 +422,16 @@
         "short_description": {
           "type": "string"
         },
-        "payload_dat": {
-          "type": "object"
-        },
-        "payload_text": {
-          "type": "string"
+        "payload": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
         },
         "invalid": {
           "type": "number"
