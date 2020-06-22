@@ -1,79 +1,35 @@
 import { Injectable } from '@angular/core';
 import { User, UserRole } from '../models/user-model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
-
-  public users: User[] = [
-    {
-      id: 'user1',
-      password: 'user1234',
-      email: 'user1@email.com',
-      git_user: 'Mate',
-      role: UserRole.USER,
-      notification: true
-    },
-    {
-      id: 'admin1',
-      password: 'admin1234',
-      email: 'admin1@email.com',
-      git_user: 'Feri',
-      role: UserRole.ADMIN,
-      notification: false
-    },
-    {
-      id: 'user2',
-      password: 'user1234',
-      email: 'user2@email.com',
-      git_user: 'Imi',
-      role: UserRole.USER,
-      notification: false
-    },
-    {
-      id: 'admin2',
-      password: 'admin1234',
-      email: 'admin2@email.com',
-      git_user: 'Tamas',
-      role: UserRole.ADMIN,
-      notification: true
-    }
-  ]
-
-  users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(this.users);
-
+  constructor(private http: HttpClient) { }
   
   public deleteUser (id: string) {
-    const index: number = this.users.findIndex(u => u.id === id);
-    this.users.splice(index, 1);
-    this.users$.next([...this.users]);
+    return this.http.delete(environment.baseUrl + `user/${id}`).pipe(tap(() => this.fetchUsers()));
   }
 
-  public fetchOtherUsers(id: string): User[] {
-    return [...this.users].filter(u => u.id !== id);
+  public fetchUsers(): Observable<User[]> {
+    return this.http.get<User[]>(environment.baseUrl + 'user');
   }
 
-  public fetcUsers(): User[] {
-    return [...this.users];
+  public fetchUser(id: string): Observable<User> {
+    return this.http.get<User>(environment.baseUrl + `user/${id}`);
   }
 
-  public fetchUser(id: string): User {
-    return {...this.users.find(u => u.id === id)};
-  }
-
-  public addUser(user: User) {
-    this.users.push(user);
-    this.users$.next([...this.users]);
+  public addUser(user) {
+    return this.http.post(environment.baseUrl + 'user', user).pipe(tap(() => this.fetchUsers()));
   }
 
   public updateUser(id: string, user: User) {
-    const index = this.users.findIndex(u => u.id === id);
-    this.users[index] = user;
-    this.users$.next([...this.users]);
+    return this.http.put<User>(environment.baseUrl + `user/${id}`, user);
   }
 
 }

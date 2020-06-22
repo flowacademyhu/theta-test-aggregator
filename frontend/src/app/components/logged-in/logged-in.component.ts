@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-logged-in',
@@ -7,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoggedInComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
+
+  public user;
 
   ngOnInit(): void {
-    console.log(JSON.parse(localStorage.getItem('user')).git_user);
+    this.authService.getCurrentUser().subscribe((data) => {this.user = data});
   }
 
 }
