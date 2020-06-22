@@ -41,7 +41,7 @@ export class UpdateUserComponent implements OnInit {
     this.user = this.data.user;
 
     this.updateForm = new FormGroup ({
-      password: new FormControl(this.user.password, [Validators.required, Validators.minLength(8)]),
+      password: new FormControl(this.user.password, [Validators.minLength(8)]),
       email: new FormControl(this.user.email, [Validators.required, Validators.email]),
       git_user: new FormControl(this.user.git_user, [Validators.required, Validators.pattern(/^\S*$/)]),
       role: new FormControl(this.user.role, [Validators.required]),
