@@ -50,14 +50,12 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscriptions$.push(this.userService.users$.subscribe(users => {
-      this.users = users;
-    }));
+    this.users = this.userService.fetchOtherUsers(localStorage.getItem('id'));
   }
 
 
   ngDoCheck(): void {
-    this.users = this.userService.fetchOtherUsers(JSON.parse(localStorage.getItem('user')).id);
+    this.users = this.userService.fetchOtherUsers(localStorage.getItem('id'));
   }
 
   ngOnDestroy(): void {

@@ -17,7 +17,7 @@ const anonymusEndpoints: Array<AnonymusEndpoint> = [
     method: Method.post
   },
   {
-    path: '/login',
+    path: '/api/login',
     method: Method.post
   },
 ]

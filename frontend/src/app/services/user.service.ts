@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { User, UserRole } from '../models/user-model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public users: User[] = [
     {
@@ -61,8 +63,8 @@ export class UserService {
     return [...this.users];
   }
 
-  public fetchUser(id: string): User {
-    return {...this.users.find(u => u.id === id)};
+  public fetchUser(id: string): Observable<User> {
+    return this.http.get<User>(environment.baseUrl + `user/${id}`);
   }
 
   public addUser(user: User) {
