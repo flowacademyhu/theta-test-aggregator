@@ -14,7 +14,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(null);
-
+  public headers: Headers;
+  
   public deleteUser (id: string) {
     return this.http.delete(environment.baseUrl + `user/${id}`).pipe(tap(() => this.fetchUsers()));
   }
