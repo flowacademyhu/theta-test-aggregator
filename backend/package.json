@@ -34,6 +34,7 @@
     "swagger-express-middleware": "^4.0.0",
     "swagger-ui": "^3.27.0",
     "swagger-ui-express": "^4.1.4",
+    "uuid": "^8.1.0",
     "webpack-node-externals": "^1.7.2"
   },
   "main": "src/index.ts"

@@ -2,7 +2,7 @@ import { userRole } from "../../lib/enums"
 
 export interface User {
   id: string;
-  password_hash: string;
+  password_hash?: string;
   email: string;
   git_user: string;
   role: userRole;
