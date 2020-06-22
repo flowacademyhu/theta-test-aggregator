@@ -1,48 +1,89 @@
-import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateUserComponent } from '../update-user/update-user.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private userService: UserService, private eref: ElementRef) {
+  constructor(
+    private userService: UserService, 
+    private dialog: MatDialog, 
+    private authService: AuthService,
+    private route: ActivatedRoute) {
   }
 
-  public users$: Observable<User[]> = this.userService.users;
-  public openModal: boolean = false;
+  public user$: Observable<User>;
+  public users: User[];
+  public user: User;
 
-  public toggleModal() {
-    this.openModal = !this.openModal;
+  public toggleDeleteModal(user) {
+    console.log(this.users);
+    const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      data: { git_user: git_userToDelete}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.deleteUser(user.id).subscribe(() => {
+          this.userService.fetchUsers().subscribe((data) => {
+            this.users = data.filter(u => u.id !== this.user.id);
+          })
+        })
+      }
+    })
   }
 
-  public clickOutside() {
-    this.openModal = false;
+  public toggleAddUserModal() {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+      height: '500px',
+      width: '300px'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.userService.fetchUsers().subscribe((data) => {
+        this.users = data.filter(u => u.id !== this.user.id);
+      })
+    })
   }
 
-  public onDelete(id: string) {
-    console.log(id);
-    this.userService.deleteUser(id)
-    .subscribe((user) => {});
-  }
-
-  @HostListener('document:click', ['$event'])
-  public onClick(event) {
-    if (!this.eref.nativeElement.contains(event.target)) {
-      this.openModal = false;
-    }
+  public toggleUpdateModal(userToUpdate) {
+    const dialogRef = this.dialog.open(UpdateUserComponent, {
+      data: {user: userToUpdate}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.userService.fetchUsers().subscribe((data) => {
+        this.users = data.filter(u => u.id !== this.user.id);
+      })
+    })
   }
 
 
   ngOnInit(): void {
-    this.userService.fetchUsers();
+    this.route.data.subscribe((data) => {
+      this.authService.getCurrentUser().subscribe((data) => {
+        this.user = data;
+      });
+      this.users = data.users.filter(u => u.id !== localStorage.getItem('id'));
+    })
   }
+
 
   ngDoCheck(): void {
   }
+
+  ngOnDestroy(): void {
+  }
+
+  
 
 }

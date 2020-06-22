@@ -28,10 +28,11 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((resp) => {
-        console.log(resp.token);
         localStorage.setItem('accessToken', resp.token);
+        localStorage.setItem('id', resp.user.id);
         this.authService.loggedInUser$.next(resp.user);
         this.router.navigate(['/logged-in']);
+        return resp.user
       },
       (error: HttpErrorResponse) => {
         this.errors = error.error.message;

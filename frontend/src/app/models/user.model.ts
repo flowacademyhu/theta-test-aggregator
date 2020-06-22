@@ -1,6 +1,6 @@
 export interface User {
   id: string;
-  password: string;
+  password_hash: string;
   email: string;
   git_user: string;
   role: UserRole;

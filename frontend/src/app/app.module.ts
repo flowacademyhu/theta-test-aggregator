@@ -20,15 +20,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
+import { AddUserComponent } from './components/add-user/add-user.component';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { UsersResolver } from './resolvers/users.resolver';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "logged-in", component: LoggedInComponent },
-  { path: "users", component: UserListComponent },
+  { path: "users", component: UserListComponent, resolve: { users: UsersResolver} },
   { path: "profile", component: UserComponent },
   { path: "settings", component: SettingsComponent },
-  { path: "api-key-manager", component: ApiKeyManagerComponent}
+  { path: "api-key-manager", component: ApiKeyManagerComponent }
 ];
 
 @NgModule({
@@ -42,9 +45,10 @@ const routes: Routes = [
     ConfirmDeleteModalComponent,
     HeaderComponent,
     UserComponent,
-    UserComponent,
     SettingsComponent,
-    ApiKeyManagerComponent
+    ApiKeyManagerComponent,
+    AddUserComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,

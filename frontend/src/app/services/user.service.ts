@@ -14,44 +14,21 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(null);
-  public headers: Headers;
-  public usersArray: User[] = [
-    {
-      id: 'user1',
-      password: 'user1234',
-      email: 'user1@email.com',
-      git_user: 'Mate',
-      role: UserRole.USER,
-      notification: true
-    },
-    {
-      id: 'admin1',
-      password: 'admin1234',
-      email: 'admin1@email.com',
-      git_user: 'Feri',
-      role: UserRole.ADMIN,
-      notification: false
-    },
-    {
-      id: 'user2',
-      password: 'user1234',
-      email: 'user2@email.com',
-      git_user: 'Imi',
-      role: UserRole.USER,
-      notification: false
-    },
-    {
-      id: 'admin2',
-      password: 'admin1234',
-      email: 'admin2@email.com',
-      git_user: 'Tamas',
-      role: UserRole.ADMIN,
-      notification: true
-    }
-  ]
 
-  public deleteUser (id: string): Observable<User> {
-    return this.http.delete<User>(environment.baseUrl + `user/${id}`)
+  public deleteUser (id: string) {
+    return this.http.delete(environment.baseUrl + `user/${id}`).pipe(tap(() => this.fetchUsers()));
+  }
+
+  public fetchUsers(): Observable<User[]> {
+    return this.http.get<User[]>(environment.baseUrl + 'user');
+  }
+
+  public fetchUser(id: string): Observable<User> {
+    return this.http.get<User>(environment.baseUrl + `user/${id}`);
+  }
+
+  public addUser(user) {
+    return this.http.post(environment.baseUrl + 'user', user)
     .pipe(
       tap(
         () => this.fetchUsers()
@@ -59,18 +36,8 @@ export class UserService {
     )
   }
 
-  public fetchOtherUsers(id: string) {
-    this.http.get<Array<User>>(environment.baseUrl + 'user');
-  }
-
-  public fetchUsers = async () => {
-    await this.http.get<Array<User>>(environment.baseUrl + 'user')
-    .subscribe((users) => {
-      this.users$.next(users);
-    },
-    (error) => {
-      console.log(error);
-    });
+  public updateUser(id: string, user: User): Observable<User> {
+    return this.http.put<User>(environment.baseUrl + `user/${id}`, user);
   }
 
   get users(): Observable<User[]> {

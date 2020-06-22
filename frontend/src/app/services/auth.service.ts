@@ -5,9 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../models/auth-response.model';
-import { switchMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -18,18 +16,6 @@ export class AuthService {
   }
   public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  /* public login1(email: string, password: string) {
-    this.http.post<any>('http://localhost:3000/login', {email: email, password: password})
-    .subscribe(data => {
-      if (data.status !== 404) {
-        this.token = data.token;
-        this.loggedInUser = data.user;
-      } else {
-        console.log("unauthorized");
-      }
-    });
-  } */
-
   public login(email: string, password: string) {
     return this.http
     .post<AuthResponse>(environment.baseUrl +  'login', {email: email, password: password});
@@ -38,11 +24,8 @@ export class AuthService {
   public logout() {
     this.loggedInUser$.next(null);
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('id');
     this.router.navigate(['login']);
-  }
-
-  public authenticate(): User {
-    return this.loggedInUser$.getValue();
   }
 
   public authenticateAsync(): Promise<User> {
@@ -51,6 +34,21 @@ export class AuthService {
         resolve(this.loggedInUser$.getValue());
       }, 100);
     });
+  }
+
+  public authenticate(): User {
+    return this.loggedInUser$.getValue();
+  }
+
+  getCurrentUser(): BehaviorSubject<User>{
+    if(this.loggedInUser$.getValue() === null) {
+       this.userService.fetchUser(localStorage.getItem('id'))
+      .subscribe((data) => {
+        this.loggedInUser$.next(data);
+        return this.loggedInUser$;
+      })
+    }
+    return this.loggedInUser$;
   }
 
 }
