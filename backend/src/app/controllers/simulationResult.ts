@@ -8,7 +8,6 @@ import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
 import { SimulationResultValidity } from "../../lib/enums";
 import { SimulationResultStatus } from "../../lib/enums";
-import { parse } from 'path';
 
 export const index = async (req: Request, res: Response) => {
   try {
