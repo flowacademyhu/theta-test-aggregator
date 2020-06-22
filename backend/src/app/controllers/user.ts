@@ -67,8 +67,7 @@ const updatePassword = (req: Request, user: Partial<User>) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();
-   
+    const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();   
     if (user) {
       const newUser: Partial<User> = {
         email: req.body.email,
