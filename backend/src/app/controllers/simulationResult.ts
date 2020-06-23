@@ -119,3 +119,18 @@ export const destroy = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
+
+export const invalidate = async (req: Request, res: Response) => {
+  try {
+    const simulation_result: Partial<SimulationResult> = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
+    if (simulation_result) {
+      await database(tableName.SIMULATION_RESULTS).where({ id: req.params.id }).update({ invalid: SimulationResultValidity.INVALID });
+      res.sendStatus(200);
+    } else { 
+      res.sendStatus(404);
+    }
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
