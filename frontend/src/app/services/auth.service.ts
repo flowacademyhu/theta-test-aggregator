@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private userService: UserService, private http: HttpClient, private router: Router) {
   }
 
-  public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
