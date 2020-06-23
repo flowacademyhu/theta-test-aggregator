@@ -1,14 +1,12 @@
 import { Component, OnInit, DoCheck, OnDestroy } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from 'src/app/models/user-model';
-import { Subscription } from 'rxjs';
 import { ConfirmDeleteModalComponent } from '../../modals/confirm-delete-modal/confirm-delete-modal.component';
 import { AddUserComponent } from '../add-user/add-user.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UpdateUserComponent } from '../update-user/update-user.component';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-user-list',
@@ -22,6 +20,11 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
   public users: User[];
   public user: User;
+  public filterUsers() {
+    this.userService.fetchUsers().subscribe((data) => {
+      this.users = data.filter(u => u.id !== this.user.id);
+    })
+  }
 
   public toggleDeleteModal(user) {
     const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
@@ -30,11 +33,7 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.userService.deleteUser(user.id).subscribe(() => {
-          this.userService.fetchUsers().subscribe((data) => {
-            this.users = data.filter(u => u.id !== this.user.id);
-          })
-        })
+        this.filterUsers();
       }
     })
   }
@@ -45,9 +44,7 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
       width: '300px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.userService.fetchUsers().subscribe((data) => {
-        this.users = data.filter(u => u.id !== this.user.id);
-      })
+      this.filterUsers();
     })
   }
 
@@ -56,9 +53,7 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
       data: {user: userToDelete}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.userService.fetchUsers().subscribe((data) => {
-        this.users = data.filter(u => u.id !== this.user.id);
-      })
+      this.filterUsers();
     })
   }
 

@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { User, UserRole } from 'src/app/models/user.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -15,7 +14,7 @@ import { throwError } from 'rxjs';
 })
 export class UpdateUserComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,  private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,  private userService: UserService) { }
 
   public user: User;
   public roles: UserRole[] =[UserRole.ADMIN, UserRole.USER];

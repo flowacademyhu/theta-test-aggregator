@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {User, UserRole} from '../models/user.model';
+import {User} from '../models/user.model';
 import { UserService } from './user.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
@@ -18,8 +18,19 @@ export class AuthService {
 
   public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
+  public errors: string[];
+
   public login(email: string, password: string) {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login', {email: email, password: password})
+    .subscribe((resp) => {
+      this.loggedInUser$.next(resp.user);
+      localStorage.setItem('accessToken', resp.token);
+      localStorage.setItem('id', resp.user.id);
+      this.router.navigate(['/logged-in']);
+    }, (error: HttpErrorResponse) => {
+      this.errors = error.error.message;
+      console.log(error);
+    })
   }
 
   public logout() {

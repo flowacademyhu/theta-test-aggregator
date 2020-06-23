@@ -13,11 +13,11 @@ interface AnonymusEndpoint {
 
 const anonymusEndpoints: Array<AnonymusEndpoint> = [
   {
-    path: '/user',
+    path: '/api/user',
     method: Method.post
   },
   {
-    path: '/login',
+    path: '/api/login',
     method: Method.post
   },
 ]

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { User, UserRole } from '../models/user-model';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { User } from '../models/user-model';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 
@@ -24,7 +24,7 @@ export class UserService {
     return this.http.get<User>(environment.baseUrl + `user/${id}`);
   }
 
-  public addUser(user) {
+  public addUser(user: User) {
     return this.http.post(environment.baseUrl + 'user', user).pipe(tap(() => this.fetchUsers()));
   }
 
