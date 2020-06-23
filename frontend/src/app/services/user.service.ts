@@ -12,8 +12,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   
-  public deleteUser (id: string) {
-    return this.http.delete(environment.baseUrl + `user/${id}`).pipe(tap(() => this.fetchUsers()));
+  public deleteUser (id: string): Observable<User> {
+    return this.http.delete<User>(environment.baseUrl + `user/${id}`).pipe(tap(() => this.fetchUsers()));
   }
 
   public fetchUsers(): Observable<User[]> {
@@ -24,11 +24,11 @@ export class UserService {
     return this.http.get<User>(environment.baseUrl + `user/${id}`);
   }
 
-  public addUser(user: User) {
-    return this.http.post(environment.baseUrl + 'user', user).pipe(tap(() => this.fetchUsers()));
+  public addUser(user: User): Observable<User> {
+    return this.http.post<User>(environment.baseUrl + 'user', user).pipe(tap(() => this.fetchUsers()));
   }
 
-  public updateUser(id: string, user: User) {
+  public updateUser(id: string, user: User): Observable<User> {
     return this.http.put<User>(environment.baseUrl + `user/${id}`, user);
   }
 

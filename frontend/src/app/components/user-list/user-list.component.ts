@@ -33,7 +33,9 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.filterUsers();
+        this.userService.deleteUser(user.id).subscribe(() => {
+          this.filterUsers();
+        })
       }
     })
   }
