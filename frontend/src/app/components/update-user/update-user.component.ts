@@ -33,7 +33,6 @@ export class UpdateUserComponent implements OnInit {
     (error: string[]) => {
       this.errors = error;
     })
-    this.userService.fetchUsers();
   }
 
   ngOnInit(): void {
