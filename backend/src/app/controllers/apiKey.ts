@@ -41,12 +41,16 @@ const createDate = (): any => {
   return moment();
 }
 
+const createDate0 = createDate().add(0, 'days');
+
+const createDate30 = createDate().add(30, 'days');
+
 export const create = async (req: Request, res: Response) => {
   try {
     const apiKeys: ApiKey = {
       key: generateUUID(),
-      created_at: createDate().add(0, 'days'),
-      expires_at: createDate().add(30, 'days')
+      created_at: createDate0,
+      expires_at: createDate30
     }
     await database(tableName.API_KEYS).insert(apiKeys);
     res.sendStatus(201);
@@ -62,7 +66,7 @@ export const update = async (req: Request, res: Response) => {
 
     if (apiKey) {
       const newApiKey: Partial<ApiKey> = {
-        expires_at: createDate().add(30, 'days')
+        expires_at: createDate30
       }
       await database(tableName.API_KEYS).update(newApiKey).where({ id: req.params.id });
       res.sendStatus(200);
