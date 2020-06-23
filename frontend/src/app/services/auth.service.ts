@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import {User} from '../models/user.model';
 import { UserService } from './user.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { environment } from 'src/environments/environment';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,26 @@ export class AuthService {
 
   public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  public errors: string[];
+  public getCurrentUser(): BehaviorSubject<User> {
+    if (this.loggedInUser$.getValue() === null) {
+      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+        this.loggedInUser$.next(data);
+        return this.loggedInUser$;
+      })
+    }
+  return this.loggedInUser$;
+  }
 
   public login(email: string, password: string) {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login', {email: email, password: password})
-    .subscribe((resp) => {
-      this.loggedInUser$.next(resp.user);
-      localStorage.setItem('accessToken', resp.token);
-      localStorage.setItem('id', resp.user.id);
-      this.router.navigate(['/logged-in']);
-    }, (error: HttpErrorResponse) => {
-      this.errors = error.error.message;
-      console.log(error);
-    })
+    .pipe(
+      switchMap((resp) => {
+        localStorage.setItem('accessToken', resp.token);
+        localStorage.setItem('id', resp.user.id);
+        this.loggedInUser$.next(resp.user);
+        return this.getCurrentUser();
+      })
+    )
   }
 
   public logout() {
@@ -52,13 +60,4 @@ export class AuthService {
     });
   }
 
-  public getCurrentUser(): BehaviorSubject<User> {
-    if (this.loggedInUser$.getValue() === null) {
-      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
-        this.loggedInUser$.next(data);
-        return this.loggedInUser$;
-      })
-    }
-  return this.loggedInUser$;
-  }
 }
