@@ -1,0 +1,48 @@
+<mat-dialog-content class="parent">
+<form [formGroup]="updateForm" class="form">
+  <div>
+    <mat-form-field>
+    <mat-label for="id">Id</mat-label><br>
+    <input matInput type="text" name="id" formControlName="id">
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="password">Password</mat-label><br>
+    <input matInput type="password" name="password" formControlName="password">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="email">Email</mat-label><br>
+    <input matInput type="email" name="email" formControlName="email">
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="git_user">Git user</mat-label><br>
+    <input matInput type="text" name="git_user" formControlName="git_user">
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="role">Role</mat-label><br>
+    <mat-select name="role" formControlName="role">
+      <mat-option value="{{roles[1]}}">User</mat-option>
+      <mat-option value="{{roles[0]}}">Admin</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="notification">Notification</mat-label><br>
+    <mat-select name="notification" formControlName="notification">
+      <mat-option [value]="true">ON</mat-option>
+      <mat-option [value]="false">OFF</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div><br><br>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)=onUpdate() [disabled]="updateForm.invalid">Update</button>
+</form>
+</mat-dialog-content>

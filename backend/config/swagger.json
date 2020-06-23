@@ -14,7 +14,7 @@
     "application/json"
   ],
   "paths": {
-    "/login": {
+    "/api/login": {
       "post": {
         "summary": "Login with user",
         "parameters": [
@@ -77,7 +77,7 @@
         }
       }
     },
-    "/user": {
+    "/api/user": {
       "get": {
         "summary": "Users index",
         "parameters": [
@@ -117,7 +117,7 @@
         }
       }
     },
-    "/user/{id}": {
+    "/api/user/{id}": {
       "get": {
         "summary": "Get a user by id",
         "parameters": [
@@ -192,7 +192,7 @@
         }
       }
     },
-    "/simulationResult": {
+    "/api/simulationResult": {
       "get": {
         "summary": "Simulation result index",
         "parameters": [
@@ -232,7 +232,7 @@
         }
       }
     },
-    "/simulationResult/{id}": {
+    "/api/simulationResult/{id}": {
       "get": {
         "summary": "Get a simulation result by id",
         "parameters": [
@@ -308,6 +308,121 @@
       }
     }
   },
+  "/api/apiKey": {
+    "get": {
+      "summary": "Apikey index",
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "type": "string"
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "All apikeys",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#definitions/ApiKeyRequest"
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Apikey create",
+      "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "schema": {
+            "$ref": "#definitions/ApiKeyRequest"
+          }
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Apikey created"
+        }
+      }
+    }
+  },
+  "/api/apiKey/{id}": {
+    "get": {
+      "summary": "Get an apikey by id",
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "type": "string"
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The apikey",
+          "schema": {
+            "$ref": "#definitions/ApiKeyRequest"
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update apikey by id",
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "type": "string"
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        },
+        {
+          "in": "body",
+          "name": "body",
+          "schema": {
+            "$ref": "#definitions/ApiKeyRequest"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Update successful"
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete apikey",
+      "parameters": [
+        {
+          "in": "header",
+          "name": "Authorization",
+          "type": "string"
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Delete successful"
+        }
+      }
+    }
+  },
   "definitions": {
     "UserRequest": {
       "type": "object",
@@ -315,7 +430,7 @@
         "email": {
           "type": "string"
         },
-        "password_hash": {
+        "password": {
           "type": "string"
         },
         "git_user": {
@@ -422,14 +537,36 @@
         "short_description": {
           "type": "string"
         },
-        "payload_dat": {
-          "type": "object"
-        },
-        "payload_text": {
-          "type": "string"
+        "payload": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          }
         },
         "invalid": {
           "type": "number"
+        }
+      }
+    },
+    "ApiKeyRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "expires_at": {
+          "type": "string"
         }
       }
     }

@@ -18,3 +18,8 @@ export interface SimulationResult {
   createdt_at?: string;
   updated_at?: string
 };
+
+export interface SimulationResultPayload {
+  data: any;
+  text: string;
+};

@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-confirm-delete-modal',
@@ -6,22 +8,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./confirm-delete-modal.component.css']
 })
 export class ConfirmDeleteModalComponent implements OnInit {
-  @Input() public git_user: string ;
-  @Output() public close: EventEmitter<void> = new EventEmitter<void>();
-  @Output() public confirm: EventEmitter<void> = new EventEmitter<void>();
 
+  git_user: string;
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) private data: any) { }
 
   ngOnInit(): void {
-  }
-
-  onClose() {
-    this.close.emit();
-  }
-
-  onConfirm() {
-    this.confirm.emit();
+    this.git_user = this.data.git_user;
   }
 
 }

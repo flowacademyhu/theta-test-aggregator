@@ -7,9 +7,9 @@ export class NotificationsPipe implements PipeTransform {
 
   transform(value: boolean): unknown {
     if (value) {
-      return "On"
+      return "ON"
     } else {
-      return "Off"
+      return "OFF"
     }
   }
 
