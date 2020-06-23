@@ -1,4 +1,4 @@
-import { SimulationResult } from '../models/simulationResult';
+import { SimulationResult, SimulationResultPayload } from '../models/simulationResult';
 import { Request, Response } from 'express';
 import { database } from '../../lib/database';
 import { QueryBuilder } from 'knex';
@@ -53,21 +53,40 @@ export const initialize = async (req: Request, res: Response) => {
   }
 };
 
+const decodeBase64 = (data: string): string => {
+  return Buffer.from(data, 'base64').toString();
+};
+
+const decodePayload = (req: Request): SimulationResultPayload => {
+  try {
+    const decodedData = decodeBase64(req.body.payload.data);
+    const decodedText = decodeBase64(req.body.payload.text);
+    return {data: decodedData, text: decodedText };
+  } catch (error) {
+    throw error;
+  }  
+};
+
 const getUpdatedSimulationResult = (req: Request): SimulationResult =>{
-  return {
-    id: req.body.id,
-    triggered_by: req.body.triggered_by,
-    branch_name: req.body.branch_name,
-    start_timestamp: req.body.start_timestamp,
-    end_timestamp: req.body.end_timestamp,
-    commit_hash: req.body.commit_hash,
-    status: req.body.status,
-    error_message: req.body.error_message,
-    short_description: req.body.short_description,
-    payload_data: req.body.payload_data,
-    payload_text: req.body.payload_text,
-    invalid: SimulationResultValidity.VALID
-  }
+  try {
+    const decodedPayload: SimulationResultPayload = decodePayload(req);
+    return {
+      id: req.body.id,
+      triggered_by: req.body.triggered_by,
+      branch_name: req.body.branch_name,
+      start_timestamp: req.body.start_timestamp,
+      end_timestamp: req.body.end_timestamp,
+      commit_hash: req.body.commit_hash,
+      status: req.body.status,
+      error_message: req.body.error_message,
+      short_description: req.body.short_description,
+      payload_data: decodedPayload.data,
+      payload_text: decodedPayload.text,
+      invalid: SimulationResultValidity.VALID
+    }
+  } catch (error) {
+    throw error;
+  }  
 };
 
 export const update = async (req: Request, res: Response) => {
