@@ -1,22 +1,19 @@
 import * as nodemailer from 'nodemailer';
 
  export const  mailer = async(receiver: string) => {
-  const message = 'something';
-  const mailsubject = 'this is subject to change';
+  const message = 'A recent test Failed.';
+  const mailsubject = 'Test Failed';
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'mailtester67',
-      pass: 'testmymail11'
+      user: process.env.MAILER_USER,
+      pass: process.env.MAILER_PASSWORD
     }
   });
 
-  // usr:mailtester67   (@gmail.com)
-  // pw:testmymail11
-
   await transporter.sendMail({
-    from: '<mailtester67@gmail.com>',
+    from: process.env.MAILER_FROM,
     to: receiver,
     subject: mailsubject,
     text: message
