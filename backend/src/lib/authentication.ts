@@ -7,23 +7,27 @@ import { Method } from "./enums";
 import { tableName } from "./tableName";
 
 interface AnonymusEndpoint {
-  path: String;
+  path: string;
   method: Method;
 }
 
 const anonymusEndpoints: Array<AnonymusEndpoint> = [
   {
-    path: '/user',
+    path: '/api/simulationresult',
     method: Method.post
   },
   {
-    path: '/login',
+    path: '/api/simulationresult',
+    method: Method.put
+  },
+  {
+    path: '/api/login',
     method: Method.post
   },
 ]
 
 const isAnonymusEndpoint = (req: Request): boolean => {
-  return !!(anonymusEndpoints.find(anonymusEndpoint => (anonymusEndpoint.method === req.method && anonymusEndpoint.path === req.path)))
+  return !!(anonymusEndpoints.find(anonymusEndpoint => (anonymusEndpoint.method === req.method && req.path.indexOf(anonymusEndpoint.path) > -1)))
 }
 
 export const authentication = async (req: Request, res: Response, next: NextFunction) => {
