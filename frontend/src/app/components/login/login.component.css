@@ -2,6 +2,10 @@ header {
   padding: 3em 0 3em 0;
 }
 
+.svg {
+  width: 75%;
+}
+
 .login-form {
   height: 500px;
   min-width: 150px;
@@ -15,8 +19,12 @@ header {
   width: 90%;
 }
 
-.login-others {
+.login-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin-left: 5%;
+  margin-right: 5%;
   text-align: left;
 }
 
@@ -34,11 +42,6 @@ header {
   margin-left: 5%;
   color: red;
   font-weight: bold;
-}
-
-::placeholder {
-  color: #aaaaaa;
-  font-size: 1.2em;
 }
 
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
@@ -79,7 +82,7 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 /* mat-label normal state style */
 ::ng-deep .mat-form-field-label {
-  color: rgba(0, 0, 0, .6) !important;
+  color: #aaaaaa !important;
 }
 
 /* mat-label focused style */
@@ -90,6 +93,11 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 /* mat-label error style */
 ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
   color: #aaaaaa !important;
+}
+
+/* checkbox border */
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  border-color: #aaaaaa;
 }
 
 a:link, a:visited, a:active {
