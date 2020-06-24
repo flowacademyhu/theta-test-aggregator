@@ -21,9 +21,9 @@ services:
   theta-test-aggregator:
     container_name: theta-test-aggregator
     environment:
+      MAILER_PASSWORD: ""
       MAILER_FROM: "mailtester67@gmail.com"
       MAILER_USER: "mailtester67"
-      MAILER_PASSWORD: "tasi33Flow"
     build:
       context: ./
       dockerfile: Dockerfile.development
