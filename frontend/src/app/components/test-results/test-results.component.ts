@@ -5,8 +5,6 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
-
-
 @Component({
   selector: 'app-test-results',
   templateUrl: './test-results.component.html',
@@ -31,9 +29,6 @@ export class TestResultsComponent implements OnInit {
       this.tests=data.tests
     }),
     this.authService.getCurrentUser().subscribe((data) => {this.user = data});
-    this.subscriptions$.push(this.testService.tests$.subscribe(tests => {
-      this.tests = tests;
-    }));
   }
   
   removeFilter() {
