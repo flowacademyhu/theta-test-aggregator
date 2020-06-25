@@ -15,7 +15,12 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private authService: AuthService, private userService: UserService, private dialog: MatDialog, private route: ActivatedRoute) {
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute
+  ) {
   }
 
   public users: User[];
@@ -23,21 +28,21 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
   public filterUsers() {
     this.userService.fetchUsers().subscribe((data) => {
       this.users = data.filter(u => u.id !== this.user.id);
-    })
+    });
   }
 
   public toggleDeleteModal(user) {
     const git_userToDelete = this.users.find(u => u.id === user.id).git_user;
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
-      data: { git_user: git_userToDelete}
+      data: { git_user: git_userToDelete }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.deleteUser(user.id).subscribe(() => {
           this.filterUsers();
-        })
+        });
       }
-    })
+    });
   }
 
   public toggleAddUserModal() {
@@ -47,25 +52,25 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.filterUsers();
-    })
+    });
   }
 
   public toggleUpdateModal(userToDelete) {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
-      data: {user: userToDelete}
+      data: { user: userToDelete }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.filterUsers();
-    })
+    });
   }
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
       this.authService.getCurrentUser().subscribe((data) => {
         this.user = data;
-      })
+      });
       this.users = data.users.filter(u => u.id !== localStorage.getItem('id'));
-    })
+    });
   }
 
 
