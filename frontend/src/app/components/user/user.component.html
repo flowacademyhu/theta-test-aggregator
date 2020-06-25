@@ -9,8 +9,8 @@
     <img mat-card-avatar src="../../../assets/avatar.png">
   </mat-card-header>
   <mat-card-content class="content">
-    <p class="data"><span class="fieldname">Email address:</span>  {{user.email}}</p><br>
-    <p class="data"><span class="fieldname">Notifications:</span>  {{user.notification | notifications}}</p>
+    <span class="fieldname">Email address:</span> <span class="data"> {{user.email}}</span><br>
+    <span class="fieldname">Notifications:</span><span class="data"> {{user.notification | notifications}}</span>
   </mat-card-content>
   <mat-action-row class="action-row">
     <button mat-raised-button color="primary" (click)="toggleProfileUpdateModal(user)">Update</button>
