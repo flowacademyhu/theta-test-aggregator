@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule } from '@angular/forms';
@@ -24,13 +24,13 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
-  { path: "login", component: LoginComponent },
-  { path: "logged-in", component: LoggedInComponent},
-  { path: "users", component: UserListComponent, resolve: {users: UsersResolver} },
-  { path: "profile", component: UserComponent },
-  { path: "settings", component: SettingsComponent },
-  { path: "api-key-manager", component: ApiKeyManagerComponent}
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logged-in', component: LoggedInComponent},
+  { path: 'users', component: UserListComponent},
+  { path: 'profile', component: UserComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'api-key-manager', component: ApiKeyManagerComponent}
 ];
 
 @NgModule({
@@ -59,6 +59,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
+  exports: [RouterModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -68,5 +69,5 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {
+}
