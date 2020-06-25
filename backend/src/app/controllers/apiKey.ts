@@ -10,11 +10,16 @@ import { v4 as uuidv4 } from 'uuid';
 import moment = require('moment');
 
 export const index = async (req: Request, res: Response) => {
-  let query: QueryBuilder = database(tableName.API_KEYS).select();
-  query = limitQuery(req, query);
-  query = offsetQuery(req, query);
-  const user: Array<ApiKey> = await query;
-  res.json(apiKeySerializer.index(user));
+  try {
+    let query: QueryBuilder = database(tableName.API_KEYS).select();
+    query = limitQuery(req, query);
+    query = offsetQuery(req, query);
+    const apiKeys: Array<ApiKey> = await query;
+    res.json(apiKeySerializer.index(apiKeys));
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }  
 };
 
 export const show = async (req: Request, res: Response) => {
@@ -35,24 +40,28 @@ export const show = async (req: Request, res: Response) => {
 
 const generateUUID = (): string => {
   return uuidv4();
-}
+};
 
-const createDate = (): any => {
-  return moment();
-}
+const createDate = (expirationInDays: number): string => {
+  return moment().add(expirationInDays, 'd').format('YYYY-MM-DD HH:mm:ss');
+};
 
-const createDate0 = createDate().add(0, 'days');
-
-const createDate30 = createDate().add(30, 'days');
+const getExpirationInDays = (req: Request): number => {
+  if (req.query.infinite === 'true') {
+    const expirationInYears = 500;
+    return expirationInYears * 365;
+  }
+  return +process.env.APIKEY_EXP_DAYS;
+};
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const apiKeys: ApiKey = {
+    const apiKey: ApiKey = {
       key: generateUUID(),
-      created_at: createDate0.format('YYYY-MM-DD HH:mm:ss'),
-      expires_at: createDate30.format('YYYY-MM-DD HH:mm:ss')
+      created_at: createDate(0),
+      expires_at: createDate(getExpirationInDays(req))
     }
-    await database(tableName.API_KEYS).insert(apiKeys);
+    await database(tableName.API_KEYS).insert(apiKey);
     res.sendStatus(201);
   } catch(error) {
     console.error(error);
@@ -63,10 +72,9 @@ export const create = async (req: Request, res: Response) => {
 export const update = async (req: Request, res: Response) => {
   try {
     const apiKey: Partial<ApiKey> = await database(tableName.API_KEYS).select().where({ id: req.params.id }).first();
-
     if (apiKey) {
       const newApiKey: Partial<ApiKey> = {
-        expires_at: createDate30.format('YYYY-MM-DD HH:mm:ss')
+        expires_at: createDate(+process.env.APIKEY_EXTENSION_DAYS)
       }
       await database(tableName.API_KEYS).update(newApiKey).where({ id: req.params.id });
       res.sendStatus(200);

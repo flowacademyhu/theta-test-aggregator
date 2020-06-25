@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {User} from '../models/user.model';
+import { Injectable } from '@angular/core';
+import { User } from '../models/user.model';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -24,27 +24,33 @@ export class AuthService {
       this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
         this.loggedInUser$.next(data);
         return this.loggedInUser$;
-      })
+      });
     }
-  return this.loggedInUser$;
+    return this.loggedInUser$;
   }
 
-  public login(email: string, password: string) {
-    return this.http.post<AuthResponse>(environment.baseUrl + 'login', {email: email, password: password})
-    .pipe(
-      switchMap((resp) => {
-        localStorage.setItem('accessToken', resp.token);
-        localStorage.setItem('id', resp.user.id);
-        this.loggedInUser$.next(resp.user);
-        return this.getCurrentUser();
-      })
-    )
+  public login(email: string, password: string, isChecked: boolean) {
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email: email, password: password })
+      .pipe(
+        switchMap((resp) => {
+          if (isChecked) {
+            localStorage.setItem('accessToken', resp.token);
+            localStorage.setItem('id', resp.user.id);
+          } else {
+            sessionStorage.setItem('accessToken', resp.token);
+            sessionStorage.setItem('id', resp.user.id);
+          }
+          this.loggedInUser$.next(resp.user);
+          return this.getCurrentUser();
+        })
+      );
   }
 
   public logout() {
     this.loggedInUser$.next(null);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
+    sessionStorage.clear();
     this.router.navigate(['login']);
   }
 
@@ -59,5 +65,4 @@ export class AuthService {
       }, 100);
     });
   }
-
 }
