@@ -1,5 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { TestService } from '../../services/test.service';
 import { Test } from 'src/app/models/test.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -10,9 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './test-results.component.html',
   styleUrls: ['./test-results.component.css']
 })
+
 export class TestResultsComponent implements OnInit {
 
-  constructor(private testService: TestService, private route: ActivatedRoute, private authService: AuthService) {
+  constructor( private route: ActivatedRoute, private authService: AuthService) {
   }
 
   public user;
@@ -29,9 +29,5 @@ export class TestResultsComponent implements OnInit {
       this.tests=data.tests
     }),
     this.authService.getCurrentUser().subscribe((data) => {this.user = data});
-  }
-  
-  removeFilter() {
-    this.testService.fetchTests();
   }
 }
