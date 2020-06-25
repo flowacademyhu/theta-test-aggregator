@@ -13,7 +13,7 @@ export class LoggedInComponent implements OnInit {
   public user;
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe((data) => {this.user = data});
+    this.authService.getCurrentUser().subscribe((data) => this.user = data);
   }
 
 }

@@ -24,43 +24,14 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'logged-in',
-    component: LoggedInComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'users',
-    component: UserListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'profile',
-    component: UserComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'settings',
-    component: SettingsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'api-key-manager',
-    component: ApiKeyManagerComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: '**',
-    redirectTo: ''
-  }
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'logged-in', component: LoggedInComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}, canActivate: [AuthGuard] },
+  { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 
 ];
 
