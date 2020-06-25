@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {AuthService} from '../../services/auth.service';
-import {User} from '../../models/user.model';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -14,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {
   }
-  
+
   public errors: Object;
   public isChecked = false;
 
@@ -25,13 +24,13 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .login(this.loginForm.value.email, this.loginForm.value.password, this.loginForm.value.isChecked)
       .subscribe(() => {
         this.router.navigate(['logged-in']);
       }, (error: HttpErrorResponse) => {
         this.errors = error;
         console.log(this.errors);
-      })
+      });
   }
 
   rememberMe() {
