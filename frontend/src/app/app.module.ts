@@ -19,6 +19,9 @@ import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confi
 import { AuthGuard } from './auth.guard';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UsersResolver } from './resolvers/users.resolver';
 
 const routes: Routes = [
   {
@@ -83,10 +86,18 @@ const routes: Routes = [
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  exports: [RouterModule],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {
+}

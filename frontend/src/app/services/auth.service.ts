@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { AuthResponse } from '../models/auth-response';
+import { environment } from 'src/environments/environment';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,54 +14,54 @@ import { UserService } from './user.service';
 
 export class AuthService {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private http: HttpClient, private router: Router) {
   }
 
-  public users: User[] = this.userService.fetcUsers();
+  private loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
-  private loggedInUser: User;
-
-  public login(email: string, password: string, isChecked: boolean): Promise<boolean> {
-    return new Promise<boolean>((resolve, reject) => {
-      setTimeout(() => {
-        const user = this.users.find(u => u.email === email && u.password === password);
-        if (user) {
-          this.loggedInUser = user;
-          if (isChecked) {
-            localStorage.setItem('accessToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1OTMwMDEwNzQsImV4cCI6MTYyNDUzNzA3NCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.Z086LSrCVTuPvs3Ttjkiyt9NAMLPuD6xM1SHE2pkOZk');
-            resolve(true);
-          } else {
-            sessionStorage.setItem('accessToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE1OTMwMDEwNzQsImV4cCI6MTYyNDUzNzA3NCwiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.Z086LSrCVTuPvs3Ttjkiyt9NAMLPuD6xM1SHE2pkOZk');
-            resolve(true);
-          }
-        }
-        reject(false);
-      }, 128);
-    });
-  }
-
-  public isLoggedIn() {
-    if (localStorage.getItem('user') || sessionStorage.getItem('user')) {
-      console.log('van storageban user');
-      return true;
-    } else {
-      console.log('nincs storageban user');
-      return false;
+  public getCurrentUser(): BehaviorSubject<User> {
+    if (this.loggedInUser$.getValue() === null) {
+      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+        this.loggedInUser$.next(data);
+        return this.loggedInUser$;
+      });
     }
+    return this.loggedInUser$;
+  }
+
+  public login(email: string, password: string, isChecked: boolean) {
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email: email, password: password })
+      .pipe(
+        switchMap((resp) => {
+          if (isChecked) {
+            localStorage.setItem('accessToken', resp.token);
+            localStorage.setItem('id', resp.user.id);
+          } else {
+            sessionStorage.setItem('accessToken', resp.token);
+            sessionStorage.setItem('id', resp.user.id);
+          }
+          this.loggedInUser$.next(resp.user);
+          return this.getCurrentUser();
+        })
+      );
   }
 
   public logout() {
-    this.loggedInUser = null;
+    this.loggedInUser$.next(null);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('id');
+    sessionStorage.clear();
+    this.router.navigate(['login']);
   }
 
   public authenticate(): User {
-    return this.loggedInUser;
+    return this.loggedInUser$.getValue();
   }
 
   public authenticateAsync(): Promise<User> {
     return new Promise<User>((resolve, reject) => {
       setTimeout(() => {
-        resolve(this.loggedInUser);
+        resolve(this.loggedInUser$.getValue());
       }, 100);
     });
   }
