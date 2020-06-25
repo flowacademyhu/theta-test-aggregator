@@ -37,20 +37,23 @@ const generateUUID = (): string => {
   return uuidv4();
 }
 
-const createDate = (): any => {
-  return moment();
+const createDate = (expirationInDays: number): string => {
+  return moment().add(expirationInDays, 'd').format('YYYY-MM-DD HH:mm:ss');
 }
 
-const createDate0 = createDate().add(0, 'days');
-
-const createDate30 = createDate().add(30, 'days');
+const getExpirationDays = (req: Request): number => {
+  if (req.query.infinite) {
+    return 500 * 365;
+  }
+  return +process.env.APIKEY_EXP_DAYS
+}
 
 export const create = async (req: Request, res: Response) => {
   try {
     const apiKeys: ApiKey = {
       key: generateUUID(),
-      created_at: createDate0,
-      expires_at: createDate30
+      created_at: createDate(0),
+      expires_at: createDate(getExpirationDays(req))
     }
     await database(tableName.API_KEYS).insert(apiKeys);
     res.sendStatus(201);
@@ -66,7 +69,7 @@ export const update = async (req: Request, res: Response) => {
 
     if (apiKey) {
       const newApiKey: Partial<ApiKey> = {
-        expires_at: createDate30
+        expires_at: createDate(+process.env.APIKEY_EXTENSION_DAYS)
       }
       await database(tableName.API_KEYS).update(newApiKey).where({ id: req.params.id });
       res.sendStatus(200);
