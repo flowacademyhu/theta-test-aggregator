@@ -21,7 +21,7 @@ services:
   theta-test-aggregator:
     container_name: theta-test-aggregator
     environment:
-      MAILER_PASSWORD: ""
+      MAILER_PASSWORD: "${FLUID}"
       MAILER_FROM: "mailtester67@gmail.com"
       MAILER_USER: "mailtester67"
     build:
