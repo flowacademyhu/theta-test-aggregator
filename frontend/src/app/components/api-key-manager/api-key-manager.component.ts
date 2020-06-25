@@ -13,7 +13,7 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
 
   constructor(private apiKeyService: ApikeyService, private dialog: MatDialog) { }
 
-  private apikeys: ApiKey[];
+  public apikeys: ApiKey[];
   subscriptions$: Subscription[] = [];
 
   ngOnInit(): void {
