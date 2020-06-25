@@ -46,7 +46,7 @@ const createDate = (expirationInDays: number): string => {
   return moment().add(expirationInDays, 'd').format('YYYY-MM-DD HH:mm:ss');
 }
 
-const getExpirationDays = (req: Request): number => {
+const getExpirationInDays = (req: Request): number => {
   if (req.query.infinite === 'true') {
     const expirationInYears = 500;
     return expirationInYears * 365;
@@ -59,7 +59,7 @@ export const create = async (req: Request, res: Response) => {
     const apiKey: ApiKey = {
       key: generateUUID(),
       created_at: createDate(0),
-      expires_at: createDate(getExpirationDays(req))
+      expires_at: createDate(getExpirationInDays(req))
     }
     await database(tableName.API_KEYS).insert(apiKey);
     res.sendStatus(201);
