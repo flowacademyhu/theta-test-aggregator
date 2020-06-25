@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'profile', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'api-key-manager', component: ApiKeyManagerComponent},
-  { path: "index", component: TestResultsComponent, resolve: {tests: TestsResolver}},
+  { path: "index", component: TestResultsComponent, resolve: {tests: TestsResolver}}
 ];
 
 @NgModule({
