@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logged-in', component: LoggedInComponent},
-  { path: 'users', component: UserListComponent},
+  { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}},
   { path: 'profile', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'api-key-manager', component: ApiKeyManagerComponent}
