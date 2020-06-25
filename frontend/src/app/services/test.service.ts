@@ -11,8 +11,6 @@ export class TestService {
 
   constructor(private http: HttpClient) { }
 
-  tests$: BehaviorSubject<Test[]> = new BehaviorSubject<Test[]>(null);
-
   public fetchTests(){
     return this.http.get<Test[]>(environment.baseUrl + 'simulationResult')
   }
