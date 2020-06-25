@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password, this.loginForm.value.isChecked)
+      .login(this.loginForm.value.email, this.loginForm.value.password, this.isChecked)
       .subscribe(() => {
         this.router.navigate(['logged-in']);
       }, (error: HttpErrorResponse) => {

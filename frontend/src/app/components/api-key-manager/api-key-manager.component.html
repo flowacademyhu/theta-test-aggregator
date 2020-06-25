@@ -1,1 +1,18 @@
-<p>api-key-manager works!</p>
+<div>
+<button mat-raised-button class="addbutton">Add ApiKey</button><br>
+  <mat-accordion>
+    <mat-card *ngFor="let apikey of apikeys" class="header">
+      <div class="apiKey-data">
+        <p>Id: {{apikey.id}}</p>
+        <p>Key: {{apikey.key}}</p>
+        <p>Expires_at: {{apikey.expires_at}}</p>
+        <p>Created_at: {{apikey.created_at}}</p>
+        </div>
+        <mat-action-row>
+          <button mat-raised-button color="primary">Extend</button>
+          <button mat-raised-button color="warn">Delete</button>
+        </mat-action-row>
+    </mat-card><br>
+  </mat-accordion>
+<button [routerLink]="['/logged-in']" routerLinkActive="router-link-active" mat-raised-button class="backbutton">Back</button>
+</div>
