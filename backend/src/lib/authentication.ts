@@ -15,11 +15,20 @@ const anonymusEndpoints: Array<AnonymusEndpoint> = [
   {
     path: '/api/login',
     method: Method.post
+  },
+  {
+    path: '/api/simulationResult',
+    method: Method.post
+  },
+  {
+    path: '/api/simulationResult/{id}',
+    method: Method.put
   }
 ];
 
 const isAnonymusEndpoint = (req: Request): boolean => {
-  return !!(anonymusEndpoints.find(anonymusEndpoint => (anonymusEndpoint.method === req.method && anonymusEndpoint.path === req.path)))
+  //@ts-ignore
+  return !!(anonymusEndpoints.find(anonymusEndpoint => (anonymusEndpoint.method === req.method && anonymusEndpoint.path === req.swagger.pathName)))
 };
 
 export const authentication = async (req: Request, res: Response, next: NextFunction) => {
