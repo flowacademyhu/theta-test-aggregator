@@ -4,4 +4,4 @@ import * as authWithApiKeyController from '../controllers/authorizationWithApiKe
 export const router: Router = Router({ mergeParams: true });
 
 router.post('/', authWithApiKeyController.authorization);
-router.put('/', authWithApiKeyController.authorization);
+router.put('/:id', authWithApiKeyController.authorization);
