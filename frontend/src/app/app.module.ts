@@ -21,6 +21,8 @@ import { UpdateUserComponent } from './components/update-user/update-user.compon
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
+import { TestResultsComponent } from './components/test-results/test-results.component';
+import { TestStatusDirective } from './directives/test-status.directive';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
@@ -29,7 +31,8 @@ const routes: Routes = [
   { path: "users", component: UserListComponent, resolve: {users: UsersResolver} },
   { path: "profile", component: UserComponent },
   { path: "settings", component: SettingsComponent },
-  { path: "api-key-manager", component: ApiKeyManagerComponent}
+  { path: "api-key-manager", component: ApiKeyManagerComponent},
+  { path: "index", component: TestResultsComponent}
 ];
 
 @NgModule({
@@ -46,7 +49,9 @@ const routes: Routes = [
     SettingsComponent,
     ApiKeyManagerComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    TestResultsComponent,
+    TestStatusDirective
   ],
   imports: [
     BrowserModule,

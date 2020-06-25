@@ -1,0 +1,35 @@
+.header.mat-card {
+  margin: 35px;
+  background-color: #243441 
+}
+
+.title {
+  font-size: 15pt;
+  font-weight: bold;
+}
+
+.user-data {
+  color: whitesmoke;
+}
+
+.description {
+  color: #f5f5f5;
+  font-weight: bold;
+  font-size: 10pt;
+  margin-top: 0rem;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0px 0px 5px 3px rgb(75, 70, 70), 
+              0px 0px 5px 3px rgb(141, 134, 134), 
+              0px 0px 5px 3px rgb(238, 232, 232);
+}
+
+.header.mat-card:hover {
+  display: block;
+  background-color: teal;
+}
+
+.desc {
+  margin-left: 30pt;
+}
