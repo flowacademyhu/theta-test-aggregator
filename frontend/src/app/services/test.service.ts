@@ -14,20 +14,10 @@ export class TestService {
   tests$: BehaviorSubject<Test[]> = new BehaviorSubject<Test[]>(null);
 
   public fetchTests(){
-    this.http.get<Test[]>(environment.baseUrl + 'simulationResult')
-    .subscribe((data) => {
-      this.tests$.next(data)
-    })
+    return this.http.get<Test[]>(environment.baseUrl + 'simulationResult')
   }
 
   public fetchTest(id: string): Observable<Test> {
     return this.http.get<Test>(environment.baseUrl + `simulationResult/${id}`);
-  }
-
-  public filterByStatus(status: string) {
-    this.fetchTests();
-     this.tests$.subscribe((data) => {
-       this.tests$.next(data.filter(t=>t.status === status))
-     })
   }
 }
