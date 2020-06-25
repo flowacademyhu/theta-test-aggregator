@@ -4,15 +4,9 @@
     "title": "Theta Test Aggregator",
     "version": "1.0.0"
   },
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/api/login": {
       "post": {
@@ -31,10 +25,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "email",
-                "password"
-              ]
+              "required": ["email", "password"]
             }
           }
         ],
@@ -61,10 +52,7 @@
                     },
                     "role": {
                       "type": "string",
-                      "enum": [
-                        "admin",
-                        "user"
-                      ]
+                      "enum": ["admin", "user"]
                     },
                     "notification": {
                       "type": "boolean"
@@ -306,119 +294,142 @@
           }
         }
       }
-    }
-  },
-  "/api/apiKey": {
-    "get": {
-      "summary": "Apikey index",
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Authorization",
-          "type": "string"
+    },
+    "/simulationResult/{id}/invalidate": {
+      "put": {
+        "summary": "Invalidate simulation result by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Invalidate successful"
+          }
         }
-      ],
-      "responses": {
-        "200": {
-          "description": "All apikeys",
-          "schema": {
-            "type": "array",
-            "items": {
+      }
+    },
+    "/api/apiKey": {
+      "get": {
+        "summary": "Apikey index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All apikeys",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/ApiKeyRequest"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Apikey create",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/ApiKeyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Apikey created"
+          }
+        }
+      }
+    },
+    "/api/apiKey/{id}": {
+      "get": {
+        "summary": "Get an apikey by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The apikey",
+            "schema": {
               "$ref": "#definitions/ApiKeyRequest"
             }
           }
         }
-      }
-    },
-    "post": {
-      "summary": "Apikey create",
-      "parameters": [
-        {
-          "in": "body",
-          "name": "body",
-          "schema": {
-            "$ref": "#definitions/ApiKeyRequest"
+      },
+      "put": {
+        "summary": "Update apikey by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/ApiKeyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful"
           }
         }
-      ],
-      "responses": {
-        "201": {
-          "description": "Apikey created"
-        }
-      }
-    }
-  },
-  "/api/apiKey/{id}": {
-    "get": {
-      "summary": "Get an apikey by id",
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Authorization",
-          "type": "string"
-        },
-        {
-          "in": "path",
-          "name": "id",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "The apikey",
-          "schema": {
-            "$ref": "#definitions/ApiKeyRequest"
+      },
+      "delete": {
+        "summary": "Delete apikey",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
           }
-        }
-      }
-    },
-    "put": {
-      "summary": "Update apikey by id",
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Authorization",
-          "type": "string"
-        },
-        {
-          "in": "path",
-          "name": "id",
-          "type": "string",
-          "required": true
-        },
-        {
-          "in": "body",
-          "name": "body",
-          "schema": {
-            "$ref": "#definitions/ApiKeyRequest"
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete successful"
           }
-        }
-      ],
-      "responses": {
-        "200": {
-          "description": "Update successful"
-        }
-      }
-    },
-    "delete": {
-      "summary": "Delete apikey",
-      "parameters": [
-        {
-          "in": "header",
-          "name": "Authorization",
-          "type": "string"
-        },
-        {
-          "in": "path",
-          "name": "id",
-          "type": "string",
-          "required": true
-        }
-      ],
-      "responses": {
-        "204": {
-          "description": "Delete successful"
         }
       }
     }
@@ -438,10 +449,7 @@
         },
         "role": {
           "type": "string",
-          "enum": [
-            "admin",
-            "user"
-          ]
+          "enum": ["admin", "user"]
         },
         "notification": {
           "type": "boolean"
@@ -462,10 +470,7 @@
         },
         "role": {
           "type": "string",
-          "enum": [
-            "admin",
-            "user"
-          ]
+          "enum": ["admin", "user"]
         },
         "notification": {
           "type": "boolean"
@@ -486,12 +491,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "SUCCESS",
-            "FAILED",
-            "ERROR",
-            "UNKNOWN"
-          ]
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
         },
         "sequence_number": {
           "type": "number"
@@ -512,12 +512,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "SUCCESS",
-            "FAILED",
-            "ERROR",
-            "UNKNOWN"
-          ]
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
         },
         "sequence_number": {
           "type": "number"

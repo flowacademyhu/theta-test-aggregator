@@ -19,12 +19,15 @@ import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confi
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { ProfileUpdateModalComponent } from './modals/profile-update-modal/profile-update-modal.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { UsersResolver } from './resolvers/users.resolver';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "login", component: LoginComponent },
   { path: "logged-in", component: LoggedInComponent},
-  { path: "users", component: UserListComponent},
+  { path: "users", component: UserListComponent, resolve: {users: UsersResolver} },
   { path: "profile", component: UserComponent },
   { path: "settings", component: SettingsComponent },
   { path: "api-key-manager", component: ApiKeyManagerComponent}
@@ -53,9 +56,16 @@ const routes: Routes = [
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 

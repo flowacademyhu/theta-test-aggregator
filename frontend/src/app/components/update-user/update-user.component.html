@@ -2,12 +2,6 @@
 <form [formGroup]="updateForm" class="form">
   <div>
     <mat-form-field>
-    <mat-label for="id">Id</mat-label><br>
-    <input matInput type="text" name="id" formControlName="id">
-  </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field>
     <mat-label for="password">Password</mat-label><br>
     <input matInput type="password" name="password" formControlName="password">
     </mat-form-field>
@@ -37,8 +31,8 @@
     <mat-form-field>
     <mat-label for="notification">Notification</mat-label><br>
     <mat-select name="notification" formControlName="notification">
-      <mat-option [value]="true">ON</mat-option>
-      <mat-option [value]="false">OFF</mat-option>
+      <mat-option [value]="1">ON</mat-option>
+      <mat-option [value]="0">OFF</mat-option>
     </mat-select>
     </mat-form-field>
   </div><br><br>

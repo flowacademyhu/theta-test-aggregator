@@ -9,7 +9,7 @@
   color: white;
   height: 40px;
   width: 60px;
-  align-items: flex-start;  
+  align-items: flex-start;
 }
 
 .mat-card-avatar {
@@ -43,4 +43,8 @@
 .mat-menu-item:hover{
   display: block;
   background-color: #243441d2;
+}
+
+.pointer {
+  cursor: pointer;
 }

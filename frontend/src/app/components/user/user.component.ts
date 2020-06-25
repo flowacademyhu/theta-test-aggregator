@@ -3,6 +3,7 @@ import { User, UserRole } from 'src/app/models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileUpdateModalComponent } from 'src/app/modals/profile-update-modal/profile-update-modal.component';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-user',
@@ -11,23 +12,31 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class UserComponent implements OnInit, DoCheck {
 
-  constructor(public dialog: MatDialog, private userService: UserService) { }
+  constructor(public dialog: MatDialog, private userService: UserService, private authService: AuthService) { }
 
-  public user: User = this.userService.fetchUser("user1");
+  public user: User;
 
-  public toggleProfileUpdateModal(userToDelete) {
+  public toggleProfileUpdateModal(userToUpdate) {
     const dialogRef = this.dialog.open(ProfileUpdateModalComponent, {
-      data: {user: userToDelete}
+      data: {user: userToUpdate}
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+        this.user = data
+      })
     })
   }
 
   ngOnInit(): void {
+    this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+      this.user = data;
+    })
   }
 
   ngDoCheck(): void {
-    this.user = this.userService.fetchUser("user1");
-    }
+    this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+      this.user = data;
+    })
+  }
 
 }
