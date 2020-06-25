@@ -4,22 +4,22 @@ import { Request, Response } from "express";
 import * as userSerializer from '../serializers/user';
 import * as bcrypt from 'bcrypt';
 import { QueryBuilder } from "knex";
+import { tableName } from '../../lib/tableName';
+import { limitQuery } from '../../lib/queryParamHandlers/limit';
+import { offsetQuery } from '../../lib/queryParamHandlers/offset';
+import { v4 as uuidv4 } from 'uuid';
 
 export const index = async (req: Request, res: Response) => {
-  let query: QueryBuilder = database('users').select();
-  if (req.query.limit) {
-    query = query.limit(req.query.limit);
-  }
-  if (req.query.offset) {
-    query = query.offset(req.query.offset);
-  }
+  let query: QueryBuilder = database(tableName.USERS).select();
+  query = limitQuery(req, query);
+  query = offsetQuery(req, query);
   const user: Array<User> = await query;
   res.json(userSerializer.index(user));
 };
 
 export const show = async (req: Request, res: Response) => {
   try {
-    const user: User = await database('users').select().where({ id: req.params.id }).first();
+    const user: User = await database(tableName.USERS).select().where({ id: req.params.id }).first();
     console.log(user);
     if (typeof user !== 'undefined') {
       res.json(userSerializer.show(user))
@@ -33,19 +33,23 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+const generateUUID = (): string => {
+  return uuidv4();
+}
+
 export const create = async (req: Request, res: Response) => {
   try {
-    const pw = req.body.password_hash;
+    const pw = req.body.password;
     const encryptedPassword = bcrypt.hashSync(pw, 10);
-    console.log('REQ', req.body.password_hash, 'HASH', encryptedPassword);
     const users: User = {
+      id: generateUUID(),
       password_hash: encryptedPassword,
       email: req.body.email,
       git_user: req.body.git_user,
       role: req.body.role,
       notification: req.body.notification
     }
-    await database('users').insert(users);
+    await database(tableName.USERS).insert(users);
     res.sendStatus(201);
   } catch(error) {
     console.error(error);
@@ -53,17 +57,26 @@ export const create = async (req: Request, res: Response) => {
   }
 };
 
+const updatePassword = (req: Request, user: Partial<User>) => {
+  if (req.body.password) {
+    const pw = req.body.password;
+    const encryptedPassword = bcrypt.hashSync(pw, 10);
+    user.password_hash = encryptedPassword;
+  }
+}
+
 export const update = async (req: Request, res: Response) => {
   try {
-    const user: User = await database('users').select().where({ id: req.params.id }).first();
+    const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();   
     if (user) {
-      const newUser: User = {
+      const newUser: Partial<User> = {
         email: req.body.email,
         git_user: req.body.git_user,
         role: req.body.role,
         notification: req.body.notification
       }
-      await database('users').update(newUser).where({ id: req.params.id });
+      updatePassword(req, newUser);
+      await database(tableName.USERS).update(newUser).where({ id: req.params.id });
       res.sendStatus(200);
     } else {
       res.sendStatus(404);
@@ -76,9 +89,9 @@ export const update = async (req: Request, res: Response) => {
 
 export const destroy = async (req: Request, res: Response) => {
   try {
-    const user: User = await database('users').select().where({ id: req.params.id }).first();
+    const user: User = await database(tableName.USERS).select().where({ id: req.params.id }).first();
     if (user) {
-      await database('users').delete().where({ id: req.params.id });
+      await database(tableName.USERS).delete().where({ id: req.params.id });
       res.sendStatus(204);
     } else {
       res.sendStatus(404);
