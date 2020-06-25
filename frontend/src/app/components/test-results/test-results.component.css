@@ -27,7 +27,7 @@
 
 .header.mat-card:hover {
   display: block;
-  background-color: teal;
+  background-color: rgb(2, 119, 119);
 }
 
 .desc {

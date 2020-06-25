@@ -3,6 +3,7 @@ import { Directive, HostBinding, Input } from '@angular/core';
 @Directive({
   selector: '[appTestStatus]'
 })
+
 export class TestStatusDirective {
   @Input('appTestStatus') set Succeed(condition: string) {
     switch (condition) {

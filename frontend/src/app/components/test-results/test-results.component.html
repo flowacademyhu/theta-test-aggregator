@@ -1,10 +1,10 @@
 <div>
-  <mat-card *ngFor="let test of tests"  class="header" [routerLink]="['/test', test.id]" >
+  <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
-    <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p> <br>
+    <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p>
     </mat-card-header>
     <mat-card-content class="desc">
-    <p  class="description">Triggered by: {{test.triggered_by}}</p>
+    <p class="description">Triggered by: {{test.triggered_by}}</p>
     </mat-card-content>
   </mat-card>
 </div>
