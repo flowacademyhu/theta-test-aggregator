@@ -42,7 +42,7 @@ const createDate = (expirationInDays: number): string => {
 }
 
 const getExpirationDays = (req: Request): number => {
-  if (req.query.infinite) {
+  if (req.query.infinite === 'true') {
     return 500 * 365;
   }
   return +process.env.APIKEY_EXP_DAYS
