@@ -8,7 +8,7 @@ import { Router } from 'express';
 import { router as mailerRouter } from './mailer';
 
 export const router: Router = Router({mergeParams: true});
-router.use('/api/user/profile/:id', userProfileRouter);
+router.use('/api/user/profile', userProfileRouter);
 router.use('/api/user', userRouter);
 router.use('/api/simulationResult', mailerRouter);
 router.use('/api/simulationResult', authWithApiKeyRouter, simulationResultRouter);
