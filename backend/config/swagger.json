@@ -433,9 +433,9 @@
         }
       }
     },
-    "/api/userProfile/{id}": {
+    "/api/user/profile": {
       "get": {
-        "summary": "Get a user by id",
+        "summary": "Get logged in user",
         "parameters": [
           {
             "in": "header",
@@ -451,7 +451,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The user",
+            "description": "The logged in user",
             "schema": {
               "$ref": "#definitions/User"
             }
@@ -459,7 +459,7 @@
         }
       },
       "put": {
-        "summary": "Update user by id",
+        "summary": "Update logged in user",
         "parameters": [
           {
             "in": "header",
