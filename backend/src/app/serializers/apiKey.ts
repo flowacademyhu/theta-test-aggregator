@@ -1,6 +1,7 @@
 import { ApiKey } from "../models/apiKey";
 
 export interface ApiKeySerializer {
+  id: number;
   key: string;
   expires_at: string;
   created_at: string;
@@ -9,6 +10,7 @@ export interface ApiKeySerializer {
 
 export const show = (apiKey: ApiKey): ApiKey => {
   return {
+    id: apiKey.id,
     key: apiKey.key,
     expires_at: apiKey.expires_at,
     created_at: apiKey.created_at
