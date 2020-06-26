@@ -1,6 +1,6 @@
 import { User } from "../models/user";
 import { database } from "../../lib/database";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import * as userSerializer from '../serializers/user';
 import * as bcrypt from 'bcrypt';
 import { QueryBuilder } from "knex";
@@ -8,6 +8,7 @@ import { tableName } from '../../lib/tableName';
 import { limitQuery } from '../../lib/queryParamHandlers/limit';
 import { offsetQuery } from '../../lib/queryParamHandlers/offset';
 import { v4 as uuidv4 } from 'uuid';
+import { userRole } from "../../lib/enums"
 
 export const index = async (req: Request, res: Response) => {
   let query: QueryBuilder = database(tableName.USERS).select();
@@ -99,5 +100,13 @@ export const destroy = async (req: Request, res: Response) => {
   } catch(error) {
     console.error(error);
     res.sendStatus(500);
+  }
+};
+
+export const userUpdateAuthorization = (req: Request, res: Response, next: NextFunction) => {
+  if(res.locals.user.role === userRole.ADMIN || res.locals.user.id === req.params.id) {
+    next();
+  } else {
+    res.sendStatus(403);
   }
 };
