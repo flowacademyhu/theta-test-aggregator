@@ -23,6 +23,8 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { TestDetailsComponent } from './components/test-details/test-details.component';
+import { TestResolver } from './resolvers/test.resolver'
 
 
 const routes: Routes = [
@@ -32,7 +34,8 @@ const routes: Routes = [
   { path: 'profile', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'api-key-manager', component: ApiKeyManagerComponent},
-  { path: "index", component: TestResultsComponent, resolve: {tests: TestsResolver}}
+  { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}},
+  { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} }
 ];
 
 @NgModule({
@@ -50,7 +53,8 @@ const routes: Routes = [
     AddUserComponent,
     UpdateUserComponent,
     TestResultsComponent,
-    TestStatusDirective
+    TestStatusDirective,
+    TestDetailsComponent
   ],
   imports: [
     BrowserModule,
