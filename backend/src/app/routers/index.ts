@@ -12,4 +12,4 @@ router.use('/api/simulationResult', mailerRouter);
 router.use('/api/simulationResult', simulationResultRouter);
 router.use('/api/login', loginRouter);
 router.use('/api/apiKey', apiKeyRouter);
-router.use('/api/userProfile', userProfileRouter);
+router.use('/api/userProfile/:id', userProfileRouter);
