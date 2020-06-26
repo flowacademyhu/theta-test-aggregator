@@ -1,6 +1,6 @@
 import { User } from "../models/user";
 import { database } from "../../lib/database";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import * as userSerializer from '../serializers/user';
 import * as bcrypt from 'bcrypt';
 import { QueryBuilder } from "knex";
