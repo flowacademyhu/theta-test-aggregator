@@ -24,6 +24,8 @@ services:
       MAILER_PASSWORD: "${FLUID}"
       MAILER_FROM: "mailtester67@gmail.com"
       MAILER_USER: "mailtester67"
+      APIKEY_EXP_DAYS: 30
+      APIKEY_EXTENSION_DAYS: 30
     build:
       context: ./
       dockerfile: Dockerfile.development
