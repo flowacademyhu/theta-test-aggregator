@@ -3,6 +3,23 @@ import { database } from "../../lib/database";
 import { Request, Response, NextFunction } from "express";
 import * as bcrypt from 'bcrypt';
 import { tableName } from '../../lib/tableName';
+import * as userSerializer from '../serializers/user';
+
+export const show = async (req: Request, res: Response) => {
+  try {
+    const user: User = await database(tableName.USERS).select().where({ id: req.params.id }).first();
+    console.log(user);
+    if (typeof user !== 'undefined') {
+      res.json(userSerializer.show(user))
+      res.json(user);
+    } else {
+      res.sendStatus(404);
+    }
+  } catch(error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
+};
 
 const updatePassword = (req: Request, user: Partial<User>) => {
   if (req.body.password) {
