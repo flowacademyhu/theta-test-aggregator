@@ -27,7 +27,7 @@ exports.seed = async (knex) => {
       invalid: 0
     },
     {
-      id: 'brpp26c5t7ln5im1bfb0',
+      id: 'brpp26c5t7lnjgd5im1bfb0',
       triggered_by: 'Sanyika',
       branch_name: 'tests',
       start_timestamp: 1593020689662105794,
