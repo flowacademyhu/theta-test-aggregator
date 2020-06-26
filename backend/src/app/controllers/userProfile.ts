@@ -7,8 +7,7 @@ import * as userSerializer from '../serializers/user';
 
 export const show = async (req: Request, res: Response) => {
   try {
-    const user: User = await database(tableName.USERS).select().where({ id: req.params.id }).first();
-    console.log(user);
+    const user: User = res.locals.user;
     if (typeof user !== 'undefined') {
       res.json(userSerializer.show(user))
       res.json(user);
@@ -31,7 +30,7 @@ const updatePassword = (req: Request, user: Partial<User>) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const user: Partial<User> = await database(tableName.USERS).select().where({ id: req.params.id }).first();   
+    const user: Partial<User> = await database(tableName.USERS).select().where({ id: res.locals.user.id }).first();   
     if (user) {
       const newUser: Partial<User> = {
         email: req.body.email,
@@ -39,7 +38,7 @@ export const update = async (req: Request, res: Response) => {
         notification: req.body.notification
       }
       updatePassword(req, newUser);
-      await database(tableName.USERS).update(newUser).where({ id: req.params.id });
+      await database(tableName.USERS).update(newUser).where({ id: res.locals.user.id });
       res.sendStatus(200);
     } else {
       res.sendStatus(404);
@@ -47,13 +46,5 @@ export const update = async (req: Request, res: Response) => {
   } catch(error) {
     console.error(error);
     res.sendStatus(500);
-  }
-};
-
-export const userUpdateAuthorization = (req: Request, res: Response, next: NextFunction) => {
-  if(res.locals.user.id === req.params.id) {
-    next();
-  } else {
-    res.sendStatus(403);
   }
 };
