@@ -33,6 +33,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email: email, password: password })
       .pipe(
         switchMap((resp) => {
+          localStorage.clear();
+          sessionStorage.clear();
           if (isChecked) {
             localStorage.setItem('accessToken', resp.token);
             localStorage.setItem('id', resp.user.id);

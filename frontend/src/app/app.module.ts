@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { NotificationsPipe } from './pipes/notifications.pipe';
 import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AuthGuard } from './auth.guard';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -30,12 +31,13 @@ import { TestResolver } from './resolvers/test.resolver'
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}},
-  { path: 'profile', component: UserComponent },
-  { path: 'settings', component: SettingsComponent },
-  { path: 'api-key-manager', component: ApiKeyManagerComponent},
-  { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}},
-  { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} }
+  { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}, canActivate: [AuthGuard] },
+  { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard]},
+  { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}, canActivate: [AuthGuard] },
+  { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
