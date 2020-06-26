@@ -27,7 +27,6 @@ import { TestsResolver } from './resolvers/tests.resolver';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver'
 
-
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },

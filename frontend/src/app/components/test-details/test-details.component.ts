@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Test } from '../../models/test.model';
-import { TestService } from '../../services/test.service';
-import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-test-details',
@@ -20,8 +18,8 @@ export class TestDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(data => {
       this.test = data.test
-      })
-      this.result = [this.test.payload_data]
-      this.htmlString = this.test.payload_text;
+    })
+    this.result = [this.test.payload_data]
+    this.htmlString = this.test.payload_text;
   }
 }
