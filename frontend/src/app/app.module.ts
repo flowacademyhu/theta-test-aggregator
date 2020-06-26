@@ -21,6 +21,10 @@ import { ProfileUpdateModalComponent } from './modals/profile-update-modal/profi
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
+import { TestResultsComponent } from './components/test-results/test-results.component';
+import { TestStatusDirective } from './directives/test-status.directive';
+import { TestsResolver } from './resolvers/tests.resolver';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -28,7 +32,8 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}},
   { path: 'profile', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
-  { path: 'api-key-manager', component: ApiKeyManagerComponent}
+  { path: 'api-key-manager', component: ApiKeyManagerComponent},
+  { path: "index", component: TestResultsComponent, resolve: {tests: TestsResolver}}
 ];
 
 @NgModule({
@@ -45,7 +50,9 @@ const routes: Routes = [
     ApiKeyManagerComponent,
     AddUserComponent,
     UpdateUserComponent,
-    ProfileUpdateModalComponent
+    ProfileUpdateModalComponent,
+    TestResultsComponent,
+    TestStatusDirective
   ],
   imports: [
     BrowserModule,
