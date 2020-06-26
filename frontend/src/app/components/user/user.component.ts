@@ -20,20 +20,20 @@ export class UserComponent implements OnInit, DoCheck {
       data: {user: userToUpdate}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+      this.userService.fetchUser('profile').subscribe((data) => {
         this.user = data
       })
     })
   }
 
   ngOnInit(): void {
-    this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+    this.userService.fetchUser('profile').subscribe((data) => {
       this.user = data;
     });
   }
 
   ngDoCheck(): void {
-    this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+    this.userService.fetchUser('profile').subscribe((data) => {
       this.user = data;
     })
   }
