@@ -14,7 +14,6 @@ import { ApiKeyManagerComponent } from './components/api-key-manager/api-key-man
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { NotificationsPipe } from './pipes/notifications.pipe';
-import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confirm-delete-modal.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
@@ -26,7 +25,6 @@ import { UsersResolver } from './resolvers/users.resolver';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'logged-in', component: LoggedInComponent},
   { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}},
   { path: 'profile', component: UserComponent },
   { path: 'settings', component: SettingsComponent },
@@ -38,7 +36,6 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    LoggedInComponent,
     NotificationsPipe,
     UserListComponent,
     ConfirmDeleteModalComponent,
