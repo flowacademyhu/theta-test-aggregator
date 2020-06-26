@@ -432,6 +432,60 @@
           }
         }
       }
+    },
+    "/api/userProfile/{id}": {
+      "get": {
+        "summary": "Get a user by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The user",
+            "schema": {
+              "$ref": "#definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/UserProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -562,6 +616,23 @@
         },
         "expires_at": {
           "type": "string"
+        }
+      }
+    },
+    "UserProfile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "git_user": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "notification": {
+          "type": "boolean"
         }
       }
     }
