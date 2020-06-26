@@ -3,4 +3,6 @@ import * as userProfileController from '../controllers/userProfile'
 
 export const router: Router = Router({ mergeParams: true });
 
-router.put('/:id', userProfileController.userUpdateAuthorization, userProfileController.update);
+router.use(userProfileController.userUpdateAuthorization)
+router.get('/', userProfileController.show);
+router.put('/', userProfileController.update);
