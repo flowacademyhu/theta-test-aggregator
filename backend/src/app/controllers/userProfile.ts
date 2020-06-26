@@ -30,7 +30,7 @@ const updatePassword = (req: Request, user: Partial<User>) => {
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const user: Partial<User> = await database(tableName.USERS).select().where({ id: res.locals.user.id }).first();   
+    const user: Partial<User> = res.locals.user;
     if (user) {
       const newUser: Partial<User> = {
         email: req.body.email,
