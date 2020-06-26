@@ -40,19 +40,19 @@ export const show = async (req: Request, res: Response) => {
 
 const generateUUID = (): string => {
   return uuidv4();
-}
+};
 
 const createDate = (expirationInDays: number): string => {
   return moment().add(expirationInDays, 'd').format('YYYY-MM-DD HH:mm:ss');
-}
+};
 
 const getExpirationInDays = (req: Request): number => {
   if (req.query.infinite === 'true') {
     const expirationInYears = 500;
     return expirationInYears * 365;
   }
-  return +process.env.APIKEY_EXP_DAYS
-}
+  return +process.env.APIKEY_EXP_DAYS;
+};
 
 export const create = async (req: Request, res: Response) => {
   try {
