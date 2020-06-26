@@ -23,7 +23,7 @@ export class ProfileUpdateModalComponent implements OnInit {
 
   public onUpdate() {
     this.errors = null;
-    this.userService.updateUser(this.user.id, this.updateForm.value)
+    this.userService.updateUser('profile', this.updateForm.value)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         return throwError(error.error.message);
