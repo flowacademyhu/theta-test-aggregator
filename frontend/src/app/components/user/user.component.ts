@@ -9,7 +9,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit, DoCheck {
+export class UserComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private userService: UserService) { }
 
@@ -30,12 +30,6 @@ export class UserComponent implements OnInit, DoCheck {
     this.userService.fetchUser('profile').subscribe((data) => {
       this.user = data;
     });
-  }
-
-  ngDoCheck(): void {
-    this.userService.fetchUser('profile').subscribe((data) => {
-      this.user = data;
-    })
   }
 
 }
