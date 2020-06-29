@@ -24,6 +24,8 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 const routes: Routes = [
@@ -34,6 +36,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard]},
   { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}, canActivate: [AuthGuard] },
+  { path: 'statistics', component: StatisticsComponent},
   { path: '**', redirectTo: '' }
 ];
 
@@ -52,7 +55,8 @@ const routes: Routes = [
     AddUserComponent,
     UpdateUserComponent,
     TestResultsComponent,
-    TestStatusDirective
+    TestStatusDirective,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +66,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    GoogleChartsModule
   ],
   exports: [RouterModule],
   providers: [

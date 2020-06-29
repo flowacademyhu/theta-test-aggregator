@@ -1,0 +1,16 @@
+<label for="method">Method: </label>
+<select name="method" [(ngModel)]="method">
+  <option value="POST">POST</option>
+  <option value="GET">GET</option>
+  <option value="PUT">PUT</option>
+</select>
+<label for="endpoint">Endpoint: </label>
+<input type="text" [(ngModel)]="endpoint">
+<button (click)="showStatistics()">Show</button>
+<google-chart 
+type='ColumnChart' 
+[data]="myData" 
+[columns]="chartColumns" 
+[height]="height" 
+[width]="width">
+</google-chart>
