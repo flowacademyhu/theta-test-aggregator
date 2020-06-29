@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Test } from '../models/test.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { FilterParamsModel } from "../models/filter-params-model";
 
 @Injectable({
