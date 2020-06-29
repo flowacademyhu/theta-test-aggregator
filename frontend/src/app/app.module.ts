@@ -24,7 +24,8 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
-
+import { TestDetailsComponent } from './components/test-details/test-details.component';
+import { TestResolver } from './resolvers/test.resolver'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard]},
   { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}, canActivate: [AuthGuard] },
+  { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
   { path: '**', redirectTo: '' }
 ];
 
@@ -52,7 +54,8 @@ const routes: Routes = [
     AddUserComponent,
     UpdateUserComponent,
     TestResultsComponent,
-    TestStatusDirective
+    TestStatusDirective,
+    TestDetailsComponent
   ],
   imports: [
     BrowserModule,
