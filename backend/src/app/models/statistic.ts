@@ -3,4 +3,4 @@ export interface Statistic {
   method: string,
   endpoint: string,
   measurement: number 
-}
+};
