@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Test } from '../models/test.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {HttpClient, HttpParams} from '@angular/common/http'
-import {FilterParamsModel} from "../models/filter-params-model";
+import { HttpClient, HttpParams } from '@angular/common/http'
+import { FilterParamsModel } from "../models/filter-params-model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class TestService {
     let params = new HttpParams();
 
     if (requestParams !== null) {
-      Object.keys(requestParams).sort().forEach(key => {
+      Object.keys(requestParams).forEach(key => {
         const value = requestParams[key];
         if (value !== null) {
           params = params.set(key, value.toString());
@@ -25,7 +25,7 @@ export class TestService {
     }
     return this.http.get<Test[]>(environment.baseUrl + 'simulationResult', {
       params: params
-    })
+    });
   }
 
   public fetchTest(id: string): Observable<Test> {

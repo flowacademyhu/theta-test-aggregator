@@ -1,7 +1,6 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
-import {TestService} from "../../services/test.service";
-import {FilterParamsModel} from "../../models/filter-params-model";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from "@angular/forms";
+import { FilterParamsModel } from "../../models/filter-params-model";
 
 @Component({
   selector: 'app-filters',
@@ -24,22 +23,22 @@ import {FilterParamsModel} from "../../models/filter-params-model";
 })
 export class FiltersComponent implements OnInit {
   @Output() filters: EventEmitter<FilterParamsModel> = new EventEmitter<FilterParamsModel>();
-
   public filterForm: FormGroup;
+
   constructor() { }
+
   ngOnInit(): void {
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
       commit_hash: new FormControl(null)
-    })
+    });
   }
 
-  onSearch() {
-    console.log(this.filterForm.value);
+  onSearch(): void {
     this.filters.emit(this.filterForm.value);
   }
 
-  onReset() {
+  onReset(): void {
     this.filterForm.reset();
     this.filters.emit(this.filterForm.value);
   }
