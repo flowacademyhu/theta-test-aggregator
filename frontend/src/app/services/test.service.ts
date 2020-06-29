@@ -18,4 +18,8 @@ export class TestService {
   public fetchTest(id: string): Observable<Test> {
     return this.http.get<Test>(environment.baseUrl + `simulationResult/${id}`);
   }
+
+  public fetchTestsByFilter(filter: string){
+    return this.http.get<Test[]>(environment.baseUrl + `simulationresult?status=${filter}`)
+  }
 }

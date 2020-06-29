@@ -1,3 +1,8 @@
+<button mat-raised-button (click)="fetchTestsByFilter('SUCCES')">Success</button>
+<button mat-raised-button (click)="fetchTestsByFilter('ERROR')">Error</button>
+<button mat-raised-button (click)="fetchTestsByFilter('FAILED')">Failed</button>
+<button mat-raised-button (click)="removeFilter()">All</button>
+
 <div>
   <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
