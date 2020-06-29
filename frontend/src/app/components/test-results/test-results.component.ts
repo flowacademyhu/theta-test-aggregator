@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import { Test } from 'src/app/models/test.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { TestsResolver } from 'src/app/resolvers/tests.resolver';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -57,13 +55,11 @@ export class TestResultsComponent implements OnInit, AfterViewInit {
         console.log("Error: "+error)
       });
     }
-    applyFilter(filterValue: string){
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-  
-      if(this.dataSource.paginator)
-      {
-        this.dataSource.paginator.firstPage();
-      }
+  applyFilter(filterValue: string){
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if(this.dataSource.paginator)
+    {
+      this.dataSource.paginator.firstPage();
     }
-
+  }
 }
