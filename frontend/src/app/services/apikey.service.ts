@@ -1,53 +1,34 @@
 import { Injectable } from '@angular/core';
 import { ApiKey } from '../models/apiKey-model';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApikeyService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  public apikeys: ApiKey[] = [
-    {
-      id: 1,
-      key: 'abc123',
-      expires_at: '20210101',
-      created_at: '20200624'
-    },
-    {
-      id: 2,
-      key: 'abc123',
-      expires_at: '20210102',
-      created_at: '20200625'
-    }
-  ]
-
-  apikeys$: BehaviorSubject<ApiKey[]> = new BehaviorSubject<ApiKey[]>(this.apikeys);
-
-  public deleteApiKey (id: number) {
-    const index: number = this.apikeys.findIndex(u => u.id === id);
-    this.apikeys.splice(index, 1);
-    this.apikeys$.next([...this.apikeys]);
+  public fetchApiKeys(): Observable<ApiKey[]>{
+    return this.http.get<ApiKey[]>(environment.baseUrl + 'apiKey');
   }
 
-  public fetchOtherApiKeys(id: number): ApiKey[] {
-    return [...this.apikeys].filter(u => u.id !== id);
+  public fetchApiKey(id: number): Observable<ApiKey> {
+    return this.http.get<ApiKey>(environment.baseUrl + `apiKey/${id}`);
   }
 
-  public fetchApiKeys(): ApiKey[] {
-    return [...this.apikeys];
+  public addApiKey(apikey: ApiKey): Observable<ApiKey> {
+    return this.http.post<ApiKey>(environment.baseUrl + 'apiKey', apikey).pipe(tap(() => this.fetchApiKeys()));
   }
 
-  public addApiKey(apikey: ApiKey) {
-    this.apikeys.push(apikey);
-    this.apikeys$.next([...this.apikeys]);
+  public updateApiKey(id: number): Observable<ApiKey> {
+    return this.http.put<ApiKey>(environment.baseUrl + `apiKey/${id}`, {});
   }
 
-  public updateApiKey(id: number, apikey: ApiKey) {
-    const index = this.apikeys.findIndex(u => u.id === id);
-    this.apikeys[index] = apikey;
-    this.apikeys$.next([...this.apikeys]);
+  public deleteApiKey(id: number): Observable<ApiKey> {
+    return this.http.delete<ApiKey>(environment.baseUrl + `apiKey/${id}`).pipe(tap(() => this.fetchApiKeys()));
   }
 }
