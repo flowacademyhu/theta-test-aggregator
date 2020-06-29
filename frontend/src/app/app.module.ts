@@ -24,6 +24,7 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { FiltersComponent } from './components/filters/filters.component';
 
 
 const routes: Routes = [
@@ -52,7 +53,8 @@ const routes: Routes = [
     AddUserComponent,
     UpdateUserComponent,
     TestResultsComponent,
-    TestStatusDirective
+    TestStatusDirective,
+    FiltersComponent
   ],
   imports: [
     BrowserModule,
