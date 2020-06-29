@@ -1,5 +1,6 @@
+
 <div>
-  <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
+  <mat-card *ngFor="let test of dataSource._renderData._value" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
     <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p>
     </mat-card-header>
@@ -7,5 +8,6 @@
     <p class="description">Triggered by: {{test.triggered_by}}</p>
     </mat-card-content>
   </mat-card>
+  <mat-paginator #paginator [pageSize]="2" [pageSizeOptions]="[2, 5, 10, 25, 50]">
+  </mat-paginator>
 </div>
-
