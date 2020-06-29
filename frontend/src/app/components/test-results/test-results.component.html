@@ -1,8 +1,14 @@
-<button mat-raised-button (click)="fetchTestsByFilter('SUCCES')">Success</button>
-<button mat-raised-button (click)="fetchTestsByFilter('ERROR')">Error</button>
-<button mat-raised-button (click)="fetchTestsByFilter('FAILED')">Failed</button>
-<button mat-raised-button (click)="removeFilter()">All</button>
-
+<mat-toolbar class="navbar">
+  <mat-form-field class="formField">
+    <mat-label class="selectLabel">Results by status</mat-label>
+    <mat-select>
+      <mat-option value="All" (click)="removeFilter()">All</mat-option>
+      <mat-option value="Success" (click)="fetchTestsByFilter('SUCCES')">Success</mat-option>
+      <mat-option value="Error" (click)="fetchTestsByFilter('ERROR')">Error</mat-option>
+      <mat-option value="Failed" (click)="fetchTestsByFilter('FAILED')">Failed</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-toolbar>
 <div>
   <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
@@ -13,4 +19,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-
