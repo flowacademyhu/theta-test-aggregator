@@ -21,3 +21,8 @@ export enum Method {
   put = 'PUT',
   destroy = 'DELETE'
 };
+
+export enum StatisticValidity {
+  VALID = 0,
+  INVALID = 1
+}
