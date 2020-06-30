@@ -24,6 +24,8 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { SaveFilterModalComponent } from './modals/save-filter-modal/save-filter-modal.component';
+import { LoadFilterModalComponent } from './modals/load-filter-modal/load-filter-modal.component';
 
 
 const routes: Routes = [
@@ -52,7 +54,9 @@ const routes: Routes = [
     AddUserComponent,
     UpdateUserComponent,
     TestResultsComponent,
-    TestStatusDirective
+    TestStatusDirective,
+    SaveFilterModalComponent,
+    LoadFilterModalComponent
   ],
   imports: [
     BrowserModule,

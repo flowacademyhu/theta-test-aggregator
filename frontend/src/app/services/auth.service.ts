@@ -21,10 +21,17 @@ export class AuthService {
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
-      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
-        this.loggedInUser$.next(data);
-        return this.loggedInUser$;
-      });
+      if (localStorage.getItem('id')) {
+        this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+          this.loggedInUser$.next(data);
+          return this.loggedInUser$;
+        });
+      } else {
+        this.userService.fetchUser(sessionStorage.getItem('id')).subscribe((data) => {
+          this.loggedInUser$.next(data);
+          return this.loggedInUser$;
+        });
+      }
     }
     return this.loggedInUser$;
   }
