@@ -39,7 +39,6 @@ export class TestResultsComponent implements OnInit {
       this.tests$.next(tests);
       this.dataSource.data=this.tests$.getValue()
     }));
-    console.log(this.dataSource)
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
