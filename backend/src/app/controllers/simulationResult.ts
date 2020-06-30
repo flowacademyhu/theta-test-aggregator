@@ -8,6 +8,7 @@ import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
 import { SimulationResultValidity } from "../../lib/enums";
 import { SimulationResultStatus } from "../../lib/enums";
+import * as statistic from "../controllers/statistic";
 
 export const index = async (req: Request, res: Response) => {
   try {
@@ -95,6 +96,11 @@ export const update = async (req: Request, res: Response) => {
     if (initializedSimulationResult) {
       const updatedSimulationResult: SimulationResult = getUpdatedSimulationResult(req);
       await database(tableName.SIMULATION_RESULTS).update(updatedSimulationResult).where({ id: req.params.id });
+      try{
+      statistic.create(updatedSimulationResult);
+      } catch (error) {
+        res.sendStatus(500);
+      }
       res.sendStatus(200);
     } else {
       res.sendStatus(404);
@@ -125,6 +131,7 @@ export const invalidate = async (req: Request, res: Response) => {
     const simulation_result: Partial<SimulationResult> = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
     if (simulation_result) {
       await database(tableName.SIMULATION_RESULTS).where({ id: req.params.id }).update({ invalid: SimulationResultValidity.INVALID });
+      statistic.invalidate(simulation_result);
       res.sendStatus(200);
     } else { 
       res.sendStatus(404);
