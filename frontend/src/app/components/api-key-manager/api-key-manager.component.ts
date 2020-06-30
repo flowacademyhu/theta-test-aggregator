@@ -53,6 +53,10 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
     });
   }
   public addApikey(apikey) {
-    
+    this.apiKeyService.addApiKey(apikey).subscribe(() => {
+      this.apiKeyService.fetchApiKeys().subscribe((data) => {
+        this.apikeys = data;
+      });
+    });
   }
 }
