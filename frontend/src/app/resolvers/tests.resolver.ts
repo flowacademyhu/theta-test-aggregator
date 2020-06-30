@@ -9,6 +9,6 @@ export class TestsResolver implements Resolve<any> {
   constructor(private testService: TestService) {}
 
   public resolve (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.testService.fetchTests();
+    return this.testService.fetchTests(null);
   }
 }

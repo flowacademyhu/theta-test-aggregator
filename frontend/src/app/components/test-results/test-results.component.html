@@ -1,5 +1,7 @@
-
 <div>
+  <div>
+    <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
+  </div>
   <mat-card *ngFor="let test of dataSource._renderData._value" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
     <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p>

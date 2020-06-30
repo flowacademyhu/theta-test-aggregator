@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { TestService } from 'src/app/services/test.service';
 import { Test } from 'src/app/models/test.model';
+import { FilterParamsModel } from 'src/app/models/filter-params-model';
 
 @Component({
   selector: 'app-test-results',
@@ -16,21 +16,18 @@ import { Test } from 'src/app/models/test.model';
 
 export class TestResultsComponent implements OnInit {
 
-
-  constructor( private route: ActivatedRoute, private authService: AuthService, private testService: TestService) {
+  constructor( private route: ActivatedRoute, private testService: TestService) {
   }
-  public tests: Test[];
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  dataSource = new MatTableDataSource<Test>(this.tests);
-  public user;
+  dataSource = new MatTableDataSource<Test>();
 
    ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
+    }
 
+  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   subscriptions$: Subscription[] = [];
 
   ngOnDestroy(): void {
@@ -38,14 +35,16 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
-      this.tests=data.tests;
-      this.dataSource.data=this.tests;
-      console.log(this.dataSource)
-    });
-    this.authService.getCurrentUser().subscribe((data) => {this.user = data});
-    this.dataSource.paginator=this.paginator;
-    console.log(this.tests)
+    this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
+      this.tests$.next(tests);
+      this.dataSource.data=this.tests$.getValue()
+    }));
     console.log(this.dataSource)
+  }
+
+  fetchTestsByFilter(filters: FilterParamsModel) {
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((tests) => {
+      this.tests$.next(tests);
+    }));
   }
 }

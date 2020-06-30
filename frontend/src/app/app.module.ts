@@ -18,14 +18,16 @@ import { ConfirmDeleteModalComponent } from './modals/confirm-delete-modal/confi
 import { AuthGuard } from './auth.guard';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { UpdateUserComponent } from './components/update-user/update-user.component';
+import { ProfileUpdateModalComponent } from './modals/profile-update-modal/profile-update-modal.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
-import { TestResolver } from './resolvers/test.resolver'
+import { TestResolver } from './resolvers/test.resolver';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -53,8 +55,10 @@ const routes: Routes = [
     ApiKeyManagerComponent,
     AddUserComponent,
     UpdateUserComponent,
+    ProfileUpdateModalComponent,
     TestResultsComponent,
     TestStatusDirective,
+    FiltersComponent,
     TestDetailsComponent
   ],
   imports: [
