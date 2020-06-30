@@ -28,7 +28,8 @@ import { TestsResolver } from './resolvers/tests.resolver';
 import { ApiKeyResolver } from './resolvers/apiKeys.resolver';
 
 import { TestDetailsComponent } from './components/test-details/test-details.component';
-import { TestResolver } from './resolvers/test.resolver'
+import { TestResolver } from './resolvers/test.resolver';
+import { AddApikeyModalComponent } from './modals/add-apikey-modal/add-apikey-modal.component'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -59,7 +60,8 @@ const routes: Routes = [
     ProfileUpdateModalComponent,
     TestResultsComponent,
     TestStatusDirective,
-    TestDetailsComponent
+    TestDetailsComponent,
+    AddApikeyModalComponent
   ],
   imports: [
     BrowserModule,
