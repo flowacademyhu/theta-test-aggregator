@@ -21,7 +21,7 @@ export class AuthService {
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
-      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+      this.userService.fetchUser('profile').subscribe((data) => {
         this.loggedInUser$.next(data);
         return this.loggedInUser$;
       });
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   public login(email: string, password: string, isChecked: boolean) {
-    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email: email, password: password })
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email, password })
       .pipe(
         switchMap((resp) => {
           localStorage.clear();
