@@ -8,15 +8,23 @@ import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
 import { SimulationResultValidity } from "../../lib/enums";
 import { SimulationResultStatus } from "../../lib/enums";
+import * as simulationResultSerializer from '../serializers/simulationResult'
+
+interface CountQuery {
+  'count(*)': number;
+}
 
 export const index = async (req: Request, res: Response) => {
   try {
     let query: QueryBuilder = database(tableName.SIMULATION_RESULTS).select();
+    let countQuery: QueryBuilder = database(tableName.SIMULATION_RESULTS).count();
     query = limitQuery(req, query);
     query = offsetQuery(req, query);
     query = filterHandler(req, query);
+    countQuery = filterHandler(req, countQuery);
     const simulationResults: Array<SimulationResult> = await query;
-    res.json(simulationResults);
+    const count: CountQuery = await countQuery.first();
+    res.json(simulationResultSerializer.index(count["count(*)"], simulationResults));
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
@@ -27,7 +35,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const simulationResult: SimulationResult = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
     if (simulationResult) {
-      res.json(simulationResult);
+      res.json(simulationResultSerializer.show(simulationResult));
     } else {
       res.sendStatus(404);
     }
