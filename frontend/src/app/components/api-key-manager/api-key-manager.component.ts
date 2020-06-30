@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApikeyService } from '../../services/apikey.service';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
+import { AddApikeyModalComponent } from 'src/app/modals/add-apikey-modal/add-apikey-modal.component';
 
 @Component({
   selector: 'app-api-key-manager',
@@ -52,10 +53,13 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
       });
     });
   }
-  public addApikey(apikey) {
-    this.apiKeyService.addApiKey(apikey).subscribe(() => {
-      this.apiKeyService.fetchApiKeys().subscribe((data) => {
-        this.apikeys = data;
+  public toggleAddApikey() {
+    const dialogRef = this.dialog.open(AddApikeyModalComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+        this.apiKeyService.addApiKey(result ? 'true' : 'false').subscribe(() => {
+          this.apiKeyService.fetchApiKeys().subscribe((data) => {
+            this.apikeys = data;
+        });
       });
     });
   }
