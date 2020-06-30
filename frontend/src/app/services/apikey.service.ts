@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiKey } from '../models/apiKey-model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -20,11 +20,16 @@ export class ApikeyService {
     return this.http.get<ApiKey>(environment.baseUrl + `apiKey/${id}`);
   }
 
-  public addApiKey(apikey: ApiKey): Observable<ApiKey> {
-    return this.http.post<ApiKey>(environment.baseUrl + 'apiKey', apikey).pipe(tap(() => this.fetchApiKeys()));
+  public addApiKey(infinite: string): Observable<ApiKey> {
+    return this.http.post<ApiKey>(environment.baseUrl + 'apiKey', {
+      params: {
+        infinite: `${infinite}`
+      }
+    }).pipe(tap(() => this.fetchApiKeys()));
   }
 
   public updateApiKey(id: number): Observable<ApiKey> {
+    // const headers = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.put<ApiKey>(environment.baseUrl + `apiKey/${id}`, {});
   }
 
