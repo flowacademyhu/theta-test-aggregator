@@ -25,8 +25,9 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { TestsResolver } from './resolvers/tests.resolver';
+import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
-import { TestResolver } from './resolvers/test.resolver'
+import { TestResolver } from './resolvers/test.resolver';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -57,6 +58,7 @@ const routes: Routes = [
     ProfileUpdateModalComponent,
     TestResultsComponent,
     TestStatusDirective,
+    FiltersComponent,
     TestDetailsComponent
   ],
   imports: [
