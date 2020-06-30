@@ -1,0 +1,145 @@
+.header {
+  margin: 30pt;
+  background-color: #243441;
+}
+
+.header:hover {
+  margin: 30pt;
+  background-color: #2f4455;
+}
+
+.title {
+  color: whitesmoke;
+  margin: 0pt;
+  font-weight: bold;
+  font-size: 20pt;
+}
+
+.user-data {
+  color: whitesmoke;
+}
+
+mat-panel-title,
+mat-panel-description,
+span {
+  display: block;
+}
+
+.branch-name {
+  margin: 30pt;
+  font-weight: bolder;
+  font-size: 26pt;
+  color: whitesmoke;
+}
+
+::ng-deep.success {
+  font-size: 18pt;
+  color: rgb(85, 158, 95);
+}
+
+::ng-deep.error-message{
+  font-size: 12pt;
+  color: lightgray;
+}
+
+::ng-deep.failed-endpoint{
+  font-size: 12pt;
+  font-style: italic;
+  font-weight: bold;
+  color: lightgray;
+  margin: 15pt;
+}
+::ng-deep.failed-endpoint::before{
+  content: "Endpoint: ";
+  font-weight: bold;
+  font-size: 18pt;
+  color: white;
+}
+
+::ng-deep.failed-status-code{
+  font-size: 12pt;
+  color: yellow;
+  margin: 15pt;
+}
+
+::ng-deep.failed-status-code::before{
+  content: "Status code: ";
+  font-weight: bold;
+  font-size: 18pt;
+  color: white;
+}
+
+::ng-deep.failed-message{
+  font-size: 12pt;
+  font-style: italic;
+  color: lightgray;
+  margin: 15pt;
+}
+
+::ng-deep.failed-message::before{
+  content: "Message: ";
+  font-weight: bold;
+  font-size: 18pt;
+  color: white;
+}
+
+::ng-deep.failed-request{
+  font-size: 12pt;
+  font-style: italic;
+  color: rgb(231, 225, 225);
+  margin: 15pt;
+}
+
+::ng-deep.failed-request::before{
+  content: "Request: ";
+  font-weight: bold;
+  font-size: 18pt;
+  color: white;
+}
+
+::ng-deep.failed-response{
+font-size: 12pt;
+font-style: italic;
+color: lightgray;
+margin: 15pt;
+}
+
+::ng-deep.failed-response::before{
+content: "Response: ";
+font-weight: bold;
+font-size: 18pt;
+color: white;
+}
+
+::ng-deep.error{
+  font-size: 20pt;
+  color: rgb(221, 167, 19);
+}
+
+::ng-deep.failed{
+  font-size: 20pt;
+  color: rgb(212, 32, 32);
+}
+
+.test-data{
+  color: whitesmoke;
+}
+
+td {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+.testResultLogs {
+  opacity: 0.7;
+}
+
+table {
+  border-spacing: 20pt;
+}
+
+.header:not([class*=mat-elevation-z]) {
+  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
+              0pt 0pt 5pt 0pt rgb(124, 123, 123), 
+              0pt 0pt 5pt 0pt rgb(146, 146, 146);
+}
