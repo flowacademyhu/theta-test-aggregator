@@ -6,7 +6,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SaveFilterModalComponent } from 'src/app/modals/save-filter-modal/save-filter-modal.component';
 import { LoadFilterModalComponent } from 'src/app/modals/load-filter-modal/load-filter-modal.component';
-
+import { TestService } from '../../services/test.service';
+import { FilterParamsModel } from '../../models/filter-params-model';
 
 @Component({
   selector: 'app-test-results',
@@ -16,10 +17,12 @@ import { LoadFilterModalComponent } from 'src/app/modals/load-filter-modal/load-
 
 export class TestResultsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private dialog: MatDialog) {
-  }
-
-  public user;
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private testService: TestService,
+    private dialog: MatDialog
+  ) { }
 
   public tests: Test[];
   subscriptions$: Subscription[] = [];
@@ -32,10 +35,13 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
+    this.subscriptions$.push(this.route.data.subscribe((data) => {
       this.tests = data.tests;
-    }),
-      this.authService.getCurrentUser().subscribe((data) => { this.user = data; });
+    }));
+  }
+
+  fetchTestsByFilter(filters: FilterParamsModel) {
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) => { this.tests = data; }));
   }
 
   openSaveDialog() {
@@ -54,4 +60,5 @@ export class TestResultsComponent implements OnInit {
   loadFilter() {
     return this.filterArray[0];
   }
+
 }
