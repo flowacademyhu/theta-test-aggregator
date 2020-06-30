@@ -1,1 +1,18 @@
-<p>user works!</p>
+<mat-card class="card">
+  <mat-card-header class="header">
+    <mat-card-title>
+      <p class="title">{{user.git_user}}</p>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <p class="subtitle">{{user.role}}</p>
+    </mat-card-subtitle>
+    <img mat-card-avatar src="../../../assets/avatar.png">
+  </mat-card-header>
+  <mat-card-content class="content">
+    <span class="fieldname">Email address:</span> <span class="data"> {{user.email}}</span><br>
+    <span class="fieldname">Notifications:</span><span class="data"> {{user.notification | notifications}}</span>
+  </mat-card-content>
+  <mat-action-row class="action-row">
+    <button mat-raised-button color="primary" (click)="toggleProfileUpdateModal(user)">Update</button>
+  </mat-action-row>
+</mat-card>

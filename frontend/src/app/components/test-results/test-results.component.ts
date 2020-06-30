@@ -13,13 +13,10 @@ import { FilterParamsModel } from "../../models/filter-params-model";
 
 export class TestResultsComponent implements OnInit {
 
-  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
-
   constructor( private route: ActivatedRoute, private testService: TestService) {
   }
 
-  public filters = null;
-  public fragment: string;
+  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   subscriptions$: Subscription[] = [];
 
   ngOnDestroy(): void {
@@ -27,13 +24,13 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.testService.fetchTests(null).subscribe((tests) => {
+    this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
       this.tests$.next(tests);
-    });
+    }));
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
-    this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((tests) => {
       this.tests$.next(tests);
     }));
   }
