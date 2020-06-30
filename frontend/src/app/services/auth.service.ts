@@ -3,10 +3,10 @@ import { User } from '../models/user.model';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { environment } from 'src/environments/environment';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
