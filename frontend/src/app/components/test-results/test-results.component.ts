@@ -2,7 +2,6 @@ import { Component, OnInit} from '@angular/core';
 import { Test } from 'src/app/models/test.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { TestService } from "../../services/test.service";
 import { FilterParamsModel } from "../../models/filter-params-model";
 
@@ -14,10 +13,8 @@ import { FilterParamsModel } from "../../models/filter-params-model";
 
 export class TestResultsComponent implements OnInit {
 
-  constructor( private route: ActivatedRoute, private authService: AuthService, private testService: TestService) {
+  constructor( private route: ActivatedRoute, private testService: TestService) {
   }
-
-  public user;
 
   public tests: Test[];
   subscriptions$: Subscription[] = [];
@@ -27,14 +24,12 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe((data) => {
+    this.subscriptions$.push(this.route.data.subscribe((data) => {
       this.tests=data.tests;
-    });
-    this.authService.getCurrentUser().subscribe((data) => {this.user = data});
+    }));
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
-    console.log(filters);
-    this.testService.fetchTests(filters).subscribe((data) =>  {this.tests = data});
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) =>  {this.tests = data}));
   }
 }
