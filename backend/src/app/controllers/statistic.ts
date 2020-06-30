@@ -68,24 +68,27 @@ export const convertMeasurement = (measurementAsString: string): number => {  //
 
 export const create = async (simulationResult: SimulationResult) => {
   try {
-    const payload_data = Object.entries(JSON.parse(simulationResult.payload_data));
+    const payload_data = JSON.parse(simulationResult.payload_data);
     const start_timestamp = simulationResult.start_timestamp;
-    for (let data of payload_data) {
-      const stage = data[1][0];
-      const methodEndpoint = stage.endpoint.split(" ");
-      const method = methodEndpoint[0];
-      const fullEndpoint = methodEndpoint[1].split("/api");
-      const endpoint = "/api" + fullEndpoint[1];
-      const measurement = convertMeasurement(stage.measurement);
-      const statistic: Statistic = {
-        simulation_result_id: simulationResult.id,
-        start_timestamp: start_timestamp,
-        method: method,
-        endpoint: endpoint,
-        measurement: measurement,
-        invalid: StatisticValidity.VALID
+    for (let stage of Object.keys(payload_data)) {
+      for (let i = 0; i < payload_data[stage].length; i++) {
+        if (payload_data[stage][i].measurement !== '') {
+          const methodEndpoint = payload_data[stage][i].endpoint.split(" ");
+          const method = methodEndpoint[0];
+          const fullEndpoint = methodEndpoint[1].split("/api/");
+          const endpoint = "/api/" + fullEndpoint[1];
+          const measurement = convertMeasurement(payload_data[stage][i].measurement);
+          const statistic: Statistic = {
+            simulation_result_id: simulationResult.id,
+            start_timestamp: start_timestamp,
+            method: method,
+            endpoint: endpoint,
+            measurement: measurement,
+            invalid: StatisticValidity.VALID
+          }
+          await database(tableName.STATISTICS).insert(statistic);
+        }
       }
-      await database(tableName.STATISTICS).insert(statistic);
     }
   } catch (error) {
     console.log(error);
