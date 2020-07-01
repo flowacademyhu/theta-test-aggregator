@@ -63,6 +63,7 @@ import { FilterParamsModel } from "../../models/filter-params-model";
     .mat-form-field {
       margin-right: 10pt;
       margin-left: 10pt;
+      color: #aeb0b1;
     }
     .mat-raised-button{
       margin-right: 10pt;

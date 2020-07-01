@@ -10,7 +10,7 @@ export class TestStatusDirective {
       case ('SUCCESS'):
         this.color = this.succeedColor;
         break;
-      case ("FAILED"):
+      case ('FAILED'):
         this.color = this.failedColor;
         break;
       case('ERROR'):
