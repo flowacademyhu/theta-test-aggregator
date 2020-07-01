@@ -33,3 +33,20 @@
 .desc {
   margin-left: 30pt;
 }
+
+.navbar {
+  height: 50pt;
+  display: block;
+  padding: 5px 10px;
+  background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
+}
+
+.formField {
+  padding: 0;
+  margin: 0;
+  vertical-align: bottom;
+}
+
+.mat-form-field-infix  {  
+  opacity: 0;
+} 

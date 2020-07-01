@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
 import { Test } from 'src/app/models/test.model';
-import { Subscription } from 'rxjs';
+import { Subscription, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { TestService } from "../../services/test.service";
+import { TestService } from 'src/app/services/test.service';
 import { FilterParamsModel } from "../../models/filter-params-model";
 
 @Component({
@@ -16,7 +16,7 @@ export class TestResultsComponent implements OnInit {
   constructor( private route: ActivatedRoute, private testService: TestService) {
   }
 
-  public tests: Test[];
+  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   subscriptions$: Subscription[] = [];
 
   ngOnDestroy(): void {
@@ -24,12 +24,14 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscriptions$.push(this.route.data.subscribe((data) => {
-      this.tests=data.tests;
+    this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
+      this.tests$.next(tests);
     }));
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
-    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) =>  {this.tests = data}));
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((tests) => {
+      this.tests$.next(tests);
+    }));
   }
 }
