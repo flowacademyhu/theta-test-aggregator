@@ -3,4 +3,5 @@ export interface FilterParamsModel {
   commit_hash?: string;
   started_after?: number;
   started_before?: number; 
+  status?: 'SUCCESS' | 'FAILED' | 'ERROR' | 'UNKNOWN';
 }

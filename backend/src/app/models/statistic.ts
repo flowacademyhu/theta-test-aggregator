@@ -1,7 +1,7 @@
 import { StatisticValidity } from "../../lib/enums";
 
-export interface Statistics {
-  id: number;
+export interface Statistic {
+  id?: number;
   simulation_result_id: string;
   start_timestamp: number;
   method: string;
