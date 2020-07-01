@@ -1,13 +1,13 @@
-import { Statistic } from "../models/statistic";
-import { database } from "../../lib/database";
-import { Request, Response } from "express";
-import { tableName } from "../../lib/tableName";
+import { Statistic } from '../models/statistic';
+import { database } from '../../lib/database';
+import { Request, Response } from 'express';
+import { tableName } from '../../lib/tableName';
 import * as statisticSerializer from '../serializers/statistic';
 import { StatisticValidity } from '../../lib/enums';
-import { QueryBuilder } from "knex";
-import { limitQuery } from "../../lib/queryParamHandlers/limit";
-import { offsetQuery } from "../../lib/queryParamHandlers/offset";
-import { SimulationResult } from "../models/simulationResult";
+import { QueryBuilder } from 'knex';
+import { limitQuery } from '../../lib/queryParamHandlers/limit';
+import { offsetQuery } from '../../lib/queryParamHandlers/offset';
+import { SimulationResult } from '../models/simulationResult';
 
 export const index = async (req: Request, res: Response) => {
   try{
@@ -50,7 +50,7 @@ export const showStatisticsByEndpointAndMethod = async (req: Request, res: Respo
   }
 };
 
-export const convertMeasurement = (measurementAsString: string): number => {  // 1234.55ms
+const convertMeasurement = (measurementAsString: string): number => {  // 1234.55ms
   const index = measurementAsString.search(/[a-zA-Z]+/);
   let measurementValue = parseFloat(measurementAsString.substring(0, index));
   const measurementTimeUnit = measurementAsString.substring(index, measurementAsString.length);
