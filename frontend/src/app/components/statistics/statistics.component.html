@@ -7,10 +7,6 @@
 <label for="endpoint">Endpoint: </label>
 <input type="text" [(ngModel)]="endpoint">
 <button (click)="showStatistics()">Show</button>
-<google-chart 
-type='ColumnChart' 
-[data]="myData" 
-[columns]="chartColumns" 
-[height]="height" 
-[width]="width">
-</google-chart>
+<div style="display:block;">
+  <canvas baseChart
+</div>

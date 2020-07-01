@@ -1,6 +1,9 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Statistic } from 'src/app/models/statistic.model';
 import { StatisticsService } from 'src/app/services/statistics.service';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+import { TypeScriptEmitter } from '@angular/compiler';
 
 @Component({
   selector: 'app-statistics',
@@ -11,6 +14,15 @@ export class StatisticsComponent implements OnInit {
 
   constructor(private statisticsService: StatisticsService) { }
   
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+  };
+
+  public barChartLabels: Label[];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+  public barChartPlugins = [];
+
   public statistics: Statistic[];
 
   public myData = [];
