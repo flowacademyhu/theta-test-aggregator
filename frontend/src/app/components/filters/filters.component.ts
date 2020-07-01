@@ -58,9 +58,19 @@ import { FilterParamsModel } from "../../models/filter-params-model";
     }
     
     ::ng-deep .mat-option{
-      color: whitesmoke; 
-    }`
-  ]
+      color: whitesmoke;
+    }
+    .mat-form-field {
+      margin-right: 10pt;
+      margin-left: 10pt;
+    }
+    .mat-raised-button{
+      margin-right: 10pt;
+      margin-left: 10pt;
+      height: 30pt;
+      font-size: 13pt
+    }
+    `]
 })
 export class FiltersComponent implements OnInit {
   @Output() filters: EventEmitter<FilterParamsModel> = new EventEmitter<FilterParamsModel>();
