@@ -3,7 +3,5 @@ import * as statisticController from '../controllers/statistic';
 
 export const router: Router = Router({ mergeParams: true});
 
-router.get('/');
-router.get('/:id');
-router.get('/:endpoint/:method');
-router.delete('/:id');
+router.get('/', statisticController.index);
+router.get('/:id', statisticController.show);
