@@ -15,4 +15,4 @@ router.use('/api/simulationResult', mailerRouter);
 router.use('/api/simulationResult', authWithApiKeyRouter, simulationResultRouter);
 router.use('/api/login', loginRouter);
 router.use('/api/apiKey', apiKeyRouter);
-router.use('/api/statistics', statisticRouter);
+router.use('/api/statistic', statisticRouter);
