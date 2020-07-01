@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { FilterParamsModel } from "../../models/filter-params-model";
-import { stripGeneratedFileSuffix } from '@angular/compiler/src/aot/util';
 
 
 
@@ -55,14 +54,6 @@ export class FiltersComponent implements OnInit {
   }
 
   onSearch(): void {
-    if (this.filterForm.value.started_after && this.filterForm.value.started_before) {
-    let startAfterTimeStamp = new Date(this.filterForm.value.started_after).getTime();
-    let startBeforeTimeStamp = new Date(this.filterForm.value.started_before).getTime();
-    this.filterForm.patchValue({
-      started_after: `${startAfterTimeStamp*1000000}`,
-      started_before: `${startBeforeTimeStamp*1000000}`
-    })
-  }
     this.filters.emit(this.filterForm.value);
   }
 
