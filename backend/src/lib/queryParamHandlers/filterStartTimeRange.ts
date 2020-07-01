@@ -1,6 +1,5 @@
 import { Request } from 'express';
 import { QueryBuilder } from 'knex';
-import { unix } from 'moment';
 
 const convertUnix = (date: Date) : number => {
   return (new Date(date).getTime())*1000000;
