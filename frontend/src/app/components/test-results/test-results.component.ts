@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { Test } from 'src/app/models/test.model';
 import { Subscription, BehaviorSubject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+import { TestService } from 'src/app/services/test.service';
+import { FilterParamsModel } from "../../models/filter-params-model";
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { TestService } from 'src/app/services/test.service';
-import { Test } from 'src/app/models/test.model';
-import { FilterParamsModel } from 'src/app/models/filter-params-model';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-test-results',
@@ -22,11 +22,6 @@ export class TestResultsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   dataSource = new MatTableDataSource<Test>();
 
-   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    }
-
   public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   subscriptions$: Subscription[] = [];
 
@@ -37,7 +32,6 @@ export class TestResultsComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
       this.tests$.next(tests);
-      this.dataSource.data=this.tests$.getValue()
     }));
   }
 
