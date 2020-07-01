@@ -10,14 +10,14 @@ import { filterEndpoint } from '../../lib/queryParamHandlers/filterEndpoint';
 import { filterMethod } from '../../lib/queryParamHandlers/filterMethod';
 
 export const index = async (req: Request, res: Response) => {
-  try{
-  let query: QueryBuilder = database(tableName.STATISTICS).select();
-  limitQuery(req, query);
-  offsetQuery(req, query);
-  filterEndpoint(req, query);
-  filterMethod(req, query);
-  const statistics: Array<Statistic> = await query;
-  res.json(statisticSerializer.index(statistics));
+  try {
+    let query: QueryBuilder = database(tableName.STATISTICS).select();
+    limitQuery(req, query);
+    offsetQuery(req, query);
+    filterEndpoint(req, query);
+    filterMethod(req, query);
+    const statistics: Array<Statistic> = await query;
+    res.json(statisticSerializer.index(statistics));
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
