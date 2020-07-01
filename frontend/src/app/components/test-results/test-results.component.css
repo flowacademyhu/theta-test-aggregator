@@ -8,7 +8,7 @@
 }
 
 .status-desc{
-  flex: 2 0 0;
+  flex: 2 0 0 0;
 }
 
 .title {
@@ -23,7 +23,7 @@
 
 #error{
   font-size: 60pt;
-  flex: 1 0 0;
+  flex: 1 0 0 0;
   text-align: right;
   margin-right: 30pt; 
   color: #ecc30c; 
@@ -31,21 +31,21 @@
 
 #success{
   font-size: 60pt;
-  flex: 1 0 0;
+  flex: 1 0 0 0;
   text-align: right;
   margin-right: 30pt; 
   color: #2aa82a; 
 }
 #failed{
   font-size: 60pt;
-  flex: 1 0 0;
+  flex: 1 0 0 0;
   text-align: right;
   margin-right: 30pt; 
   color: #f23a3a; 
 }
 #unknown{
   font-size: 60pt;
-  flex: 1 0 0;
+  flex: 1 0 0 0;
   text-align: right;
   margin-right: 30pt; 
   color: #f5F5F5; 
