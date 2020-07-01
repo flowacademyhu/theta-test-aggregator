@@ -2,6 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { FilterParamsModel } from "../../models/filter-params-model";
 
+
+
 @Component({
   selector: 'app-filters',
   template: `
@@ -24,6 +26,18 @@ import { FilterParamsModel } from "../../models/filter-params-model";
         <mat-option value='FAILED'>Failed</mat-option>
         <mat-option value='UNKNOWN'>Unknown</mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="placeholder">Starting date</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="started_after">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label class="placeholder">Ending date</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="started_before">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="filterForm.pristine">Search</button>
   <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
@@ -58,6 +72,8 @@ export class FiltersComponent implements OnInit {
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
       commit_hash: new FormControl(null),
+      started_after: new FormControl(null),
+      started_before: new FormControl(null),
       status: new FormControl(null)
     });
   }
