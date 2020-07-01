@@ -19,7 +19,7 @@ interface SimulationResultSerializer {
 
 interface SimulationResultIndexResponse {
   count: number;
-  results: Array<Partial<SimulationResultSerializer>>;
+  tests: Array<Partial<SimulationResultSerializer>>;
 }
 
 export const show = (simulationResult: SimulationResult): SimulationResultSerializer => {
@@ -43,6 +43,6 @@ export const show = (simulationResult: SimulationResult): SimulationResultSerial
 export const index = (count: number, simulationResults: Array<SimulationResult>): SimulationResultIndexResponse => {
   return {
     count: count,
-    results: simulationResults.map((simulationResult: SimulationResult) => show(simulationResult))
+    tests: simulationResults.map((simulationResult: SimulationResult) => show(simulationResult))
   };
 };
