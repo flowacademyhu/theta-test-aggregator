@@ -12,10 +12,10 @@ import { filterMethod } from '../../lib/queryParamHandlers/filterMethod';
 export const index = async (req: Request, res: Response) => {
   try{
   let query: QueryBuilder = database(tableName.STATISTICS).select();
-  query = limitQuery(req, query);
-  query = offsetQuery(req, query);
-  query = filterEndpoint(req, query);
-  query = filterMethod(req, query);
+  limitQuery(req, query);
+  offsetQuery(req, query);
+  filterEndpoint(req, query);
+  filterMethod(req, query);
   const statistics: Array<Statistic> = await query;
   res.json(statisticSerializer.index(statistics));
   } catch (error) {
