@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -24,9 +23,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
-import { TestsResolver } from './resolvers/tests.resolver';
 import { ApiKeyResolver } from './resolvers/apiKeys.resolver';
-
+import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver';
 import { AddApikeyModalComponent } from './modals/add-apikey-modal/add-apikey-modal.component'
@@ -38,7 +36,7 @@ const routes: Routes = [
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: {apikeys: ApiKeyResolver}, canActivate: [AuthGuard]},
-  { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}, canActivate: [AuthGuard] },
+  { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
   { path: '**', redirectTo: '' }
 ];
@@ -61,7 +59,9 @@ const routes: Routes = [
     TestResultsComponent,
     TestStatusDirective,
     TestDetailsComponent,
-    AddApikeyModalComponent
+    AddApikeyModalComponent,
+    FiltersComponent,
+    TestDetailsComponent
   ],
   imports: [
     BrowserModule,
