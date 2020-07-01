@@ -20,17 +20,19 @@ export class ApikeyService {
     return this.http.get<ApiKey>(environment.baseUrl + `apiKey/${id}`);
   }
 
-  public addApiKey(infinite: string): Observable<ApiKey> {
-    return this.http.post<ApiKey>(environment.baseUrl + 'apiKey', {
+  public addApiKey(infinite: string): Observable<string> {
+    const httpOptions: object = {responseType: 'text'};
+    return this.http.post<string>(environment.baseUrl + 'apiKey', httpOptions, {
       params: {
         infinite: `${infinite}`
       }
-    }).pipe(tap(() => this.fetchApiKeys()));
+    });
   }
 
-  public updateApiKey(id: number): Observable<ApiKey> {
-    // const headers = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-    return this.http.put<ApiKey>(environment.baseUrl + `apiKey/${id}`, {});
+  public updateApiKey(apikey: ApiKey): Observable<string> {
+    // const httpOptions = { headers: new HttpHeaders({'Content-Type': 'application/json'}), responseType: 'text' as 'json'};
+    const httpOptions: object = {responseType: 'text'};
+    return this.http.put<string>(environment.baseUrl + `apiKey/${apikey.id}`, apikey, httpOptions);
   }
 
   public deleteApiKey(id: number): Observable<ApiKey> {
