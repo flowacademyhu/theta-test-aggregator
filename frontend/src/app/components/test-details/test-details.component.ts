@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Test } from '../../models/test.model';
+import { Test, TestStatus } from '../../models/test.model';
 
 @Component({
   selector: 'app-test-details',

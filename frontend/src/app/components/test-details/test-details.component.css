@@ -1,6 +1,13 @@
 .header {
   margin: 30pt;
   background-color: #243441;
+  justify-self: center;
+}
+
+.body{
+  margin-left: 100pt;
+  margin-right: 100pt;
+  align-self: center;
 }
 
 .header:hover {
@@ -12,7 +19,7 @@
   color: whitesmoke;
   margin: 0pt;
   font-weight: bold;
-  font-size: 20pt;
+  font-size: 15pt;
 }
 
 .user-data {
@@ -28,96 +35,98 @@ span {
 .branch-name {
   margin: 30pt;
   font-weight: bolder;
-  font-size: 26pt;
+  font-size: 25pt;
   color: whitesmoke;
 }
 
 ::ng-deep.success {
-  font-size: 18pt;
+  font-size: 15pt;
   color: rgb(85, 158, 95);
 }
 
 ::ng-deep.error-message{
-  font-size: 12pt;
+  font-size: 10pt;
   color: lightgray;
 }
 
 ::ng-deep.failed-endpoint{
-  font-size: 12pt;
+  font-size: 10pt;
   font-style: italic;
   font-weight: bold;
   color: lightgray;
-  margin: 15pt;
+  margin: 1pt;
 }
 ::ng-deep.failed-endpoint::before{
   content: "Endpoint: ";
   font-weight: bold;
-  font-size: 18pt;
+  font-size: 13pt;
   color: white;
 }
 
 ::ng-deep.failed-status-code{
-  font-size: 12pt;
-  color: yellow;
-  margin: 15pt;
+  font-size: 10pt;
+  color: white;
+  margin: 1pt;
 }
 
 ::ng-deep.failed-status-code::before{
   content: "Status code: ";
   font-weight: bold;
-  font-size: 18pt;
+  font-size: 13pt;
   color: white;
 }
 
 ::ng-deep.failed-message{
-  font-size: 12pt;
+  font-size: 10pt;
   font-style: italic;
   color: lightgray;
-  margin: 15pt;
+  margin: 1pt;
 }
 
 ::ng-deep.failed-message::before{
   content: "Message: ";
   font-weight: bold;
-  font-size: 18pt;
+  font-size: 13pt;
   color: white;
 }
 
 ::ng-deep.failed-request{
-  font-size: 12pt;
+  font-size: 10pt;
   font-style: italic;
   color: rgb(231, 225, 225);
-  margin: 15pt;
+  margin: 10pt;
+  overflow-wrap: break-word;
 }
 
 ::ng-deep.failed-request::before{
   content: "Request: ";
   font-weight: bold;
-  font-size: 18pt;
+  font-size: 13pt;
   color: white;
 }
 
 ::ng-deep.failed-response{
-font-size: 12pt;
+font-size: 10pt;
 font-style: italic;
 color: lightgray;
-margin: 15pt;
+margin: 10pt;
+overflow-wrap: break-word;
 }
 
 ::ng-deep.failed-response::before{
 content: "Response: ";
 font-weight: bold;
-font-size: 18pt;
+font-size: 13pt;
 color: white;
 }
 
 ::ng-deep.error{
-  font-size: 20pt;
+  font-size: 15pt;
   color: rgb(221, 167, 19);
 }
 
 ::ng-deep.failed{
-  font-size: 20pt;
+  font-size: 15pt;
   color: rgb(212, 32, 32);
 }
 
@@ -126,7 +135,7 @@ color: white;
 }
 
 td {
-  font-size: 20pt;
+  font-size: 15pt;
   font-weight: bold;
 }
 
@@ -142,4 +151,11 @@ table {
   box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
               0pt 0pt 5pt 0pt rgb(124, 123, 123), 
               0pt 0pt 5pt 0pt rgb(146, 146, 146);
+}
+
+.mat-raised-button {
+  float: right;
+  background-color: rgb(30, 37, 139);
+  color: white;
+  margin-right: 30pt;
 }

@@ -1,3 +1,4 @@
+<div class="body">
 <p class="branch-name">{{test.branch_name}}</p>
 <div>
   <mat-accordion>
@@ -19,7 +20,7 @@
         </tr>
         <tr>
           <td>Triggered:</td>
-          <td class="testResultLogs">{{test.triggered_by}}</td>
+          <td class="testResultLogs">{{test.triggered_by}} {{test.status}}</td>
         </tr>
         <tr>
           <td>Start: </td>
@@ -30,11 +31,11 @@
           <td class="testResultLogs" *ngIf="test.end_timestamp !== null">{{test.end_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
           <td class="testResultLogs" *ngIf="test.end_timestamp === null">Unknown</td>
         </tr>
-        <tr *ngIf="test.status !== 'error'">
+        <tr *ngIf="test.status.toString() !== 'ERROR'">
           <td>Short: </td>
           <td class="testResultLogs">{{test.short_description}}</td>
         </tr>
-        <tr *ngIf="test.status === 'error'">
+        <tr *ngIf="test.status.toString() === 'ERROR'">
           <td>Error message: </td>
           <td class="testResultLogs">{{test.error_message}}</td>
         </tr>
@@ -75,4 +76,5 @@
     </mat-expansion-panel>
   </mat-accordion>
   <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
+</div>
 </div>

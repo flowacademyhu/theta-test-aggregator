@@ -1,14 +1,20 @@
-<div>
+<div class="simulations">
   <div>
     <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
   </div>
   <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
+    <div class="status-desc">
   <mat-card-header>
-    <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p>
+    <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p> 
     </mat-card-header>
     <mat-card-content class="desc">
     <p class="description">Triggered by: {{test.triggered_by}}</p>
     </mat-card-content>
+  </div>
+    <span *ngIf="test.status==='ERROR'" id="error" class="material-icons">error</span>
+    <span *ngIf="test.status==='SUCCESS'" id="success"class="material-icons">check_circle</span>
+    <span *ngIf="test.status==='FAILED'" id="failed"class="material-icons">cancel</span>
+    <span *ngIf="test.status==='UNKNOWN'" id="unknown"class="material-icons">help</span>
   </mat-card>
 </div>
 
