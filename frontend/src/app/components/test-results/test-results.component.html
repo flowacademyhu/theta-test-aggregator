@@ -1,9 +1,8 @@
-<div class="simulations">
-  <div>
-    <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
-  </div>
-  <mat-card *ngFor="let test of tests" class="header" [routerLink]="['/test', test.id]" >
-    <div class="status-desc">
+<mat-toolbar class="navbar">
+  <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
+</mat-toolbar>
+<div>
+  <mat-card *ngFor="let test of tests$.getValue()" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
     <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p> 
     </mat-card-header>
@@ -17,4 +16,3 @@
     <span *ngIf="test.status==='UNKNOWN'" id="unknown"class="material-icons">help</span>
   </mat-card>
 </div>
-
