@@ -14,23 +14,16 @@ import { AddApikeyModalComponent } from 'src/app/modals/add-apikey-modal/add-api
 })
 export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
 
-  constructor(private apiKeyService: ApikeyService, private dialog: MatDialog, private route: ActivatedRoute) { }
+  constructor(
+    private apiKeyService: ApikeyService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute
+    ) {
+    }
 
   public apikeys: ApiKey[];
+  public apikey: ApiKey;
   subscriptions$: Subscription[] = [];
-
-  ngOnInit(): void {
-   this.route.data.subscribe((data) => {
-     this.apikeys = data.apikeys;
-    });
-  }
-
-  ngDoCheck(): void {
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions$.forEach(sub => sub.unsubscribe());
-  }
 
   public toggleDeleteModal(apikey) {
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
@@ -46,13 +39,15 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
       }
     });
   }
+
   public extendExpirationDay(apikey) {
-    this.apiKeyService.updateApiKey(apikey.id).subscribe(() => {
+    this.apiKeyService.updateApiKey(apikey).subscribe(() => {
       this.apiKeyService.fetchApiKeys().subscribe((data) => {
         this.apikeys = data;
       });
     });
   }
+
   public toggleAddApikey() {
     const dialogRef = this.dialog.open(AddApikeyModalComponent);
     dialogRef.afterClosed().subscribe((result) => {
@@ -62,5 +57,17 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
         });
       });
     });
+  }
+
+  ngOnInit(): void {
+   this.route.data.subscribe((data) => {
+     this.apikeys = data.apikeys;
+    });
+  }
+
+  ngDoCheck(): void {
+  }
+
+  ngOnDestroy(): void {
   }
 }
