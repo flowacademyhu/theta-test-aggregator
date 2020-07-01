@@ -8,5 +8,12 @@
 <input type="text" [(ngModel)]="endpoint">
 <button (click)="showStatistics()">Show</button>
 <div style="display:block;">
-  <canvas baseChart
+  <canvas baseChart 
+  [datasets]="barChartData"
+  [labels]="barChartLabels"
+  [options]="barChartOptions"
+  [plugins]="barChartPlugins"
+  [legend]="barChartLegend"
+  [chartType]="barChartType">
+  </canvas>
 </div>
