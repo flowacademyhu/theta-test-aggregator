@@ -26,7 +26,9 @@ import { TestResultsComponent } from './components/test-results/test-results.com
 import { TestStatusDirective } from './directives/test-status.directive';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
-import { TestResolver } from './resolvers/test.resolver'
+import { TestResolver } from './resolvers/test.resolver';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login'
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -67,7 +69,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    SocialLoginModule,
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
   providers: [
@@ -75,6 +78,20 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: 
+      {
+        autoLogin: false,
+        providers: 
+        [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider ('878632813836-s16kfkrn6i8bahht4asohntr8f695pbc.apps.googleusercontent.com'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]

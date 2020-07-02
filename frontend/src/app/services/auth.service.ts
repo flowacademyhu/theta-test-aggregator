@@ -67,4 +67,30 @@ export class AuthService {
       }, 100);
     });
   }
+
+  loginWithGoogle(token: string) : void {
+    this.http.post<AuthResponse>(environment.baseUrl + 'login',{token: token}
+    ).subscribe(
+      onSuccess => {
+      //login was successful
+      localStorage.setItem('accessToken', token); 
+    }, onFail => {
+      console.log("login was unsuccessful")
+      localStorage.setItem('accessToken', token); 
+      //show an error message
+    });
+  }
+  
+  googleLogin(token) {
+    console.log('IN login ==> ' + JSON.stringify(token));
+    return fetch(`${environment.baseUrl}/dashboard`, {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        Authorization: `Bearer + ${token}`,
+        'Content-Type': 'application/json'
+      },
+    }).then((response) => response.json());
+  }
+
 }
