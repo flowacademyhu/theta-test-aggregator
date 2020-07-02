@@ -33,37 +33,35 @@ export const show = async (req: Request, res: Response) => {
   }
 };
 
+const insertPasswordHash = (req: Request, user: Partial<User>) => {
+  if (req.body.password) {
+    const pw = req.body.password;
+    const encryptedPassword = bcrypt.hashSync(pw, 10);
+    user.password_hash = encryptedPassword;
+  }
+};
+
 const generateUUID = (): string => {
   return uuidv4();
 }
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const pw = req.body.password;
-    const encryptedPassword = bcrypt.hashSync(pw, 10);
-    const users: User = {
+    const user: User = {
       id: generateUUID(),
-      password_hash: encryptedPassword,
       email: req.body.email,
       git_user: req.body.git_user,
       role: req.body.role,
       notification: req.body.notification
     }
-    await database(tableName.USERS).insert(users);
+    insertPasswordHash(req, user)
+    await database(tableName.USERS).insert(user);
     res.sendStatus(201);
   } catch(error) {
     console.error(error);
     res.sendStatus(500);
   }
 };
-
-const updatePassword = (req: Request, user: Partial<User>) => {
-  if (req.body.password) {
-    const pw = req.body.password;
-    const encryptedPassword = bcrypt.hashSync(pw, 10);
-    user.password_hash = encryptedPassword;
-  }
-}
 
 export const update = async (req: Request, res: Response) => {
   try {
@@ -75,7 +73,7 @@ export const update = async (req: Request, res: Response) => {
         role: req.body.role,
         notification: req.body.notification
       }
-      updatePassword(req, newUser);
+      insertPasswordHash(req, newUser);
       await database(tableName.USERS).update(newUser).where({ id: req.params.id });
       res.sendStatus(200);
     } else {
