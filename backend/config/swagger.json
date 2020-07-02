@@ -486,6 +486,55 @@
           }
         }
       }
+    },
+    "/api/statistic": {
+      "get": {
+        "summary": "Statistics index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All statistics",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/Statistic"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/statistic/{id}": {
+      "get": {
+        "summary": "Get a statistic by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The statistic",
+            "schema": {
+              "$ref": "#definitions/Statistic"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -633,6 +682,26 @@
         },
         "notification": {
           "type": "boolean"
+        }
+      }
+    },
+    "Statistic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "start_timestamp": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "measurement": {
+          "type": "number"
         }
       }
     }

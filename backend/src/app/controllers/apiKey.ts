@@ -12,8 +12,8 @@ import moment = require('moment');
 export const index = async (req: Request, res: Response) => {
   try {
     let query: QueryBuilder = database(tableName.API_KEYS).select();
-    query = limitQuery(req, query);
-    query = offsetQuery(req, query);
+    limitQuery(req, query);
+    offsetQuery(req, query);
     const apiKeys: Array<ApiKey> = await query;
     res.json(apiKeySerializer.index(apiKeys));
   } catch (error) {
