@@ -40,7 +40,7 @@ import * as moment from 'moment';
     </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="filterForm.pristine">Search</button>
   <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
-  <button mat-raised-button color="warn" type="button" (click)="onWeekly()">Weekly Recap</button>
+  <button mat-raised-button color="warn" type="button" (click)="onWeekly()">Weekly Failures</button>
   `,
   styles: [`
     ::ng-deep .selectLabel{
