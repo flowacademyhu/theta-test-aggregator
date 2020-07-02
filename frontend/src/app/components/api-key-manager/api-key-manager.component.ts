@@ -48,17 +48,6 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
     });
   }
 
-  public toggleAddApikey() {
-    const dialogRef = this.dialog.open(AddApikeyModalComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-        this.apiKeyService.addApiKey(result ? 'true' : 'false').subscribe(() => {
-          this.apiKeyService.fetchApiKeys().subscribe((data) => {
-            this.apikeys = data;
-        });
-      });
-    });
-  }
-
   ngOnInit(): void {
    this.route.data.subscribe((data) => {
      this.apikeys = data.apikeys;
