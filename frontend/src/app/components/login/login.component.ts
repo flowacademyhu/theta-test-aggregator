@@ -13,14 +13,15 @@ import { SocialUser } from "angularx-social-login";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
+  user: SocialUser;
+  loggedIn: boolean;
 
   constructor(private authService: AuthService, private router: Router, private socialAuthService: SocialAuthService) {
   }
 
   public errors: Object;
   public isChecked = false;
-  public user: SocialUser;
-  public loggedIn: boolean;
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -41,33 +42,9 @@ export class LoginComponent implements OnInit {
   rememberMe() {
     this.isChecked = !this.isChecked;
   }
-
-  ngOnInit(): void {
-    this.socialAuthService.authState.subscribe((user) => {
-    this.user = user;
-    this.loggedIn = (user != null);
-    console.log(this.user.name)
-    console.log(this.user.email)
-    console.log(this.user)
-    });
-  }
-  
-
-  async signIn(): Promise<void> {
-    console.log(this.email);
-    const body = {
-      email: this.email,
-      password: this.password
-    };
-    const tokenData = await this.authService.getJwt(body);
-    if (tokenData.message.token) {
-      const getDashboard = await this.authService.login2(tokenData);
-      console.log(getDashboard);
-    } else {
-      this.errorMessage = 'Invalid username or password';
-    }
-    console.log(tokenData);
-  } 
+  email: any;
+  password: any;
+  errorMessage: any;
 
   async signInWithGoogle(): Promise<void> {
     const googleData = await this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
@@ -75,5 +52,40 @@ export class LoginComponent implements OnInit {
       email: googleData.email,
       password: googleData.idToken
     };
+/*     const tokenData = await this.authService.getJwt(body);
+    console.log(`this is + ${tokenData}`); */
+  }
+
+   async signIn(): Promise<void> {
+    console.log(this.email);
+    const body = {
+      email: this.email,
+      password: this.password
+    };
+     const tokenData = await this.authService.getJwt(body);
+    if (tokenData.message.token) {
+      const getDashboard = await this.authService.googleLogin(tokenData);
+      console.log(getDashboard);
+    } else {
+      this.errorMessage = 'Invalid username or password';
+    }
+    console.log(tokenData);
+  }
+
+  
+  ngOnInit(): void {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = (user != null);
+      const userdatas = this.authService.getJwt(this.user.idToken)
+      console.log(this.user.name)
+      console.log(this.user.email)
+      console.log(this.user)
+      console.log(this.user.idToken);
+    });
+  }
+
+  signOut(): void {
+    this.socialAuthService.signOut();
   }
 }

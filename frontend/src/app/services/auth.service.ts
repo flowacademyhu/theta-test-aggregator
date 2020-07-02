@@ -93,4 +93,16 @@ export class AuthService {
     }).then((response) => response.json());
   }
 
+   getJwt(info) {
+    console.log('IN services ==> ' + JSON.stringify(info));
+    return fetch(`${environment.baseUrl}/create`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: {
+        Authorization: 'Bearer 123',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(info)
+    }).then((response) => response.json());
+  } 
 }
