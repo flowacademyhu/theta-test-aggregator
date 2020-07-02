@@ -21,8 +21,7 @@ export class ApikeyService {
   }
 
   public addApiKey(infinite: string): Observable<string> {
-    const httpOptions: object = {responseType: 'text'};
-    return this.http.post<string>(environment.baseUrl + 'apiKey', httpOptions, {
+    return this.http.post<string>(environment.baseUrl + 'apiKey', {
       params: {
         infinite: `${infinite}`
       }
