@@ -3,10 +3,10 @@ import { User } from '../models/user.model';
 import { UserService } from './user.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { environment } from 'src/environments/environment';
-import { switchMap, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AuthService {
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
-      this.userService.fetchUser(localStorage.getItem('id')).subscribe((data) => {
+      this.userService.fetchUser('profile').subscribe((data) => {
         this.loggedInUser$.next(data);
         return this.loggedInUser$;
       });
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   public login(email: string, password: string, isChecked: boolean) {
-    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email: email, password: password })
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email, password })
       .pipe(
         switchMap((resp) => {
           localStorage.clear();

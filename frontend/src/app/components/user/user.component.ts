@@ -16,14 +16,14 @@ export class UserComponent implements OnInit {
   public user: User;
 
   public toggleProfileUpdateModal(userToUpdate) {
-    const dialogRef =this.dialog.open(ProfileUpdateModalComponent, {
-      data: {user: userToUpdate}
+    const dialogRef = this.dialog.open(ProfileUpdateModalComponent, {
+      data: { user: userToUpdate }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.userService.fetchUser('profile').subscribe((data) => {
-        this.user = data
-      })
-    })
+        this.user = data;
+      });
+    });
   }
 
   ngOnInit(): void {
