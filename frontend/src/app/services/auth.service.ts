@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
+import { SocialAuthService } from "angularx-social-login";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ import { switchMap } from 'rxjs/operators';
 
 export class AuthService {
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router) {
+  constructor(private userService: UserService, private http: HttpClient, private router: Router, private socialAuthService: SocialAuthService) {
   }
 
   public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
@@ -54,6 +55,7 @@ export class AuthService {
     localStorage.removeItem('id');
     sessionStorage.clear();
     this.router.navigate(['login']);
+    this.socialAuthService.signOut();
   }
 
   public authenticate(): User {
@@ -75,26 +77,16 @@ export class AuthService {
         localStorage.clear();
         sessionStorage.clear();
         if (isChecked) {
-          localStorage.setItem('accessToken', resp.token)
-          sessionStorage.setItem('email', resp.user.email)
+          localStorage.setItem('accessToken', resp.token);
+          localStorage.setItem('id', resp.user.id)
         } else {
-          sessionStorage.setItem('accessToken', resp.token)
-          sessionStorage.setItem('email', resp.user.email)
+          sessionStorage.setItem('accessToken', resp.token);
+          sessionStorage.setItem('id', resp.user.id)
         }
         this.loggedInUser$.next(resp.user)
         return this.getCurrentUser();
       })
     )
-/*     this.http.post<AuthResponse>(environment.baseUrl + 'login',{token: token}
-    ).subscribe(
-      onSuccess => {
-      //login was successful
-      localStorage.setItem('accessToken', token); 
-    }, onFail => {
-      console.log("login was unsuccessful")
-      localStorage.setItem('accessToken', token); 
-      //show an error message
-    }); */
   }
   
   googleLogin(token) {
@@ -109,7 +101,7 @@ export class AuthService {
     }).then((response) => response.json());
   }
 
-   getJwt(info) {
+  getJwt(info) {
     console.log('IN services ==> ' + JSON.stringify(info));
     return fetch(`${environment.baseUrl}/create`, {
       method: 'POST',
