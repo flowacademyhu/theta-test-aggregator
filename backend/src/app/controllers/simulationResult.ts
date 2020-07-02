@@ -12,9 +12,9 @@ import { Statistic } from '../models/statistic';
 export const index = async (req: Request, res: Response) => {
   try {
     let query: QueryBuilder = database(tableName.SIMULATION_RESULTS).select();
-    query = limitQuery(req, query);
-    query = offsetQuery(req, query);
-    query = filterHandler(req, query);
+    limitQuery(req, query);
+    offsetQuery(req, query);
+    filterHandler(req, query);
     const simulationResults: Array<SimulationResult> = await query;
     res.json(simulationResults);
   } catch (error) {
