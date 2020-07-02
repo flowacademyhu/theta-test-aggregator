@@ -18,7 +18,7 @@ export class AuthService {
   constructor(private userService: UserService, private http: HttpClient, private router: Router, private socialAuthService: SocialAuthService) {
   }
 
-  public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
@@ -38,7 +38,7 @@ export class AuthService {
           sessionStorage.clear();
           if (isChecked) {
             localStorage.setItem('accessToken', resp.token);
-            localStorage.setItem('id', resp.user.id);
+            sessionStorage.setItem('id', resp.user.id);
           } else {
             sessionStorage.setItem('accessToken', resp.token);
             sessionStorage.setItem('id', resp.user.id);
@@ -50,12 +50,12 @@ export class AuthService {
   }
 
   public logout() {
-    this.loggedInUser$.next(null);
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
     sessionStorage.clear();
-    this.router.navigate(['login']);
     this.socialAuthService.signOut();
+    this.loggedInUser$.next(null);
+    this.router.navigate(['login']);
   }
 
   public authenticate(): User {
@@ -78,7 +78,7 @@ export class AuthService {
         sessionStorage.clear();
         if (isChecked) {
           localStorage.setItem('accessToken', resp.token);
-          localStorage.setItem('id', resp.user.id)
+          sessionStorage.setItem('id', resp.user.id)
         } else {
           sessionStorage.setItem('accessToken', resp.token);
           sessionStorage.setItem('id', resp.user.id)
@@ -88,29 +88,4 @@ export class AuthService {
       })
     )
   }
-  
-  googleLogin(token) {
-    console.log('IN login ==> ' + JSON.stringify(token));
-    return fetch(`${environment.baseUrl}/dashboard`, {
-      method: 'GET',
-      credentials: 'include',
-      headers: {
-        Authorization: `Bearer + ${token}`,
-        'Content-Type': 'application/json'
-      },
-    }).then((response) => response.json());
-  }
-
-  getJwt(info) {
-    console.log('IN services ==> ' + JSON.stringify(info));
-    return fetch(`${environment.baseUrl}/create`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        Authorization: 'Bearer 123',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(info)
-    }).then((response) => response.json());
-  } 
 }
