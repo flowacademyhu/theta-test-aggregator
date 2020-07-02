@@ -79,11 +79,9 @@ export class FiltersComponent implements OnInit {
   }
 
   onWeekly(): void {
-    const firstDay = moment().startOf('isoWeek').toDate();
-    const lastDay = moment().endOf('isoWeek').toDate();
     this.filterForm.patchValue({
-      started_after: firstDay,
-      started_before: lastDay,
+      started_after: moment().startOf('isoWeek').toDate(),
+      started_before: moment().endOf('isoWeek').toDate(),
       status: 'FAILED',
       triggered_by: null,
       commit_hash: null
