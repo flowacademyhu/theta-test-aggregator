@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
     console.log(`this is + ${tokenData}`); */
   }
 
-   async signIn(): Promise<void> {
+/*   async signIn(): Promise<void> {
     console.log(this.email);
     const body = {
       email: this.email,
@@ -70,20 +70,25 @@ export class LoginComponent implements OnInit {
       this.errorMessage = 'Invalid username or password';
     }
     console.log(tokenData);
-  }
+  } */
 
   
   ngOnInit(): void {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      const userdatas = this.authService.getJwt(this.user.idToken)
-      console.log(this.user.name)
-      console.log(this.user.email)
-      console.log(this.user)
-      console.log(this.user.idToken);
+      this.authService.loginWithGoogle(user.idToken, this.isChecked).subscribe(() => {
+        if (this.authService.loggedInUser$.getValue().password === null) {
+          this.router.navigate['profile']
+        } else {
+          this.router.navigate(['index']);
+        }
+        }, (error: HttpErrorResponse) => {
+          this.errors = error;
+          console.log(this.errors);
     });
-  }
+  });
+}
 
   signOut(): void {
     this.socialAuthService.signOut();

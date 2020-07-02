@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private userService: UserService, private http: HttpClient, private router: Router) {
   }
 
-  private loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  public loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   public getCurrentUser(): BehaviorSubject<User> {
     if (this.loggedInUser$.getValue() === null) {
@@ -68,8 +68,24 @@ export class AuthService {
     });
   }
 
-  loginWithGoogle(token: string) : void {
-    this.http.post<AuthResponse>(environment.baseUrl + 'login',{token: token}
+  loginWithGoogle(token: string, isChecked: boolean) {
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login/google', {token})
+    .pipe(
+      switchMap((resp) => {
+        localStorage.clear();
+        sessionStorage.clear();
+        if (isChecked) {
+          localStorage.setItem('accessToken', resp.token)
+          sessionStorage.setItem('email', resp.user.email)
+        } else {
+          sessionStorage.setItem('accessToken', resp.token)
+          sessionStorage.setItem('email', resp.user.email)
+        }
+        this.loggedInUser$.next(resp.user)
+        return this.getCurrentUser();
+      })
+    )
+/*     this.http.post<AuthResponse>(environment.baseUrl + 'login',{token: token}
     ).subscribe(
       onSuccess => {
       //login was successful
@@ -78,7 +94,7 @@ export class AuthService {
       console.log("login was unsuccessful")
       localStorage.setItem('accessToken', token); 
       //show an error message
-    });
+    }); */
   }
   
   googleLogin(token) {
