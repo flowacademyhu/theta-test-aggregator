@@ -25,6 +25,11 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
   public apikey: ApiKey;
   subscriptions$: Subscription[] = [];
 
+ public getApiKeys() {this.apiKeyService.fetchApiKeys().subscribe((data) => {
+    this.apikeys = data;
+  });
+}
+
   public toggleDeleteModal(apikey) {
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
       data: { git_user: 'this apikey' }
@@ -32,21 +37,17 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.apiKeyService.deleteApiKey(apikey.id).subscribe(() => {
-          this.apiKeyService.fetchApiKeys().subscribe((data) => {
-            this.apikeys = data;
+          this.getApiKeys();
           });
-        });
-      }
-    });
-  }
+        }
+      });
+    }
 
   public extendExpirationDay(apikey) {
     this.apiKeyService.updateApiKey(apikey).subscribe(() => {
-      this.apiKeyService.fetchApiKeys().subscribe((data) => {
-        this.apikeys = data;
+      this.getApiKeys();
       });
-    });
-  }
+    }
 
   ngOnInit(): void {
    this.route.data.subscribe((data) => {
