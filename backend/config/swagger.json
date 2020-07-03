@@ -124,6 +124,15 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },{
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -239,6 +248,41 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "commit_hash",
+            "type": "string"
+          },
+          {
+            "in":"query",
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "triggered_by",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "started_after, started_before",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ended_after, ended_before",
+            "type": "string"
           }
         ],
         "responses": {
@@ -247,7 +291,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#definitions/SimulationResult"
+                "$ref": "#definitions/SimulationResultIndex"
               }
             }
           }
@@ -346,7 +390,7 @@
         }
       }
     },
-    "/simulationResult/{id}/invalidate": {
+    "/api/simulationResult/{id}/invalidate": {
       "put": {
         "summary": "Invalidate simulation result by id",
         "parameters": [
@@ -377,6 +421,16 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -400,6 +454,11 @@
             "schema": {
               "$ref": "#definitions/ApiKeyRequest"
             }
+          },
+          {
+            "in": "query",
+            "name": "infinite",
+            "type": "string"
           }
         ],
         "responses": {
@@ -545,6 +604,26 @@
           {
             "in": "header",
             "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "endpoint",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "method",
             "type": "string"
           }
         ],
@@ -699,6 +778,20 @@
         },
         "invalid": {
           "type": "number"
+        }
+      }
+    },
+    "SimulationResultIndex": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
         }
       }
     },
