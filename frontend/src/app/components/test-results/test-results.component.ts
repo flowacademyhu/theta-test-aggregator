@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Test } from 'src/app/models/test.model';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -15,13 +15,13 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export class TestResultsComponent implements OnInit {
 
-  constructor( private route: ActivatedRoute, private testService: TestService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor( private route: ActivatedRoute, private testService: TestService) {
   }
 
   subscriptions$: Subscription[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
-  obs: Observable<any>;
+  obs: Observable<Test[]>;
   dataSource: MatTableDataSource<Test> = new MatTableDataSource<Test>(null);
 
   ngOnDestroy(): void {
@@ -43,11 +43,10 @@ export class TestResultsComponent implements OnInit {
     }));
   }
 
-  getDataSource(tests: any) {
-    this.changeDetectorRef.detectChanges();
+  getDataSource(tests: Test[]) {
     this.tests$.next(tests);
-     this.dataSource= new MatTableDataSource<Test>(this.tests$.getValue());
-     this.dataSource.paginator= this.paginator;
+    this.dataSource= new MatTableDataSource<Test>(this.tests$.getValue());
+    this.dataSource.paginator= this.paginator;
     this.obs = this.dataSource.connect();
   }
 }
