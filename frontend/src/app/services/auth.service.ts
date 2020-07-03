@@ -36,6 +36,7 @@ export class AuthService {
     .pipe(
       switchMap((resp) => {
         this.loginLogic(isChecked, resp);
+        localStorage.setItem('signedInViaGoogle', "false");
         return this.loggedInUser$;
       })
     );
@@ -45,7 +46,9 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
     sessionStorage.clear();
-    this.socialAuthService.signOut();
+    if (localStorage.getItem('signedInViaGoogle') === "true") {
+      this.socialAuthService.signOut();
+    }
     this.loggedInUser$.next(null);
     this.router.navigate(['login']);
   }
@@ -67,6 +70,7 @@ export class AuthService {
     .pipe(
       switchMap((resp) => {
         this.loginLogic(isChecked, resp);
+        localStorage.setItem('signedInViaGoogle', "true")
         return this.loggedInUser$;
       })
     );
