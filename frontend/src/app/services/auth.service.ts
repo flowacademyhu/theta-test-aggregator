@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
 import { SocialAuthService } from "angularx-social-login";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,21 +33,12 @@ export class AuthService {
 
   public login(email: string, password: string, isChecked: boolean) {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email, password })
-      .pipe(
-        switchMap((resp) => {
-          localStorage.clear();
-          sessionStorage.clear();
-          if (isChecked) {
-            localStorage.setItem('accessToken', resp.token);
-            sessionStorage.setItem('id', resp.user.id);
-          } else {
-            sessionStorage.setItem('accessToken', resp.token);
-            sessionStorage.setItem('id', resp.user.id);
-          }
-          this.loggedInUser$.next(resp.user);
-          return this.getCurrentUser();
-        })
-      );
+    .pipe(
+      switchMap((resp) => {
+        this.loginLogic(isChecked, resp);
+        return this.loggedInUser$;
+      })
+    );
   }
 
   public logout() {
@@ -70,22 +62,25 @@ export class AuthService {
     });
   }
 
-  loginWithGoogle(token: string, isChecked: boolean) {
+  loginWithGoogle(token: string,  isChecked: boolean) {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login/google', {token})
     .pipe(
       switchMap((resp) => {
-        localStorage.clear();
-        sessionStorage.clear();
-        if (isChecked) {
-          localStorage.setItem('accessToken', resp.token);
-          sessionStorage.setItem('id', resp.user.id)
-        } else {
-          sessionStorage.setItem('accessToken', resp.token);
-          sessionStorage.setItem('id', resp.user.id)
-        }
-        this.loggedInUser$.next(resp.user)
-        return this.getCurrentUser();
+        this.loginLogic(isChecked, resp);
+        return this.loggedInUser$;
       })
-    )
+    );
+  }
+
+  loginLogic(isChecked: boolean, resp: AuthResponse) {
+    localStorage.clear();
+    sessionStorage.clear();
+    if (isChecked) {
+      localStorage.setItem('accessToken', resp.token);
+    } else {
+      sessionStorage.setItem('accessToken', resp.token);
+    }
+    sessionStorage.setItem('id', resp.user.id)
+     this.loggedInUser$.next(resp.user)
   }
 }
