@@ -45,6 +45,7 @@ export class AuthService {
   public logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
+    localStorage.removeItem('signedInViaGoogle');
     sessionStorage.clear();
     if (localStorage.getItem('signedInViaGoogle') === "true") {
       this.socialAuthService.signOut();
