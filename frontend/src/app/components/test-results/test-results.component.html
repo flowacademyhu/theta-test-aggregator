@@ -11,10 +11,11 @@
     <p class="description">Triggered by: {{test.triggered_by}}</p>
     </mat-card-content>
     </div>
-    <span *ngIf="test.status==='ERROR'" id="error" class="material-icons">error</span>
-    <span *ngIf="test.status==='SUCCESS'" id="success"class="material-icons">check_circle</span>
-    <span *ngIf="test.status==='FAILED'" id="failed"class="material-icons">cancel</span>
-    <span *ngIf="test.status==='UNKNOWN'" id="unknown"class="material-icons">help</span>
-
+    <container-element [ngSwitch]="test.status">
+    <span *ngSwitchCase="'ERROR'" id="error" class="material-icons">error</span>
+    <span *ngSwitchCase="'SUCCESS'" id="success"class="material-icons">check_circle</span>
+    <span *ngSwitchCase="'FAILED'" id="failed"class="material-icons">cancel</span>
+    <span *ngSwitchCase="'UNKNOWN'" id="unknown"class="material-icons">help</span>
+  </container-element>
   </mat-card>
 </div>
