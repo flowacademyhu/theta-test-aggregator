@@ -75,5 +75,5 @@
     </mat-expansion-panel>
   </mat-accordion>
   <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
-  <button mat-raised-button color="warn" (click)="toggleInvalidateModal()">Invalidate</button>
+  <button *ngIf="user.role === 'admin'" mat-raised-button color="warn" (click)="toggleInvalidateModal()">Invalidate</button>
 </div>

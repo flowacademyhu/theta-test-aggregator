@@ -5,6 +5,8 @@ import { MatDialog } from "@angular/material/dialog";
 import { TestService } from "../../services/test.service";
 import { ConfirmInvalidateModalComponent } from "../../modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
 import { Subscription } from "rxjs";
+import {User} from "../../models/user.model";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-test-details',
@@ -17,13 +19,15 @@ export class TestDetailsComponent implements OnInit, OnDestroy {
   public result = []
   public htmlString;
   private subscriptions = [];
+  public user: User;
 
 
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private testService: TestService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +36,7 @@ export class TestDetailsComponent implements OnInit, OnDestroy {
     }));
     this.result = [this.test.payload_data]
     this.htmlString = this.test.payload_text;
+    this.subscriptions.push(this.authService.getCurrentUser().subscribe((data) => this.user = data));
   }
 
   public toggleInvalidateModal() {
