@@ -23,7 +23,9 @@ Open a new terminal window and type in
 In this window type in the following
 
 [`npm install`]
+
 [`npm run db:migrate:all`]
+
 [`npm db:seed`]
 
 #### Every startup
