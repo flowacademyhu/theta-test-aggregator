@@ -1,12 +1,16 @@
-<label for="method">Method: </label>
-<select name="method" [(ngModel)]="method">
-  <option value="POST">POST</option>
-  <option value="GET">GET</option>
-  <option value="PUT">PUT</option>
-</select>
-<label for="endpoint">Endpoint: </label>
-<input type="text" [(ngModel)]="endpoint">
-<button (click)="showStatistics()">Show</button>
+<mat-form-field>
+  <mat-label for="method">Method: </mat-label>
+  <mat-select name="method" [(ngModel)]="method">
+    <mat-option value="POST">POST</mat-option>
+    <mat-option value="GET">GET</mat-option>
+    <mat-option value="PUT">PUT</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label for="endpoint">Endpoint: </mat-label>
+  <input matInput type="text" [(ngModel)]="endpoint">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="showStatistics()">Show</button>
 <div class="chart">
   <canvas baseChart 
   [datasets]="barChartData"

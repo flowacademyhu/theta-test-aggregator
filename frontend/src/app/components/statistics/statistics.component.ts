@@ -28,31 +28,50 @@ export class StatisticsComponent implements OnInit {
   public endpoint: string;
   public statistics: Statistic[];
 
+  public convertUnixDate(statistic: Statistic) {
+    return new Date(statistic.start_timestamp/1000000).toLocaleString();
+  };
+
+  public filterLastTenStatistic(statistics: Statistic[]) {
+    if (statistics.length > 10) {
+      this.statistics = statistics.sort((a, b) => 
+      a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
+      .slice(Math.max(statistics.length - 10, 1));
+    } else {
+      this.statistics = statistics.sort((a, b) => 
+      a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0);
+    }
+  };
+
+  public createChartLabels() {
+    this.barChartLabels = [];
+    this.statistics.forEach(s => {
+      if (!this.barChartLabels.includes(this.convertUnixDate(s))) {
+        this.barChartLabels.push(this.convertUnixDate(s));
+      }
+    })
+  };
+
+  public createChartData() {
+    this.barChartData = [];
+    for (let i = 0; i < this.barChartLabels.length; i++) {
+      const stat = this.statistics
+      .filter(s => this.convertUnixDate(s) === this.barChartLabels[i]);
+      while (stat.length > this.barChartData.length) {
+        this.barChartData.push({data: [], label: 'nanosec'});
+      }
+      for (let k = 0; k < stat.length; k++) {
+        this.barChartData[k].data[i] = stat[k].measurement;
+      }
+    }
+  };
+
   public showStatistics() {
     this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpoint}`, `${this.method}`)
     .subscribe((data) => {
-      if (data.length > 10) {
-      this.statistics = data.sort((a, b) => a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
-      .slice(Math.max(data.length - 10, 1));
-      } else {
-        this.statistics = data.sort((a, b) => a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0);
-      }
-      this.barChartLabels = [];
-      this.statistics.forEach(s => {
-        if (!this.barChartLabels.includes(new Date(s.start_timestamp/1000000).toLocaleString())) {
-          this.barChartLabels.push(new Date(s.start_timestamp/1000000).toLocaleString());
-        }
-      })
-      this.barChartData = [];
-      for (let i = 0; i < this.barChartLabels.length; i++) {
-        const stat = this.statistics.filter(s => new Date(s.start_timestamp/1000000).toLocaleString() === this.barChartLabels[i]);
-        while (stat.length > this.barChartData.length) {
-          this.barChartData.push({data: [], label: 'nanosec'});
-        }
-        for (let k = 0; k < stat.length; k++) {
-          this.barChartData[k].data[i] = stat[k].measurement;
-        }
-      }
+      this.filterLastTenStatistic(data);
+      this.createChartLabels();
+      this.createChartData();
     })
   }
 
