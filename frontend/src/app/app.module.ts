@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard]},
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
-  { path: 'statistics', component: StatisticsComponent},
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
   { path: '**', redirectTo: '' }

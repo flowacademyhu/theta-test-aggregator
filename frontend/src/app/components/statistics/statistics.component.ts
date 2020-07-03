@@ -3,7 +3,6 @@ import { Statistic } from 'src/app/models/statistic.model';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
-import { TypeScriptEmitter } from '@angular/compiler';
 
 @Component({
   selector: 'app-statistics',
@@ -20,39 +19,44 @@ export class StatisticsComponent implements OnInit {
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  public barChartLegend = false;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [
-    {data: [], label: 'Runtime in nanosec'}
-  ]
-
-  public statistics: Statistic[];
+  public barChartData: ChartDataSets[] = [{data: []}];
+  public barChartResponsive = true;
 
   public method: string;
   public endpoint: string;
+  public statistics: Statistic[];
 
   public showStatistics() {
-    this.barChartLabels = [];
-    this.barChartData[0].data = [];
-    this.statistics = this.statisticsService.fetchStatistics(this.endpoint, this.method)
-    .sort((a, b) => a.timeStamp < b.timeStamp ? -1 : a.timeStamp > b.timeStamp ? 1 : 0);
-    for(let i = 0; i < this.statistics.length; i++) {
-      this.barChartLabels.push(new Date(this.statistics[i].timeStamp/1000000).toLocaleString());
-      console.log(this.barChartLabels);
-      this.barChartData[0].data.push(this.statistics[i].measurement);
-      console.log(this.barChartData[0].data)
-    }
+    this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpoint}`, `${this.method}`)
+    .subscribe((data) => {
+      if (data.length > 10) {
+      this.statistics = data.sort((a, b) => a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
+      .slice(Math.max(data.length - 10, 1));
+      } else {
+        this.statistics = data.sort((a, b) => a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0);
+      }
+      this.barChartLabels = [];
+      this.statistics.forEach(s => {
+        if (!this.barChartLabels.includes(new Date(s.start_timestamp/1000000).toLocaleString())) {
+          this.barChartLabels.push(new Date(s.start_timestamp/1000000).toLocaleString());
+        }
+      })
+      this.barChartData = [];
+      for (let i = 0; i < this.barChartLabels.length; i++) {
+        const stat = this.statistics.filter(s => new Date(s.start_timestamp/1000000).toLocaleString() === this.barChartLabels[i]);
+        while (stat.length > this.barChartData.length) {
+          this.barChartData.push({data: [], label: 'nanosec'});
+        }
+        for (let k = 0; k < stat.length; k++) {
+          this.barChartData[k].data[i] = stat[k].measurement;
+        }
+      }
+    })
   }
 
   ngOnInit(): void {
-    this.statistics = this.statisticsService.fetchStatistics("api/transaction/brpld145t7lvfjg4oomg/refund", "PUT")
-    .sort((a, b) => a.timeStamp < b.timeStamp ? -1 : a.timeStamp > b.timeStamp ? 1 : 0);
-    for(let i = 0; i < this.statistics.length; i++) {
-      this.barChartLabels.push(new Date(this.statistics[i].timeStamp/1000000).toLocaleString());
-      console.log(this.barChartLabels);
-      this.barChartData[0].data.push(this.statistics[i].measurement);
-      console.log(this.barChartData[0].data)
-    }
   }
 
 }
