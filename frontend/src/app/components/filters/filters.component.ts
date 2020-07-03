@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from "@angular/forms";
 import { FilterParamsModel } from "../../models/filter-params-model";
-
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-filters',
@@ -41,6 +40,7 @@ import { FilterParamsModel } from "../../models/filter-params-model";
     </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="filterForm.pristine">Search</button>
   <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
+  <button mat-raised-button color="warn" type="button" (click)="onWeekly()">Weekly Failures</button>
   `,
   styles: [`
     ::ng-deep .selectLabel{
@@ -87,6 +87,17 @@ export class FiltersComponent implements OnInit {
       started_before: new FormControl(null),
       status: new FormControl(null)
     });
+  }
+
+  onWeekly(): void {
+    this.filterForm.patchValue({
+      started_after: moment().startOf('isoWeek').toDate(),
+      started_before: moment().endOf('isoWeek').toDate(),
+      status: 'FAILED',
+      triggered_by: null,
+      commit_hash: null
+    });
+    this.onSearch();
   }
 
   onSearch(): void {
