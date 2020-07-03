@@ -29,6 +29,7 @@ import { TestDetailsComponent } from './components/test-details/test-details.com
 import { TestResolver } from './resolvers/test.resolver';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login'
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -88,7 +89,7 @@ const routes: Routes = [
         [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider ('878632813836-s16kfkrn6i8bahht4asohntr8f695pbc.apps.googleusercontent.com'),
+            provider: new GoogleLoginProvider (environment.GoogleLoginProvider),
           },
         ],
       } as SocialAuthServiceConfig,
