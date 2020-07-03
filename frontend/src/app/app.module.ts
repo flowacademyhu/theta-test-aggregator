@@ -27,6 +27,7 @@ import { TestStatusDirective } from './directives/test-status.directive';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver'
+import { ConfirmInvalidateModalComponent } from "./modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -58,7 +59,8 @@ const routes: Routes = [
     TestResultsComponent,
     TestStatusDirective,
     FiltersComponent,
-    TestDetailsComponent
+    TestDetailsComponent,
+    ConfirmInvalidateModalComponent
   ],
   imports: [
     BrowserModule,
