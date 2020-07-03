@@ -12,7 +12,7 @@ Fluidpay has a simulation tool over on it’s API. That simulates the users beha
 
 #### First startup
 
-Navigate to you backend folder in your terminal, then type in
+Navigate to the backend folder in your terminal, then type in
 
 [`npm install`]
 
@@ -20,7 +20,7 @@ Navigate to you backend folder in your terminal, then type in
 
 Then continue with the usual startup in the next section.
 
-#### Every satrtup
+#### Every startup
 
 Navigate to the backend folder in your terminal, then type in
 
@@ -53,3 +53,19 @@ Navigate to your frontend folder in your terminal, then type in
 ![Frontend-startup](media/frontendStart.png)
 
 Do not close the terminal after it started succesfully.
+
+## Development
+
+This test aggregator was developed using Docker, Express js on the backend, and Angular js on frontend.
+
+To develop a new feature you would first start up the backend with the previously mentioned [`docker-compose up`] command in the backend folder.
+
+If your feature requires a new npm module on the backend side, you'd install that in the backend folder directly.
+
+After saving any changes docker should restart automatically and inform you of any errors while running.If this doesnt happen, you can manually restart docker by pressing [`Ctrl + C`] and typing in [`docker-compose up`] again.
+
+If you are satisfied on the backend you navigate into the frontend folder and use the previously mentioned [`ng serve`] command.
+
+If your feature requires a new npm module on the frontend side, you'd install that in the frontend folder directly.
+
+After saving any changes there should be an automatic restart that should inform you of any error encountered.If this doesnt happen, you can manually restart by pressing [`Ctrl + C`] and typing in [`ng serve`] again.
