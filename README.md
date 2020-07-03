@@ -14,11 +14,17 @@ Fluidpay has a simulation tool over on it’s API. That simulates the users beha
 
 Navigate to the backend folder in your terminal, then type in
 
+[`docker-compose up`]
+
+Open a new terminal window and type in
+
+[`docker-compose exec thet-test-aggregator sh `]
+
+In this window type in the following
+
 [`npm install`]
-
-![Backend-Npm](media/backendNpm.png)
-
-Then continue with the usual startup in the next section.
+[`npm run db:migrate:all`]
+[`npm db:seed`]
 
 #### Every startup
 
@@ -54,9 +60,21 @@ Navigate to your frontend folder in your terminal, then type in
 
 Do not close the terminal after it started succesfully.
 
+## Design
+
+This project contains 4 essnetial parts:
+
+- A MYSQL database recieveing / updating all the incoming test results.
+
+- A MYSQL database containing / updating / managing users.
+
+- Express js for the backend logic.
+
+- An Angular frontend as an interface for users.
+
 ## Development
 
-This test aggregator was developed using Docker, Express js on the backend, and Angular js on frontend.
+This test aggregator was developed using Docker, Express js on the backend, and Angular on frontend.
 
 To develop a new feature you would first start up the backend with the previously mentioned [`docker-compose up`] command in the backend folder.
 
