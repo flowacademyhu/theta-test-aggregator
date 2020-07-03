@@ -10,8 +10,20 @@ Fluidpay has a simulation tool over on it’s API. That simulates the users beha
 
 ### Backend
 
+#### First startup
+
+Navigate to you backend folder in your terminal, then type in
+
+[`npm install`]
+
+Then continue with the usual startup in the next section.
+
+#### Every satrtup
+
 Navigate to the backend folder in your terminal, then type in
-docker-compose up
+
+[`docker-compose up`]
+
 You might need to use sudo with the command.
 
 ![Backend-startup](media/Backend.png)
@@ -20,8 +32,19 @@ Do not close the terminal after it started succesfully.
 
 ### Frontend
 
+#### First startup
+
+Navigate to the frontend folder in your terminal, then type in
+
+[`npm install`]
+
+Then continue with the usual startup in the next section.
+
+#### Every startup
+
 Navigate to your frontend folder in your terminal, then type in
-ng serve
+
+[`ng serve`]
 
 ![Frontend-startup](media/Frontend.png)
 
