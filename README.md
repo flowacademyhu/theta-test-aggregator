@@ -16,6 +16,8 @@ Navigate to you backend folder in your terminal, then type in
 
 [`npm install`]
 
+![Backend-Npm](media/backendNpm.png)
+
 Then continue with the usual startup in the next section.
 
 #### Every satrtup
@@ -26,7 +28,7 @@ Navigate to the backend folder in your terminal, then type in
 
 You might need to use sudo with the command.
 
-![Backend-startup](media/Backend.png)
+![Backend-startup](media/backendStart.png)
 
 Do not close the terminal after it started succesfully.
 
@@ -38,6 +40,8 @@ Navigate to the frontend folder in your terminal, then type in
 
 [`npm install`]
 
+![Frontend-npm](media/frontendNpm.png)
+
 Then continue with the usual startup in the next section.
 
 #### Every startup
@@ -46,6 +50,6 @@ Navigate to your frontend folder in your terminal, then type in
 
 [`ng serve`]
 
-![Frontend-startup](media/Frontend.png)
+![Frontend-startup](media/frontendStart.png)
 
 Do not close the terminal after it started succesfully.
