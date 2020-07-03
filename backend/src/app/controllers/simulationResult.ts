@@ -11,7 +11,7 @@ import { Statistic } from '../models/statistic';
 
 export const index = async (req: Request, res: Response) => {
   try {
-    let query: QueryBuilder = database(tableName.SIMULATION_RESULTS).select();
+    let query: QueryBuilder = database(tableName.SIMULATION_RESULTS).select().whereNot({ invalid: SimulationResultValidity.INVALID });
     limitQuery(req, query);
     offsetQuery(req, query);
     filterHandler(req, query);

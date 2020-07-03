@@ -346,7 +346,7 @@
         }
       }
     },
-    "/simulationResult/{id}/invalidate": {
+    "/api/simulationResult/{id}/invalidate": {
       "put": {
         "summary": "Invalidate simulation result by id",
         "parameters": [
@@ -360,6 +360,18 @@
             "name": "id",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dummy": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {

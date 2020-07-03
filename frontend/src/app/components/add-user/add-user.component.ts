@@ -19,11 +19,11 @@ export class AddUserComponent implements OnInit {
   public errors: string[] = [];
 
   public addForm: FormGroup  = new FormGroup({
-    password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+    password: new FormControl(null, [Validators.minLength(8)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     git_user: new FormControl(null, [Validators.required, Validators.pattern(/^\S*$/)]),
     role: new FormControl(null, [Validators.required]),
-    notification: new FormControl(null, [Validators.required])
+    notification: new FormControl(null)
   });
 
   public onAdd() {
