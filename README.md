@@ -13,12 +13,16 @@ Fluidpay has a simulation tool over on it’s API. That simulates the users beha
 Navigate to the backend folder in your terminal, then type in
 docker-compose up
 You might need to use sudo with the command.
+
 ![Backend-startup](media/Backend.png)
+
 Do not close the terminal after it started succesfully.
 
 ### Frontend
 
 Navigate to your frontend folder in your terminal, then type in
 ng serve
+
 ![Frontend-startup](media/Frontend.png)
+
 Do not close the terminal after it started succesfully.
