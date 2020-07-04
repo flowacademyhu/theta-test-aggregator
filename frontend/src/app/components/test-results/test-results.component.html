@@ -1,7 +1,7 @@
 <mat-toolbar class="navbar">
   <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
 </mat-toolbar>
-<div>
+<div class="top-margin">
   <mat-card *ngFor="let test of tests$.getValue()" class="header" [routerLink]="['/test', test.id]" >
   <mat-card-header>
     <p [appTestStatus]="test.status" class="title"> Branch name: {{test.branch_name}}</p>
