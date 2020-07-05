@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Statistic } from 'src/app/models/statistic.model';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
@@ -22,7 +22,6 @@ export class StatisticsComponent implements OnInit {
   public barChartLegend = false;
   public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [{data: []}];
-  public barChartResponsive = true;
 
   public method: string;
   public endpoint: string;
@@ -66,14 +65,38 @@ export class StatisticsComponent implements OnInit {
     }
   };
 
+  public calcMeasurementAvg() {
+    this.barChartData[0].data = [];
+    for (let i = 0; i < this.barChartLabels.length; i++) {
+      let sum = 0;
+      let counter = 0;
+      for (let j = 0; j < this.statistics.length; j++) {
+        if (this.convertUnixDate(this.statistics[j]) === this.barChartLabels[i]) {
+          sum += this.statistics[j].measurement;
+          counter++;
+        }
+      }
+      console.log(sum, counter);
+      this.barChartData[0].data.push(sum/counter);
+    }
+  };
+
+  public sortStatistics(statistics: Statistic[]) {
+    this.statistics = [];
+    this.statistics = statistics.sort((a, b) => 
+      a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
+  }
+
   public showStatistics() {
     this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpoint}`, `${this.method}`)
     .subscribe((data) => {
-      this.filterLastTenStatistic(data);
+      this.sortStatistics(data);
+      //this.filterLastTenStatistic(data);
       this.createChartLabels();
-      this.createChartData();
+      //this.createChartData();
+      this.calcMeasurementAvg();
     })
-  }
+  };
 
   ngOnInit(): void {
   }

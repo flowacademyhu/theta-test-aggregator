@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label for="method">Method: </mat-label>
-  <mat-select name="method" [(ngModel)]="method">
+  <mat-select required [(ngModel)]="method" #methodInput="ngModel">
     <mat-option value="POST">POST</mat-option>
     <mat-option value="GET">GET</mat-option>
     <mat-option value="PUT">PUT</mat-option>
@@ -8,9 +8,12 @@
 </mat-form-field>
 <mat-form-field>
   <mat-label for="endpoint">Endpoint: </mat-label>
-  <input matInput type="text" [(ngModel)]="endpoint">
+  <input required matInput type="text" [(ngModel)]="endpoint" #endpointInput="ngModel">
 </mat-form-field>
-<button mat-raised-button color="primary" (click)="showStatistics()">Show</button>
+<button 
+mat-raised-button color="primary" 
+(click)="showStatistics()"
+[disabled]="endpointInput.invalid || methodInput.invalid">Show</button>
 <div class="chart">
   <canvas baseChart 
   [datasets]="barChartData"
