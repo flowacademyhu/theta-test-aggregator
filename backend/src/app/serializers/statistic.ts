@@ -2,6 +2,7 @@ import { Statistic } from '../models/statistic';
 
 export interface StatisticSerializer {
   id: number;
+  simulation_result_id: string;
   start_timestamp: number;
   method: string;
   endpoint: string;
@@ -11,6 +12,7 @@ export interface StatisticSerializer {
 export const show = (statistic: Statistic): StatisticSerializer => {
   return {
     id: statistic.id,
+    simulation_result_id: statistic.simulation_result_id,
     start_timestamp: statistic.start_timestamp,
     method: statistic.method,
     endpoint: statistic.endpoint,

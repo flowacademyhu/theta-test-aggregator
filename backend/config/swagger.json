@@ -847,6 +847,9 @@
         "id": {
           "type": "number"
         },
+        "simulation_result_id": {
+          "type": "string"
+        },
         "start_timestamp": {
           "type": "number"
         },
