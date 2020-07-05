@@ -21,6 +21,7 @@ mat-raised-button color="primary"
   [options]="barChartOptions"
   [plugins]="barChartPlugins"
   [legend]="barChartLegend"
-  [chartType]="barChartType">
+  [chartType]="barChartType"
+  (chartClick)="clickChart($event)">
   </canvas>
 </div>

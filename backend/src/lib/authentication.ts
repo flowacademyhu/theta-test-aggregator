@@ -23,6 +23,10 @@ const anonymusEndpoints: Array<AnonymusEndpoint> = [
   {
     path: '/api/simulationResult/{id}',
     method: Method.put
+  },
+  {
+    path: '/api/login/google',
+    method: Method.post
   }
 ];
 

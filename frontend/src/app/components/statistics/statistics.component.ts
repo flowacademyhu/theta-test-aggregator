@@ -14,14 +14,14 @@ export class StatisticsComponent implements OnInit {
   constructor(private statisticsService: StatisticsService) { }
   
   public barChartOptions: ChartOptions = {
-    responsive: true,
+    responsive: true
   };
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = false;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [{data: []}];
+  public barChartData: ChartDataSets[] = [{data: [], label: "HELLO"}];
 
   public method: string;
   public endpoint: string;
@@ -85,6 +85,12 @@ export class StatisticsComponent implements OnInit {
     this.statistics = [];
     this.statistics = statistics.sort((a, b) => 
       a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
+  }
+
+  public clickChart(event) {
+    if (event.active.length > 0) {
+      console.log(event.active[0]._model.label);
+    }
   }
 
   public showStatistics() {

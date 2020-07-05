@@ -25,11 +25,13 @@ import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-import { GoogleChartsModule } from 'angular-google-charts';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver';
 import { ChartsModule } from 'ng2-charts';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login'
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -74,8 +76,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    GoogleChartsModule,
-    ChartsModule
+    ChartsModule,
+    SocialLoginModule,
   ],
   exports: [RouterModule],
   providers: [
@@ -83,6 +85,20 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: 
+      {
+        autoLogin: false,
+        providers: 
+        [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider (environment.GoogleLoginProvider),
+          },
+        ],
+      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]

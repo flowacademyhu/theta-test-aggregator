@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:3000/api/'
+  baseUrl: 'http://localhost:3000/api/',
+  GoogleLoginProvider: '878632813836-s16kfkrn6i8bahht4asohntr8f695pbc.apps.googleusercontent.com'
 };
 
 /*
