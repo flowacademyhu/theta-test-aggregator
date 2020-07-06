@@ -10,31 +10,39 @@ Fluidpay has a simulation tool over on it’s API that simulates the users behav
 
 ### Backend
 
+You might need to use sudo with the docker commands.
+
 #### First startup
 
 Navigate to the backend folder in your terminal, then type in
 
 [`docker-compose up`]
 
+![Backend-startup](media/backendStart.png)
+
 Open a new terminal window and type in
 
-[`docker-compose exec thet-test-aggregator sh `]
+[`docker-compose exec theta-test-aggregator sh `]
 
 In this window type in the following
 
 [`npm install`]
 
-[`npm run db:migrate:all`]
+![Backend-Npm Install](media/npmandsh.png)
 
-[`npm db:seed`]
+[`npm run db:migrate`]
+
+![Backend-Migrate](media/migrate.png)
+
+[`npm run db:seed`]
+
+![Backend-Seed](media/seed.png)
 
 #### Every startup
 
 Navigate to the backend folder in your terminal, then type in
 
 [`docker-compose up`]
-
-You might need to use sudo with the command.
 
 ![Backend-startup](media/backendStart.png)
 
