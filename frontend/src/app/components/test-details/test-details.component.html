@@ -24,12 +24,12 @@
             </tr>
             <tr>
               <td>Start: </td>
-              <td class="testResultLogs">{{test.start_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
+              <td class="testResultLogs">{{startTimestampUnix | date:'MM-dd-yyyy hh:mm:ss'}}</td>
             </tr>
             <tr>
               <td>End:</td>
               <td class="testResultLogs" *ngIf="test.end_timestamp !== null">
-                {{test.end_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
+                {{endTimestampUnix | date:'MM-dd-yyyy hh:mm:ss'}}</td>
               <td class="testResultLogs" *ngIf="test.end_timestamp === null">Unknown</td>
             </tr>
             <ng-container *ngIf="test.status.toString() !== 'ERROR'; then thenBlock; else elseBlock"></ng-container>
