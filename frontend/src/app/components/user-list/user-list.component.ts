@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
       this.authService.getCurrentUser().subscribe((data) => {
         this.user = data;
       });
-      this.users = data.users.filter(u => u.id !== localStorage.getItem('id'));
+      this.users = data.users.filter(u => u.id !== sessionStorage.getItem('id'));
     });
   }
 
