@@ -30,6 +30,7 @@ import { TestResolver } from './resolvers/test.resolver';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login'
 import { environment } from 'src/environments/environment';
+import { PayloadTextPrettifyPipe } from './pipes/payload-text-prettify.pipe';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -61,7 +62,8 @@ const routes: Routes = [
     TestResultsComponent,
     TestStatusDirective,
     FiltersComponent,
-    TestDetailsComponent
+    TestDetailsComponent,
+    PayloadTextPrettifyPipe
   ],
   imports: [
     BrowserModule,
