@@ -143,3 +143,7 @@ table {
               0pt 0pt 5pt 0pt rgb(124, 123, 123), 
               0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
+
+.innerHTML {
+  overflow-wrap: break-word;
+}

@@ -1,9 +1,11 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Test } from 'src/app/models/test.model';
-import { Subscription, BehaviorSubject } from 'rxjs';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/services/test.service';
 import { FilterParamsModel } from "../../models/filter-params-model";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-test-results',
@@ -16,22 +18,35 @@ export class TestResultsComponent implements OnInit {
   constructor( private route: ActivatedRoute, private testService: TestService) {
   }
 
-  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   subscriptions$: Subscription[] = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
+  obs: Observable<Test[]>;
+  dataSource: MatTableDataSource<Test> = new MatTableDataSource<Test>(null);
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(sub => sub.unsubscribe());
+    if (this.dataSource) { 
+      this.dataSource.disconnect(); 
+    }
   }
 
   ngOnInit(): void {
     this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
-      this.tests$.next(tests);
+      this.getDataSource(tests);
     }));
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
     this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((tests) => {
-      this.tests$.next(tests);
+      this.getDataSource(tests);
     }));
+  }
+
+  getDataSource(tests: Test[]) {
+    this.tests$.next(tests);
+    this.dataSource= new MatTableDataSource<Test>(this.tests$.getValue());
+    this.dataSource.paginator= this.paginator;
+    this.obs = this.dataSource.connect();
   }
 }
