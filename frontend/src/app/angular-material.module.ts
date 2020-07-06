@@ -22,7 +22,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu'; 
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatExpansionModule,
     MatMenuModule,
     MatDialogModule,
+    MatAutocompleteModule
   ],
   exports: [
     CommonModule,
@@ -73,7 +75,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTooltipModule,
     MatMenuModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatAutocompleteModule
   ],
   providers: [
     MatDatepickerModule,

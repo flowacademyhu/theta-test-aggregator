@@ -12,6 +12,10 @@ export class StatisticsService {
 
   public fetchStatisticsByEndPointAndMethod(endpoint: string, method: string) {
     return this.http.get<Statistic[]>(environment.baseUrl + `statistic?endpoint=${endpoint}&method=${method}`);
+  };
+
+  public fetchStatistics() {
+    return this.http.get<Statistic[]>(environment.baseUrl + 'statistic');
   }
 
 }

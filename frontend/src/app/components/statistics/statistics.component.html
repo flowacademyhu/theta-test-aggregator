@@ -1,6 +1,6 @@
 <mat-form-field class="form-field">
   <mat-label class="label" for="method">Method: </mat-label>
-  <mat-select class="select" required [(ngModel)]="method" #methodInput="ngModel">
+  <mat-select class="select" required [formControl]="methodInputControl">
     <mat-option class="option" value="POST">POST</mat-option>
     <mat-option class="option" value="GET">GET</mat-option>
     <mat-option class="option" value="PUT">PUT</mat-option>
@@ -8,12 +8,22 @@
 </mat-form-field>
 <mat-form-field class="form-field">
   <mat-label class="label" for="endpoint">Endpoint: </mat-label>
-  <input required matInput type="text" [(ngModel)]="endpoint" #endpointInput="ngModel">
+  <input 
+  required 
+  matInput 
+  type="text" 
+  [formControl]="endpointInputControl" 
+  [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let endpoint of filteredEndpoints | async" [value]="endpoint">
+      {{endpoint}}
+    </mat-option>
+  </mat-autocomplete>
 </mat-form-field>
 <button 
 mat-raised-button color="primary" 
 (click)="showStatistics()"
-[disabled]="endpointInput.invalid || methodInput.invalid">Show</button>
+[disabled]="endpointInputControl.invalid || methodInputControl.invalid">Show</button>
 <div class="chart">
   <canvas baseChart 
   [datasets]="barChartData"

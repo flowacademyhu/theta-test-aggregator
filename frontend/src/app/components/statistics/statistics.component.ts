@@ -4,6 +4,9 @@ import { StatisticsService } from 'src/app/services/statistics.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-statistics',
@@ -20,8 +23,7 @@ export class StatisticsComponent implements OnInit {
       callbacks: {
         label: (tooltipItem, data) => {
           const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-          let tooltip = datasetLabel + ': ' + tooltipItem.yLabel + ' nanosec\n';
-          return  tooltip;
+          return  `${datasetLabel}: ${tooltipItem.yLabel} nanosec`;
         }
       }
     }
@@ -34,24 +36,15 @@ export class StatisticsComponent implements OnInit {
   public barChartData: ChartDataSets[] = [{data: [], label: 'Average runtime: '}];
   public barChartColors: Color[] =[{ backgroundColor: '#00aaef'}];
 
-  public method: string;
-  public endpoint: string;
   public statistics: Statistic[];
-  public testIDs: String[] = [];
+  public testIDs: string[] = [];
+  public endpoints: string[] = [];
+  public filteredEndpoints: Observable<string[]>;
+  public endpointInputControl = new FormControl();
+  public methodInputControl = new FormControl();
 
   public convertUnixDate(statistic: Statistic) {
     return new Date(statistic.start_timestamp/1000000).toLocaleString();
-  };
-
-  public filterLastTenStatistic(statistics: Statistic[]) {
-    if (statistics.length > 10) {
-      this.statistics = statistics.sort((a, b) => 
-      a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
-      .slice(Math.max(statistics.length - 10, 1));
-    } else {
-      this.statistics = statistics.sort((a, b) => 
-      a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0);
-    }
   };
 
   public createChartLabels() {
@@ -61,20 +54,6 @@ export class StatisticsComponent implements OnInit {
         this.barChartLabels.push(this.convertUnixDate(s));
       }
     })
-  };
-
-  public createChartData() {
-    this.barChartData = [];
-    for (let i = 0; i < this.barChartLabels.length; i++) {
-      const stat = this.statistics
-      .filter(s => this.convertUnixDate(s) === this.barChartLabels[i]);
-      if (stat.length > this.barChartData.length) {
-        this.barChartData.push({data: [], label: 'nanosec'});
-      }
-      for (let k = 0; k < stat.length; k++) {
-        this.barChartData[k].data[i] = stat[k].measurement;
-      }
-    }
   };
 
   public calcMeasurementAvg() {
@@ -96,11 +75,7 @@ export class StatisticsComponent implements OnInit {
     this.statistics = [];
     this.statistics = statistics.sort((a, b) => 
       a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
-  }
-
-  public clickChart(event) {
-    this.router.navigate([`/test/${this.testIDs[event.active[0]._index]}`])
-  }
+  };
 
   public storeTestIDs() {
     this.statistics.forEach(s => {
@@ -108,21 +83,43 @@ export class StatisticsComponent implements OnInit {
         this.testIDs.push(s.simulation_result_id);
       }
     })
-  }
+  };
+
+  public clickChart(event) {
+    this.router.navigate([`/test/${this.testIDs[event.active[0]._index]}`])
+  };
+
+  public storeEndpoints(statistics: Statistic[]) {
+    statistics.forEach(s => {
+      if (!this.endpoints.includes(s.endpoint)) {
+        this.endpoints.push(s.endpoint);
+      }
+    })
+  };
 
   public showStatistics() {
-    this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpoint}`, `${this.method}`)
+    this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpointInputControl.value}`, `${this.methodInputControl.value}`)
     .subscribe((data) => {
       this.sortStatistics(data);
-      //this.filterLastTenStatistic(data);
       this.createChartLabels();
-      //this.createChartData();
       this.calcMeasurementAvg();
       this.storeTestIDs();
     })
   };
 
+  private filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.endpoints.filter(endpoint => endpoint.toLowerCase().indexOf(filterValue) === 0);
+  };
+
   ngOnInit(): void {
+    this.statisticsService.fetchStatistics().subscribe((data) => {
+      this.storeEndpoints(data);
+      this.filteredEndpoints = this.endpointInputControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this.filter(value))
+      )
+    })
   }
 
 }
