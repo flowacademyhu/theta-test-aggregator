@@ -1,4 +1,4 @@
-<div class="top-margin">
+<div class="body top-margin">
   <p class="branch-name">{{test.branch_name}}</p>
   <div>
     <mat-accordion>
@@ -20,7 +20,7 @@
             </tr>
             <tr>
               <td>Triggered:</td>
-              <td class="testResultLogs">{{test.triggered_by}}</td>
+              <td class="testResultLogs">{{test.triggered_by}} {{test.status}}</td>
             </tr>
             <tr>
               <td>Start: </td>
@@ -32,14 +32,19 @@
                 {{test.end_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
               <td class="testResultLogs" *ngIf="test.end_timestamp === null">Unknown</td>
             </tr>
-            <tr *ngIf="test.status !== 'error'">
-              <td>Short: </td>
-              <td class="testResultLogs">{{test.short_description}}</td>
-            </tr>
-            <tr *ngIf="test.status === 'error'">
-              <td>Error message: </td>
-              <td class="testResultLogs">{{test.error_message}}</td>
-            </tr>
+            <ng-container *ngIf="test.status.toString() !== 'ERROR'; then thenBlock; else elseBlock"></ng-container>
+            <ng-template #thenBlock>
+              <tr>
+                <td>Short: </td>
+                <td class="testResultLogs">{{test.short_description}}</td>
+              </tr>
+            </ng-template>
+            <ng-template #elseBlock>
+              <tr>
+                <td>Error message: </td>
+                <td class="testResultLogs">{{test.error_message}}</td>
+              </tr>
+            </ng-template>
           </table>
         </div>
       </mat-expansion-panel>
@@ -51,7 +56,7 @@
             <p>Result</p>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div [innerHTML]="htmlString"></div>
+        <div [innerHTML]="htmlString | payloadTextPrettify"></div>
       </mat-expansion-panel>
     </mat-accordion>
     <mat-accordion>
@@ -77,6 +82,6 @@
       </mat-expansion-panel>
     </mat-accordion>
     <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
-    <button *ngIf="user.role === 'admin'" mat-raised-button color="warn" (click)="toggleInvalidateModal()">Invalidate</button>
+    <button *ngIf="user.role === 'admin'" mat-raised-button color="warn"
+      (click)="toggleInvalidateModal()">Invalidate</button>
   </div>
-</div>

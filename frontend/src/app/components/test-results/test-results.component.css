@@ -1,11 +1,54 @@
 .header.mat-card {
   margin: 35px;
-  background-color: #243441 
+  background-color: #243441;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.status-desc{
+  flex: 2 0 0 0;
 }
 
 .title {
-  font-size: 15pt;
-  font-weight: bold;
+  font-size: 20pt;
+  font-weight: 999;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  margin-right: 30pt;
+  margin-top: 0rem;
+  margin-bottom: 10pt;
+}
+
+#error{
+  font-size: 60pt;
+  flex: 1 0 0 0;
+  text-align: right;
+  margin-right: 30pt; 
+  color: #ecc30c; 
+}
+
+#success{
+  font-size: 60pt;
+  flex: 1 0 0 0;
+  text-align: right;
+  margin-right: 30pt; 
+  color: #2aa82a; 
+}
+#failed{
+  font-size: 60pt;
+  flex: 1 0 0 0;
+  text-align: right;
+  margin-right: 30pt; 
+  color: #f23a3a; 
+}
+#unknown{
+  font-size: 60pt;
+  flex: 1 0 0 0;
+  text-align: right;
+  margin-right: 30pt; 
+  color: #f5F5F5; 
 }
 
 .user-data {
@@ -15,18 +58,23 @@
 .description {
   color: #f5f5f5;
   font-weight: bold;
-  font-size: 10pt;
+  font-size: 15pt;
   margin-top: 0rem;
 }
 
+.simulations{
+  margin-left: 100pt;
+  margin-right: 100pt;
+}
+
 .mat-card:not([class*=mat-elevation-z]) {
-  box-shadow: 0px 0px 5px 3px rgb(75, 70, 70), 
-              0px 0px 5px 3px rgb(141, 134, 134), 
-              0px 0px 5px 3px rgb(238, 232, 232);
+  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
+  0pt 0pt 5pt 0pt rgb(124, 123, 123), 
+  0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
 
 .header.mat-card:hover {
-  display: block;
+  display: flex;
   background-color: rgb(2, 119, 119);
 }
 
@@ -48,7 +96,12 @@
   display: block;
   padding: 5px 10px;
   top: 47pt;
-  background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
+  background-color: #304b61;
+/*   background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
+ */
+ box-shadow: 0pt 10pt 5pt 0pt rgb(92, 91, 91), 
+ 0pt 0pt 5pt 0pt rgb(124, 123, 123), 
+ 0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
 
 div.top-margin {
