@@ -90,16 +90,16 @@ This test aggregator was developed using Docker, Express js on the backend, and 
 
 To develop a new feature you would first start up the backend with the previously mentioned [`docker-compose up`] command in the backend folder.
 
-If your feature requires a new npm module on the backend side, you'd first open a new terminal window an type in
+You open a new terminal window and navigate into the frontend folder and use the [`ng serve`] command.
+
+If your feature requires a new npm module on the backend side, you'd first open a new terminal window and type in
 
 [`docker-compose exec thet-test-aggregator sh `]
 
 and install your npm module in here.
 
-After saving any changes docker should restart automatically and inform you of any errors while running.If this doesnt happen, you can manually restart docker by pressing [`Ctrl + C`] and typing in [`docker-compose up`] again.
-
-If you are satisfied on the backend you navigate into the frontend folder and use the previously mentioned [`ng serve`] command.
+After saving any changes on the backend docker should restart automatically and inform you of any errors while running.If this doesnt happen, you can manually restart docker by pressing [`Ctrl + C`] and typing in [`docker-compose up`] again.
 
 If your feature requires a new npm module on the frontend side, you'd install that in the frontend folder directly.
 
-After saving any changes there should be an automatic restart that should inform you of any error encountered.If this doesnt happen, you can manually restart by pressing [`Ctrl + C`] and typing in [`ng serve`] again.
+After saving any changes on the frontend there should be an automatic restart that should inform you of any error encountered.If this doesnt happen, you can manually restart by pressing [`Ctrl + C`] and typing in [`ng serve`] again.
