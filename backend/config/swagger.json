@@ -65,6 +65,57 @@
         }
       }
     },
+    "/api/login/google": {
+      "post": {
+        "summary": "Google Authentication",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": ["token"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token with user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
+                    },
+                    "git_user": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": ["admin", "user"]
+                    },
+                    "notification": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/user": {
       "get": {
         "summary": "Users index",
@@ -73,6 +124,15 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },{
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -188,6 +248,41 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "commit_hash",
+            "type": "string"
+          },
+          {
+            "in":"query",
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "triggered_by",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "started_after, started_before",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "ended_after, ended_before",
+            "type": "string"
           }
         ],
         "responses": {
@@ -196,7 +291,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#definitions/SimulationResult"
+                "$ref": "#definitions/SimulationResultIndex"
               }
             }
           }
@@ -295,7 +390,7 @@
         }
       }
     },
-    "/simulationResult/{id}/invalidate": {
+    "/api/simulationResult/{id}/invalidate": {
       "put": {
         "summary": "Invalidate simulation result by id",
         "parameters": [
@@ -309,6 +404,18 @@
             "name": "id",
             "type": "string",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "dummy": {
+                  "type": "string"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -326,6 +433,16 @@
             "in": "header",
             "name": "Authorization",
             "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
           }
         ],
         "responses": {
@@ -349,6 +466,11 @@
             "schema": {
               "$ref": "#definitions/ApiKeyRequest"
             }
+          },
+          {
+            "in": "query",
+            "name": "infinite",
+            "type": "string"
           }
         ],
         "responses": {
@@ -486,6 +608,75 @@
           }
         }
       }
+    },
+    "/api/statistic": {
+      "get": {
+        "summary": "Statistics index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "endpoint",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "method",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All statistics",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/Statistic"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/statistic/{id}": {
+      "get": {
+        "summary": "Get a statistic by id",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The statistic",
+            "schema": {
+              "$ref": "#definitions/Statistic"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -602,6 +793,20 @@
         }
       }
     },
+    "SimulationResultIndex": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
+        }
+      }
+    },
     "ApiKeyRequest": {
       "type": "object",
       "properties": {
@@ -633,6 +838,29 @@
         },
         "notification": {
           "type": "boolean"
+        }
+      }
+    },
+    "Statistic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "simulation_result_id": {
+          "type": "string"
+        },
+        "start_timestamp": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "measurement": {
+          "type": "number"
         }
       }
     }

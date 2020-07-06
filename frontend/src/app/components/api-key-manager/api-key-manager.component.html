@@ -9,8 +9,8 @@
         <p>Created_at: {{apikey.created_at}}</p>
         </div>
         <mat-action-row>
-          <button mat-raised-button color="primary">Extend</button>
-          <button mat-raised-button color="warn">Delete</button>
+          <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary">Extend</button>
+          <button mat-raised-button (click)="toggleDeleteModal(apikey)" color="warn">Delete</button>
         </mat-action-row>
     </mat-card><br>
   </mat-accordion>

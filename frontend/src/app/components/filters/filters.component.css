@@ -1,0 +1,21 @@
+::ng-deep .selectLabel {
+  color: white;
+}
+
+::ng-deep .placeholder {
+  color: white;
+}
+
+::ng-deep .mat-select-panel {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .mat-option {
+  color: whitesmoke;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}

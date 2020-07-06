@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Test } from '../models/test.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { FilterParamsModel } from '../models/filter-params-model';
@@ -32,7 +32,8 @@ export class TestService {
     return this.http.get<Test>(environment.baseUrl + `simulationResult/${id}`);
   }
 
-/*   public fetchQuerry(limit: number, offset: number) {
-    return this.http.get<Test>(environment.baseUrl + `simulationresult?limit=${limit}&offset=${offset}&count`)
-  } */
+  public invalidateTest(id: string) {
+    const httpOptions: object = { responseType: 'text' };
+    return this.http.put(environment.baseUrl + `simulationResult/${id}/invalidate`, { dummy: 'dummy' }, httpOptions);
+  }
 }
