@@ -55,7 +55,7 @@
           <p>Result</p>
         </mat-panel-title>
       </mat-expansion-panel-header>
-          <div [innerHTML]="htmlString"></div>
+          <div [innerHTML]="htmlString | payloadTextPrettify"></div>
     </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion>
@@ -81,5 +81,5 @@
     </mat-expansion-panel>
   </mat-accordion>
   <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
-</div>
+  <button *ngIf="user.role === 'admin'" mat-raised-button color="warn" (click)="toggleInvalidateModal()">Invalidate</button>
 </div>
