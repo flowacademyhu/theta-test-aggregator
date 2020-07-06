@@ -48,8 +48,6 @@ Navigate to the backend folder in your terminal, then type in
 
 Do not close the terminal after it started succesfully.
 
-Now you can see it in action in your browser on [`http://localhost:4200`].
-
 ### Frontend
 
 #### First startup
@@ -71,6 +69,8 @@ Navigate to your frontend folder in your terminal, then type in
 ![Frontend-startup](media/frontendStart.png)
 
 Do not close the terminal after it started succesfully.
+
+Now you can see it in action in your browser on [`http://localhost:4200`].
 
 ## Design
 
