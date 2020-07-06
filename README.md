@@ -4,7 +4,7 @@
 ## Problem and Importance
 
 
-Fluidpay has a simulation tool over on it’s API. That simulates the users behaviour to test the correctness of the API and make sure future development in the API doesn’t break anything. This is an aggregator tool, the purpose of which is to get the results of these tests, save them properly into a database (MySQL) and visualize on the front side.
+Fluidpay has a simulation tool over on it’s API that simulates the users behaviour to test the correctness of the API and make sure future development in the API doesn’t break anything. This is an aggregator tool, the purpose of which is to get the results of these tests, save them properly into a database (MySQL) and visualize on the front side.
 
 ## Usage
 
@@ -39,6 +39,8 @@ You might need to use sudo with the command.
 ![Backend-startup](media/backendStart.png)
 
 Do not close the terminal after it started succesfully.
+
+Now you can see it in action in your browser on [`http://localhost:4200`].
 
 ### Frontend
 
@@ -80,7 +82,11 @@ This test aggregator was developed using Docker, Express js on the backend, and 
 
 To develop a new feature you would first start up the backend with the previously mentioned [`docker-compose up`] command in the backend folder.
 
-If your feature requires a new npm module on the backend side, you'd install that in the backend folder directly.
+If your feature requires a new npm module on the backend side, you'd first open a new terminal window an type in
+
+[`docker-compose exec thet-test-aggregator sh `]
+
+and install your npm module in here.
 
 After saving any changes docker should restart automatically and inform you of any errors while running.If this doesnt happen, you can manually restart docker by pressing [`Ctrl + C`] and typing in [`docker-compose up`] again.
 
