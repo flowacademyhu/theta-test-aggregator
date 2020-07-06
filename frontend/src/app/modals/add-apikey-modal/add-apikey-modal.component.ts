@@ -13,10 +13,7 @@ export class AddApikeyModalComponent implements OnInit {
 
   public errors: string[] = [];
 
-  constructor(
-    private apiKeyService: ApikeyService,
-    ) {
-    }
+  constructor(private apiKeyService: ApikeyService) {}
 
   public AddApiKey(infinite: boolean) {
     this.apiKeyService.addApiKey(infinite ? 'true' : 'false').pipe( catchError((error: HttpErrorResponse) => {
