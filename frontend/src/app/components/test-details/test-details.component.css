@@ -159,3 +159,6 @@ table {
   color: white;
   margin-right: 30pt;
 }
+.innerHTML {
+  overflow-wrap: break-word;
+}

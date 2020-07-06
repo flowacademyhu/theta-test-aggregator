@@ -36,16 +36,20 @@ export class AuthService {
     .pipe(
       switchMap((resp) => {
         this.loginLogic(isChecked, resp);
+        localStorage.setItem('signedInViaGoogle', "false");
         return this.loggedInUser$;
       })
     );
   }
 
   public logout() {
+    if (localStorage.getItem('signedInViaGoogle') === "true") {
+      this.socialAuthService.signOut();
+    }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
+    localStorage.removeItem('signedInViaGoogle');
     sessionStorage.clear();
-    this.socialAuthService.signOut();
     this.loggedInUser$.next(null);
     this.router.navigate(['login']);
   }
@@ -67,6 +71,7 @@ export class AuthService {
     .pipe(
       switchMap((resp) => {
         this.loginLogic(isChecked, resp);
+        localStorage.setItem('signedInViaGoogle', "true")
         return this.loggedInUser$;
       })
     );
