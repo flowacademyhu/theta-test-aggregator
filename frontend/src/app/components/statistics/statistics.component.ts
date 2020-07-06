@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Statistic } from 'src/app/models/statistic.model';
 import { StatisticsService } from 'src/app/services/statistics.service';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import { Label } from 'ng2-charts';
+import { Label, Color } from 'ng2-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-statistics',
@@ -11,21 +12,32 @@ import { Label } from 'ng2-charts';
 })
 export class StatisticsComponent implements OnInit {
 
-  constructor(private statisticsService: StatisticsService) { }
+  constructor(private statisticsService: StatisticsService, private router: Router) { }
   
   public barChartOptions: ChartOptions = {
-    responsive: true
+    responsive: true,
+    tooltips: {
+      callbacks: {
+        label: (tooltipItem, data) => {
+          const datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+          let tooltip = datasetLabel + ': ' + tooltipItem.yLabel + ' nanosec\n';
+          return  tooltip;
+        }
+      }
+    }
   };
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
   public barChartLegend = false;
   public barChartPlugins = [];
-  public barChartData: ChartDataSets[] = [{data: [], label: "HELLO"}];
+  public barChartData: ChartDataSets[] = [{data: [], label: 'Average runtime: '}];
+  public barChartColors: Color[] =[{ backgroundColor: '#00aaef'}];
 
   public method: string;
   public endpoint: string;
   public statistics: Statistic[];
+  public testIDs: String[] = [];
 
   public convertUnixDate(statistic: Statistic) {
     return new Date(statistic.start_timestamp/1000000).toLocaleString();
@@ -56,7 +68,7 @@ export class StatisticsComponent implements OnInit {
     for (let i = 0; i < this.barChartLabels.length; i++) {
       const stat = this.statistics
       .filter(s => this.convertUnixDate(s) === this.barChartLabels[i]);
-      while (stat.length > this.barChartData.length) {
+      if (stat.length > this.barChartData.length) {
         this.barChartData.push({data: [], label: 'nanosec'});
       }
       for (let k = 0; k < stat.length; k++) {
@@ -76,7 +88,6 @@ export class StatisticsComponent implements OnInit {
           counter++;
         }
       }
-      console.log(sum, counter);
       this.barChartData[0].data.push(sum/counter);
     }
   };
@@ -88,9 +99,15 @@ export class StatisticsComponent implements OnInit {
   }
 
   public clickChart(event) {
-    if (event.active.length > 0) {
-      console.log(event.active[0]._model.label);
-    }
+    this.router.navigate([`/test/${this.testIDs[event.active[0]._index]}`])
+  }
+
+  public storeTestIDs() {
+    this.statistics.forEach(s => {
+      if (!this.testIDs.includes(s.simulation_result_id)) {
+        this.testIDs.push(s.simulation_result_id);
+      }
+    })
   }
 
   public showStatistics() {
@@ -101,6 +118,7 @@ export class StatisticsComponent implements OnInit {
       this.createChartLabels();
       //this.createChartData();
       this.calcMeasurementAvg();
+      this.storeTestIDs();
     })
   };
 

@@ -1,13 +1,13 @@
-<mat-form-field>
-  <mat-label for="method">Method: </mat-label>
-  <mat-select required [(ngModel)]="method" #methodInput="ngModel">
-    <mat-option value="POST">POST</mat-option>
-    <mat-option value="GET">GET</mat-option>
-    <mat-option value="PUT">PUT</mat-option>
+<mat-form-field class="form-field">
+  <mat-label class="label" for="method">Method: </mat-label>
+  <mat-select class="select" required [(ngModel)]="method" #methodInput="ngModel">
+    <mat-option class="option" value="POST">POST</mat-option>
+    <mat-option class="option" value="GET">GET</mat-option>
+    <mat-option class="option" value="PUT">PUT</mat-option>
   </mat-select>
 </mat-form-field>
-<mat-form-field>
-  <mat-label for="endpoint">Endpoint: </mat-label>
+<mat-form-field class="form-field">
+  <mat-label class="label" for="endpoint">Endpoint: </mat-label>
   <input required matInput type="text" [(ngModel)]="endpoint" #endpointInput="ngModel">
 </mat-form-field>
 <button 
@@ -21,6 +21,7 @@ mat-raised-button color="primary"
   [options]="barChartOptions"
   [plugins]="barChartPlugins"
   [legend]="barChartLegend"
+  [colors]="barChartColors"
   [chartType]="barChartType"
   (chartClick)="clickChart($event)">
   </canvas>
