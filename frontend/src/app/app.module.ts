@@ -31,6 +31,7 @@ import { AddApikeyModalComponent } from './modals/add-apikey-modal/add-apikey-mo
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
+import { ConfirmInvalidateModalComponent } from "./modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
 import { PayloadTextPrettifyPipe } from './pipes/payload-text-prettify.pipe';
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
     AddApikeyModalComponent,
     FiltersComponent,
     TestDetailsComponent,
+    ConfirmInvalidateModalComponent,
     PayloadTextPrettifyPipe
   ],
   imports: [
