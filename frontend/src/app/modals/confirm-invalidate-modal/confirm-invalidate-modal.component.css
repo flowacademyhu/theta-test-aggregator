@@ -1,0 +1,13 @@
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.confirm-modal {
+  position: fixed;
+  width: 50vw;
+  left: 25vw;
+  top: 30vh;
+  background: white;
+  z-index: 1050;
+  padding: 1rem;
+}

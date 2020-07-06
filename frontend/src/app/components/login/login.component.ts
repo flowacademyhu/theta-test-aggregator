@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { SocialAuthService } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
-import { SocialUser } from "angularx-social-login";
+import { SocialAuthService } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { SocialUser } from "angularx-social-login";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
+
   user: SocialUser;
   loggedIn: boolean;
   email: any;
@@ -33,13 +33,13 @@ export class LoginComponent implements OnInit {
 
   public login() {
     this.authService
-    .login(this.loginForm.value.email, this.loginForm.value.password, this.isChecked)
-    .subscribe(() => {
-      this.router.navigate(['index']);
-    }, (error: HttpErrorResponse) => {
-      this.errors = error;
-      console.log(this.errors);
-    });
+      .login(this.loginForm.value.email, this.loginForm.value.password, this.isChecked)
+      .subscribe(() => {
+        this.router.navigate(['index']);
+      }, (error: HttpErrorResponse) => {
+        this.errors = error;
+        console.log(this.errors);
+      });
   }
 
   rememberMe() {
