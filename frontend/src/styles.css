@@ -2,3 +2,4 @@
 
 html, body { height: 100%; background-color: #243441; color: #aaaaaa; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 1.17em; }
+div.top-margin { margin-top: 69px; z-index: 1; }

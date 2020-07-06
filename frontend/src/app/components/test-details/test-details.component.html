@@ -1,85 +1,87 @@
-<div class="body">
-<p class="branch-name">{{test.branch_name}}</p>
-<div>
-  <mat-accordion>
-    <mat-expansion-panel  class="header">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="title">
-          <p>Details</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div  class="test-data">
-      <table>
-        <tr>
-          <td>Status:</td>
-          <td [appTestStatus]="test.status" class="testResultLogs">{{test.status}}</td>
-        </tr>
-        <tr>
-          <td>Commit hash: </td>
-          <td class="testResultLogs">{{test.commit_hash}}</td>
-        </tr>
-        <tr>
-          <td>Triggered:</td>
-          <td class="testResultLogs">{{test.triggered_by}} {{test.status}}</td>
-        </tr>
-        <tr>
-          <td>Start: </td>
-          <td class="testResultLogs">{{test.start_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
-        </tr>
-        <tr>
-          <td>End:</td>
-          <td class="testResultLogs" *ngIf="test.end_timestamp !== null">{{test.end_timestamp/1000000 | date:'MM-dd-yyyy h:m:s'}}</td>
-          <td class="testResultLogs" *ngIf="test.end_timestamp === null">Unknown</td>
-        </tr>
-        <ng-container *ngIf="test.status.toString() !== 'ERROR'; then thenBlock; else elseBlock"></ng-container>
-        <ng-template #thenBlock>
-          <tr>
-          <td>Short: </td>
-          <td class="testResultLogs">{{test.short_description}}</td>
-        </tr>
-      </ng-template>
-      <ng-template #elseBlock>
-        <tr>
-          <td>Error message: </td>
-          <td class="testResultLogs">{{test.error_message}}</td>
-        </tr>
-      </ng-template>
-      </table>
-    </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion>
-    <mat-expansion-panel  class="header">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="title">
-          <p>Result</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-          <div [innerHTML]="htmlString | payloadTextPrettify"></div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion>
-    <mat-expansion-panel  class="header">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="title">
-          <p>Logs</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div  class="test-data">
-    </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion>
-    <mat-expansion-panel  class="header">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="title">
-          <p>pprof</p>
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div  class="test-data">
-    </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-  <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
-  <button *ngIf="user.role === 'admin'" mat-raised-button color="warn" (click)="toggleInvalidateModal()">Invalidate</button>
-</div>
+<div class="body top-margin">
+  <p class="branch-name">{{test.branch_name}}</p>
+  <div>
+    <mat-accordion>
+      <mat-expansion-panel class="header">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+            <p>Details</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="test-data">
+          <table>
+            <tr>
+              <td>Status:</td>
+              <td [appTestStatus]="test.status" class="testResultLogs">{{test.status}}</td>
+            </tr>
+            <tr>
+              <td>Commit hash: </td>
+              <td class="testResultLogs">{{test.commit_hash}}</td>
+            </tr>
+            <tr>
+              <td>Triggered:</td>
+              <td class="testResultLogs">{{test.triggered_by}} {{test.status}}</td>
+            </tr>
+            <tr>
+              <td>Start: </td>
+              <td class="testResultLogs">{{startTimestampUnix | date:'MM-dd-yyyy hh:mm:ss'}}</td>
+            </tr>
+            <tr>
+              <td>End:</td>
+              <td class="testResultLogs" *ngIf="test.end_timestamp !== null">
+                {{endTimestampUnix | date:'MM-dd-yyyy hh:mm:ss'}}</td>
+              <td class="testResultLogs" *ngIf="test.end_timestamp === null">Unknown</td>
+            </tr>
+            <ng-container *ngIf="test.status.toString() !== 'ERROR'; then thenBlock; else elseBlock"></ng-container>
+            <ng-template #thenBlock>
+              <tr>
+                <td>Short: </td>
+                <td class="testResultLogs">{{test.short_description}}</td>
+              </tr>
+            </ng-template>
+            <ng-template #elseBlock>
+              <tr>
+                <td>Error message: </td>
+                <td class="testResultLogs">{{test.error_message}}</td>
+              </tr>
+            </ng-template>
+          </table>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel class="header">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+            <p>Result</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div [innerHTML]="htmlString | payloadTextPrettify"></div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel class="header">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+            <p>Logs</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="test-data">
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-accordion>
+      <mat-expansion-panel class="header">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+            <p>pprof</p>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="test-data">
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
+    <button *ngIf="user.role === 'admin'" mat-raised-button color="warn"
+      (click)="toggleInvalidateModal()">Invalidate</button>
+  </div>

@@ -1,24 +1,24 @@
 <mat-toolbar class="navbar">
   <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
 </mat-toolbar>
-<div class="simulations">
-<mat-card *ngFor="let test of tests$ | async" class="header" [routerLink]="['/test', test.id]" >
-  <div class="status-desc">
-  <mat-card-header>
-    <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p> 
-    </mat-card-header>
-    <mat-card-content class="desc">
-    <p class="description">Triggered by: {{test.triggered_by}}</p>
-    </mat-card-content>
+<div class="simulations top-margin">
+  <mat-card *ngFor="let test of tests$ | async" class="header" [routerLink]="['/test', test.id]">
+    <div class="status-desc">
+      <mat-card-header>
+        <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p>
+      </mat-card-header>
+      <mat-card-content class="desc">
+        <p class="description">Triggered by: {{test.triggered_by}}</p>
+      </mat-card-content>
     </div>
     <container-element [ngSwitch]="test.status">
-    <span *ngSwitchCase="'ERROR'" id="error" class="material-icons">error</span>
-    <span *ngSwitchCase="'SUCCESS'" id="success"class="material-icons">check_circle</span>
-    <span *ngSwitchCase="'FAILED'" id="failed"class="material-icons">cancel</span>
-    <span *ngSwitchCase="'UNKNOWN'" id="unknown"class="material-icons">help</span>
-  </container-element>
+      <span *ngSwitchCase="'ERROR'" id="error" class="material-icons">error</span>
+      <span *ngSwitchCase="'SUCCESS'" id="success" class="material-icons">check_circle</span>
+      <span *ngSwitchCase="'FAILED'" id="failed" class="material-icons">cancel</span>
+      <span *ngSwitchCase="'UNKNOWN'" id="unknown" class="material-icons">help</span>
+    </container-element>
   </mat-card>
 </div>
-  <div class="footer">
-    <mat-paginator fixed [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator> 
-   </div>
+<div class="footer">
+  <mat-paginator fixed [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>
