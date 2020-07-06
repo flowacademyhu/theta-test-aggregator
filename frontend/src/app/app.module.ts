@@ -28,9 +28,10 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login'
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { ConfirmInvalidateModalComponent } from "./modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
+import { PayloadTextPrettifyPipe } from './pipes/payload-text-prettify.pipe';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -63,7 +64,8 @@ const routes: Routes = [
     TestStatusDirective,
     FiltersComponent,
     TestDetailsComponent,
-    ConfirmInvalidateModalComponent
+    ConfirmInvalidateModalComponent,
+    PayloadTextPrettifyPipe
   ],
   imports: [
     BrowserModule,
@@ -84,14 +86,14 @@ const routes: Routes = [
     },
     {
       provide: 'SocialAuthServiceConfig',
-      useValue: 
+      useValue:
       {
         autoLogin: false,
-        providers: 
+        providers:
         [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider (environment.GoogleLoginProvider),
+            provider: new GoogleLoginProvider (environment.GoogleLoginProvider)
           },
         ],
       } as SocialAuthServiceConfig,
