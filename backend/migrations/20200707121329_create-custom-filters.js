@@ -5,8 +5,8 @@ exports.up = (knex) => {
     table.string('user_id');
     table.string('triggered_by');
     table.string('commit_hash');
-    table.bigInteger('started_after');
-    table.bigInteger('started_before');
+    table.bigInteger('started_after').unsigned();
+    table.bigInteger('started_before').unsigned();
     table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
     table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
