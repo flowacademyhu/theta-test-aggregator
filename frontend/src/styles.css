@@ -2,5 +2,5 @@
 
 html, body { height: 100%; background-color: #243441; color: #aaaaaa; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; font-size: 1.17em; }
-div.top-margin { padding-top: 69px; z-index: 1; }
+div.top-padding { padding-top: 69px; z-index: 1; }
 button.addbutton, button.backbutton { margin-left: 20px; }
