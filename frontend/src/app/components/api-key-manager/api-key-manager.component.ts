@@ -51,8 +51,10 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
 
   public toggleAddApiKey() {
     const dialogRef = this.dialog.open(AddApikeyModalComponent);
-    dialogRef.afterClosed().subscribe(() => {
-      this.getApiKeys();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getApiKeys();
+      }
     });
   }
 
