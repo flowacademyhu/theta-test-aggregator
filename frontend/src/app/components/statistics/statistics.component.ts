@@ -36,7 +36,6 @@ export class StatisticsComponent implements OnInit {
   public barChartData: ChartDataSets[] = [{data: [], label: 'Average runtime: '}];
   public barChartColors: Color[] =[{ backgroundColor: '#00aaef'}];
 
-  public statistics: Statistic[];
   public testIDs: string[] = [];
   public endpoints: string[] = [];
   public filteredEndpoints: Observable<string[]>;
@@ -47,43 +46,34 @@ export class StatisticsComponent implements OnInit {
     return new Date(statistic.start_timestamp/1000000).toLocaleString();
   };
 
-  public createChartLabels() {
+  public createChartLabels(statistics: Statistic[]) {
     this.barChartLabels = [];
-    this.statistics.forEach(s => {
-      if (!this.barChartLabels.includes(this.convertUnixDate(s))) {
-        this.barChartLabels.push(this.convertUnixDate(s));
+    statistics.forEach(s => {
+      const date = this.convertUnixDate(s);
+      if (!this.barChartLabels.includes(date)) {
+        this.barChartLabels.push(date);
       }
     })
   };
 
-  public calcMeasurementAvg() {
+  public calcMeasurementAvg(statistics: Statistic[]) {
     this.barChartData[0].data = [];
-    for (let i = 0; i < this.barChartLabels.length; i++) {
-      let sum = 0;
-      let counter = 0;
-      for (let j = 0; j < this.statistics.length; j++) {
-        if (this.convertUnixDate(this.statistics[j]) === this.barChartLabels[i]) {
-          sum += this.statistics[j].measurement;
-          counter++;
-        }
-      }
-      this.barChartData[0].data.push(sum/counter);
-    }
-  };
+    this.barChartLabels.forEach(l => {
+      const filteredStats = statistics.filter(s => this.convertUnixDate(s) === l);
+      const sum = filteredStats.reduce((a, b) => a + b.measurement, 0);
+      this.barChartData[0].data.push(sum / filteredStats.length);
+    })
+  }
 
   public sortStatistics(statistics: Statistic[]) {
-    this.statistics = [];
-    this.statistics = statistics.sort((a, b) => 
+    return statistics.sort((a, b) => 
       a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
   };
 
-  public storeTestIDs() {
-    this.statistics.forEach(s => {
-      if (!this.testIDs.includes(s.simulation_result_id)) {
-        this.testIDs.push(s.simulation_result_id);
-      }
-    })
-  };
+  public storeTestIDs(statistics: Statistic[]) {
+    this.testIDs = statistics.map(s => { return s.simulation_result_id })
+    .reduce((unique, s) => unique.includes(s) ? unique : [...unique, s], []);
+  }
 
   public clickChart(event) {
     this.router.navigate([`/test/${this.testIDs[event.active[0]._index]}`])
@@ -100,10 +90,10 @@ export class StatisticsComponent implements OnInit {
   public showStatistics() {
     this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpointInputControl.value}`, `${this.methodInputControl.value}`)
     .subscribe((data) => {
-      this.sortStatistics(data);
-      this.createChartLabels();
-      this.calcMeasurementAvg();
-      this.storeTestIDs();
+      const statistics = this.sortStatistics(data);
+      this.createChartLabels(statistics);
+      this.calcMeasurementAvg(statistics);
+      this.storeTestIDs(statistics);
     })
   };
 
