@@ -1,7 +1,19 @@
-import { SimulationResult } from "../models/simulationResult";
-import { SimulationResultStatus, SimulationResultValidity } from "../../lib/enums"
+import { SimulationResultStatus } from '../../lib/enums';
+import { SimulationResult } from '../models/simulationResult';
 
-interface SimulationResultSerializer {
+interface SimulationResultIndexResponse {
+  count: number;
+  results: Array<SimulationResultIndexSerializer>;
+};
+
+interface SimulationResultIndexSerializer {
+  id: string;
+  triggered_by: string;
+  commit_hash: string;
+  status: SimulationResultStatus; 
+};
+
+interface SimulationResultShowSerializer {
   id: string;
   triggered_by: string;
   branch_name: string;
@@ -13,36 +25,34 @@ interface SimulationResultSerializer {
   short_description: string;
   payload_data: any;
   payload_text: string;
-  sequence_number: number;
-  invalid: SimulationResultValidity;
 };
 
-interface SimulationResultIndexResponse {
-  count: number;
-  tests: Array<Partial<SimulationResultSerializer>>;
-}
-
-export const show = (simulationResult: SimulationResult): SimulationResultSerializer => {
+export const show = (simulationResult: SimulationResult): SimulationResultShowSerializer => {
   return {
-      id: simulationResult.id,
-      triggered_by: simulationResult.triggered_by,
-      branch_name: simulationResult.branch_name,
-      start_timestamp: simulationResult.start_timestamp,
-      end_timestamp: simulationResult.end_timestamp,
-      commit_hash: simulationResult.commit_hash,
-      status: simulationResult.status,
-      error_message: simulationResult.error_message,
-      short_description: simulationResult.short_description,
-      payload_data: simulationResult.payload_data,
-      payload_text: simulationResult.payload_text,
-      sequence_number: simulationResult.sequence_number,
-      invalid: simulationResult.invalid
-  }
+    id: simulationResult.id,
+    triggered_by: simulationResult.triggered_by,
+    branch_name: simulationResult.branch_name,
+    start_timestamp: simulationResult.start_timestamp,
+    end_timestamp: simulationResult.end_timestamp,
+    commit_hash: simulationResult.commit_hash,
+    status: simulationResult.status,
+    error_message: simulationResult.error_message,
+    short_description: simulationResult.short_description,
+    payload_data: simulationResult.payload_data,
+    payload_text: simulationResult.payload_text
+  };
 };
 
 export const index = (count: number, simulationResults: Array<SimulationResult>): SimulationResultIndexResponse => {
   return {
     count: count,
-    tests: simulationResults.map((simulationResult: SimulationResult) => show(simulationResult))
-  };
+    results: simulationResults.map((simulationResult: SimulationResult) => {
+      return {
+        id: simulationResult.id,
+        triggered_by: simulationResult.triggered_by,
+        commit_hash: simulationResult.commit_hash,
+        status: simulationResult.status
+      };
+    })
+  }
 };
