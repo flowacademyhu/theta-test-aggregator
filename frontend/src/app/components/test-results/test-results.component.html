@@ -1,5 +1,5 @@
 <mat-toolbar class="navbar">
-  <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
+  <app-filters (filters)="onSearch($event)"></app-filters>
 </mat-toolbar>
 <div class="simulations top-margin">
   <mat-card *ngFor="let test of tests$ | async" class="header" [routerLink]="['/test', test.id]">

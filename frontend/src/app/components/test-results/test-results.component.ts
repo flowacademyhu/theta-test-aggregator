@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Test } from 'src/app/models/test.model';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/services/test.service';
 import { FilterParamsModel } from "../../models/filter-params-model";
-import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import {FiltersComponent} from "../filters/filters.component";
+import { FiltersComponent } from "../filters/filters.component";
 
 @Component({
   selector: 'app-test-results',
@@ -41,14 +41,18 @@ export class TestResultsComponent implements OnInit {
     }));
   }
 
-  fetchTestsByFilter(filters: FilterParamsModel) {
-    filters.limit = this.getLimit();
-    filters.offset = 0;
-    this.paginator.firstPage();
+  fetchTests(filters: FilterParamsModel) {
     this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) => {
       this.count = data.count;
       this.getDataSource(data.results);
     }));
+  }
+
+  onSearch(filters: FilterParamsModel) {
+    filters.limit = this.getLimit();
+    filters.offset = 0;
+    this.paginator.firstPage();
+    this.fetchTests(filters);
   }
 
   getDataSource(tests: Test[]) {
@@ -69,9 +73,6 @@ export class TestResultsComponent implements OnInit {
     const filters = this.filter.filterForm.value;
     filters.limit = this.getLimit();
     filters.offset = this.getOffset();
-    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) => {
-      this.count = data.count;
-      this.getDataSource(data.results);
-    }));
+    this.fetchTests(filters);
   }
 }
