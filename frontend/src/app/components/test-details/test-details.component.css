@@ -158,6 +158,8 @@ table {
   background-color: rgb(30, 37, 139);
   color: white;
   margin-right: 30pt;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 .innerHTML {
   overflow-wrap: break-word;
