@@ -11,7 +11,7 @@ import { Statistic } from '../models/statistic';
 import * as simulationResultSerializer from '../serializers/simulationResult';
 ​
 interface CountQuery {
-  'count(*)': number;
+  'numberOfResults': number;
 };
 
 export const index = async (req: Request, res: Response) => {
@@ -20,14 +20,14 @@ export const index = async (req: Request, res: Response) => {
       .select()
       .whereNot({ invalid: SimulationResultValidity.INVALID })
       .orderBy('sequence_number', 'desc');
-    let countQuery: QueryBuilder = database(tableName.SIMULATION_RESULTS).count();
+    let countQuery: QueryBuilder = database(tableName.SIMULATION_RESULTS).count('* as numberOfResults');
     limitQuery(req, query);
     offsetQuery(req, query);
     filterHandler(req, query);
     filterHandler(req, countQuery);
     const simulationResults: Array<SimulationResult> = await query;
     const count: CountQuery = await countQuery.whereNot({ invalid: SimulationResultValidity.INVALID }).first();
-    res.json(simulationResultSerializer.index(count["count(*)"], simulationResults));
+    res.json(simulationResultSerializer.index(count.numberOfResults, simulationResults));
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
