@@ -17,6 +17,6 @@ export class StatisticsService {
 
   public fetchStatistics(): Observable<Statistic[]> {
     return this.http.get<Statistic[]>(environment.baseUrl + 'statistic');
-  }
+  };
 
 }
