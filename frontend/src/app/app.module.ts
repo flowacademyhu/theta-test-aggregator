@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
-import { RouterModule, Routes } from '@angular/router';
+import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule } from '@angular/forms';
@@ -33,6 +33,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { ConfirmInvalidateModalComponent } from "./modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
 import { PayloadTextPrettifyPipe } from './pipes/payload-text-prettify.pipe';
+import { RouteReuseService } from "./services/route-reuse.service";
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -100,6 +101,10 @@ const routes: Routes = [
           },
         ],
       } as SocialAuthServiceConfig,
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReuseService
     }
   ],
   bootstrap: [AppComponent]
