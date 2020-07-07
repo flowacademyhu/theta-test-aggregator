@@ -14,6 +14,40 @@ export class FiltersComponent implements OnInit {
 
   constructor() { }
 
+  public customFilters = [
+    {
+      name: 'own success',
+      triggered_by: 'ehumphery48',
+      commit_hash: null,
+      started_after: new Date('Wed Jul 01 2020 00:00:00 GMT+0200 (Central European Summer Time)'),
+      started_before: new Date('Sat Jun 06 2020 00:00:00 GMT+0200 (Central European Summer Time)'),
+      status: 'SUCCESS'
+    },
+    {
+      name: 'greenFAILED',
+      triggered_by: 'tgreenhalfcg',
+      commit_hash: null,
+      started_after: null,
+      started_before: null,
+      status: 'FAILED'
+    }
+  ];
+
+  public customFilterControl = new FormControl();
+  public onSelectCustomFilter(name: string) {
+    const filter = this.customFilters.find(f => f.name === name);
+    this.filterForm.patchValue(
+      {
+        triggered_by: filter.triggered_by, 
+        commit_hash: filter.commit_hash, 
+        started_after: filter.started_after, 
+        started_before: filter.started_before, 
+        status: filter.status
+      }
+    )
+    console.log(this.filterForm.value);
+  }
+
   ngOnInit(): void {
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
@@ -36,11 +70,13 @@ export class FiltersComponent implements OnInit {
   }
 
   onSearch(): void {
+    console.log(this.filterForm.value);
     this.filters.emit(this.filterForm.value);
   }
 
   onReset(): void {
     this.filterForm.reset();
+    this.customFilterControl.reset();
     this.filters.emit(this.filterForm.value);
   }
 }
