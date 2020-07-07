@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Test } from 'src/app/models/test.model';
 import { Subscription, BehaviorSubject, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/services/test.service';
 import { FilterParamsModel } from "../../models/filter-params-model";
-import { MatPaginator } from '@angular/material/paginator';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {FiltersComponent} from "../filters/filters.component";
 
 @Component({
   selector: 'app-test-results',
@@ -20,33 +21,57 @@ export class TestResultsComponent implements OnInit {
 
   subscriptions$: Subscription[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(FiltersComponent) filter: FiltersComponent;
   public tests$: BehaviorSubject< Test[] > = new BehaviorSubject< Test[] >( null )
   obs: Observable<Test[]>;
   dataSource: MatTableDataSource<Test> = new MatTableDataSource<Test>(null);
+  public count: number;
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(sub => sub.unsubscribe());
-    if (this.dataSource) { 
-      this.dataSource.disconnect(); 
+    if (this.dataSource) {
+      this.dataSource.disconnect();
     }
   }
 
   ngOnInit(): void {
-    this.subscriptions$.push(this.testService.fetchTests(null).subscribe((tests) => {
-      this.getDataSource(tests);
+    this.subscriptions$.push(this.testService.fetchTests({ limit: 5, offset: 0 }).subscribe((data) => {
+      this.count = data.count;
+      this.getDataSource(data.results);
     }));
   }
 
   fetchTestsByFilter(filters: FilterParamsModel) {
-    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((tests) => {
-      this.getDataSource(tests);
+    filters.limit = this.getLimit();
+    filters.offset = 0;
+    this.paginator.firstPage();
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) => {
+      this.count = data.count;
+      this.getDataSource(data.results);
     }));
   }
 
   getDataSource(tests: Test[]) {
     this.tests$.next(tests);
     this.dataSource= new MatTableDataSource<Test>(this.tests$.getValue());
-    this.dataSource.paginator= this.paginator;
     this.obs = this.dataSource.connect();
+  }
+
+  getLimit(): number {
+    return this.paginator.pageSize;
+  }
+
+  getOffset(): number {
+    return this.paginator.pageSize * this.paginator.pageIndex;
+  }
+
+  pageEvent() {
+    const filters = this.filter.filterForm.value;
+    filters.limit = this.getLimit();
+    filters.offset = this.getOffset();
+    this.subscriptions$.push(this.testService.fetchTests(filters).subscribe((data) => {
+      this.count = data.count;
+      this.getDataSource(data.results);
+    }));
   }
 }
