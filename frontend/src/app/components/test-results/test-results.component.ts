@@ -35,10 +35,7 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscriptions$.push(this.testService.fetchTests({ limit: 5, offset: 0 }).subscribe((data) => {
-      this.count = data.count;
-      this.getDataSource(data.results);
-    }));
+    this.fetchTests({ limit: 5, offset: 0 });
   }
 
   fetchTests(filters: FilterParamsModel) {
