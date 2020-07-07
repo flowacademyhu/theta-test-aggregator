@@ -10,7 +10,7 @@ exports.up = (knex) => {
     table.timestamp('created_at').defaultTo(knex.raw('CURRENT_TIMESTAMP'));
     table.timestamp('updated_at').defaultTo(knex.raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
-    table.foreign('user_id').references('id').inTable('users');
+    table.foreign('user_id').onDelete('CASACDE').references('id').inTable('users');
   });
 };
 
