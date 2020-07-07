@@ -26,6 +26,7 @@ export class TestResultsComponent implements OnInit {
   obs: Observable<Test[]>;
   dataSource: MatTableDataSource<Test> = new MatTableDataSource<Test>(null);
   public count: number;
+  private currentFilters: FilterParamsModel;
 
   ngOnDestroy(): void {
     this.subscriptions$.forEach(sub => sub.unsubscribe());
@@ -35,6 +36,7 @@ export class TestResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentFilters = {};
     this.fetchTests({ limit: 5, offset: 0 });
   }
 
@@ -46,6 +48,7 @@ export class TestResultsComponent implements OnInit {
   }
 
   onSearch(filters: FilterParamsModel) {
+    this.currentFilters = filters;
     filters.limit = this.getLimit();
     filters.offset = 0;
     this.paginator.firstPage();
@@ -67,7 +70,7 @@ export class TestResultsComponent implements OnInit {
   }
 
   pageEvent() {
-    const filters = this.filter.filterForm.value;
+    const filters = this.currentFilters;
     filters.limit = this.getLimit();
     filters.offset = this.getOffset();
     this.fetchTests(filters);
