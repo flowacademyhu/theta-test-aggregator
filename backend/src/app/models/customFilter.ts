@@ -7,8 +7,8 @@ export interface CustomFilter {
   triggered_by?: string;
   commit_hash?: string;
   status?: SimulationResultStatus;
-  started_after?: Date;
-  started_before?: Date;
+  started_after?: number;
+  started_before?: number;
   created_at?: string;
   updated_at?: string;
 }
