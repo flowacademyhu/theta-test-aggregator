@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-.status-desc{
+.status-desc {
   flex: 2 0 0 0;
 }
 
@@ -21,34 +21,36 @@
   margin-bottom: 10pt;
 }
 
-#error{
+#error {
   font-size: 60pt;
   flex: 1 0 0 0;
   text-align: right;
-  margin-right: 30pt; 
-  color: #ecc30c; 
+  margin-right: 30pt;
+  color: #ecc30c;
 }
 
-#success{
+#success {
   font-size: 60pt;
   flex: 1 0 0 0;
   text-align: right;
-  margin-right: 30pt; 
-  color: #2aa82a; 
+  margin-right: 30pt;
+  color: #2aa82a;
 }
-#failed{
+
+#failed {
   font-size: 60pt;
   flex: 1 0 0 0;
   text-align: right;
-  margin-right: 30pt; 
-  color: #f23a3a; 
+  margin-right: 30pt;
+  color: #f23a3a;
 }
-#unknown{
+
+#unknown {
   font-size: 60pt;
   flex: 1 0 0 0;
   text-align: right;
-  margin-right: 30pt; 
-  color: #f5F5F5; 
+  margin-right: 30pt;
+  color: #f5F5F5;
 }
 
 .user-data {
@@ -62,15 +64,16 @@
   margin-top: 0rem;
 }
 
-.simulations{
+.simulations {
   margin-left: 100pt;
   margin-right: 100pt;
+  margin-bottom: 60pt;
 }
 
 .mat-card:not([class*=mat-elevation-z]) {
-  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
-  0pt 0pt 5pt 0pt rgb(124, 123, 123), 
-  0pt 0pt 5pt 0pt rgb(146, 146, 146);
+  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91),
+    0pt 0pt 5pt 0pt rgb(124, 123, 123),
+    0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
 
 .header.mat-card:hover {
@@ -88,6 +91,7 @@
   bottom: 0;
   width: 100%;
 }
+
 .navbar {
   height: 50pt;
   position: fixed;
@@ -97,11 +101,11 @@
   padding: 5px 10px;
   top: 47pt;
   background-color: #304b61;
-/*   background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
+  /*   background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
  */
- box-shadow: 0pt 10pt 5pt 0pt rgb(92, 91, 91), 
- 0pt 0pt 5pt 0pt rgb(124, 123, 123), 
- 0pt 0pt 5pt 0pt rgb(146, 146, 146);
+  box-shadow: 0pt 10pt 5pt 0pt rgb(92, 91, 91),
+    0pt 0pt 5pt 0pt rgb(124, 123, 123),
+    0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
 
 div.top-padding {
@@ -115,9 +119,9 @@ div.top-padding {
   vertical-align: bottom;
 }
 
-.mat-form-field-infix  {  
+.mat-form-field-infix {
   opacity: 0;
-} 
+}
 
 .results {
   margin-bottom: 60pt;
