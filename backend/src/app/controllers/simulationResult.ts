@@ -54,7 +54,10 @@ export const initialize = async (req: Request, res: Response) => {
       id: req.body.id,
       triggered_by: req.body.triggered_by,
       branch_name: req.body.branch_name,
-      status: SimulationResultStatus.UNKNOWN
+      start_timestamp: req.body.start_timestamp,
+      commit_hash: req.body.commit_hash,
+      status: SimulationResultStatus.UNKNOWN,
+      invalid: SimulationResultValidity.VALID
     }
     await database(tableName.SIMULATION_RESULTS).insert(initializedSimulationResult);
     res.sendStatus(201)
