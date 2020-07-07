@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
   public errors: Object;
   public isChecked = false;
+  public isSuccessfulLogin = true;
 
   public loginForm: FormGroup = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['index']);
       }, (error: HttpErrorResponse) => {
         this.errors = error;
+        this.isSuccessfulLogin = false;
         console.log(this.errors);
       });
   }
