@@ -1,6 +1,6 @@
 import { User } from "../models/user";
 import { database } from "../../lib/database";
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import * as bcrypt from 'bcrypt';
 import { tableName } from '../../lib/tableName';
 import * as userSerializer from '../serializers/user';
@@ -9,8 +9,7 @@ export const show = async (req: Request, res: Response) => {
   try {
     const user: User = res.locals.user;
     if (typeof user !== 'undefined') {
-      res.json(userSerializer.show(user))
-      res.json(user);
+      res.json(userSerializer.show(user));
     } else {
       res.sendStatus(404);
     }
@@ -26,7 +25,7 @@ const updatePassword = (req: Request, user: Partial<User>) => {
     const encryptedPassword = bcrypt.hashSync(pw, 10);
     user.password_hash = encryptedPassword;
   }
-}
+};
 
 export const update = async (req: Request, res: Response) => {
   try {

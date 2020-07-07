@@ -7,10 +7,10 @@ import { Directive, HostBinding, Input } from '@angular/core';
 export class TestStatusDirective {
   @Input('appTestStatus') set Succeed(condition: string) {
     switch (condition) {
-      case ('SUCCES'):
+      case ('SUCCESS'):
         this.color = this.succeedColor;
         break;
-      case ("FAILED"):
+      case ('FAILED'):
         this.color = this.failedColor;
         break;
       case('ERROR'):

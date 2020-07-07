@@ -6,11 +6,10 @@ import { filterTriggeredBy } from './filterTriggeredBy';
 import { filterSimulationStartTime } from './filterStartTimeRange';
 import { filterSimulationEndTime } from './filterEndTimeRange';
 
-export const filterHandler = (req: Request, query: QueryBuilder): QueryBuilder => {
-  query = filterCommitHash(req, query);
-  query = filterStatus(req, query);
-  query = filterTriggeredBy(req, query);
-  query = filterSimulationStartTime(req, query);
-  query = filterSimulationEndTime(req, query);
-  return query;
+export const filterHandler = (req: Request, query: QueryBuilder): void => {
+  filterCommitHash(req, query);
+  filterStatus(req, query);
+  filterTriggeredBy(req, query);
+  filterSimulationStartTime(req, query);
+  filterSimulationEndTime(req, query);
 };

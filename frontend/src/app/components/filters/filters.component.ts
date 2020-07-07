@@ -1,25 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from "@angular/forms";
-import { FilterParamsModel } from "../../models/filter-params-model";
+import { FormControl, FormGroup } from '@angular/forms';
+import { FilterParamsModel } from '../../models/filter-params-model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-filters',
-  template: `
-    <form [formGroup]="filterForm" (ngSubmit)="onSearch()">
-      <div>
-        <mat-form-field>
-          <input matInput formControlName="triggered_by" placeholder="Triggered by">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput formControlName="commit_hash" placeholder="Commit hash">
-        </mat-form-field>
-      </div>
-      <button mat-raised-button type="submit" [disabled]="filterForm.pristine">Search</button>
-      <button mat-raised-button color="warn" type="button" (click)="onReset()">Reset</button>
-    </form>
-  `,
-  styles: [
-  ]
+  templateUrl: './filters.component.html',
+  styleUrls: ['./filters.component.css']
 })
 export class FiltersComponent implements OnInit {
   @Output() filters: EventEmitter<FilterParamsModel> = new EventEmitter<FilterParamsModel>();
@@ -30,8 +17,22 @@ export class FiltersComponent implements OnInit {
   ngOnInit(): void {
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
-      commit_hash: new FormControl(null)
+      commit_hash: new FormControl(null),
+      started_after: new FormControl(null),
+      started_before: new FormControl(null),
+      status: new FormControl(null)
     });
+  }
+
+  onWeekly(): void {
+    this.filterForm.patchValue({
+      started_after: moment().startOf('isoWeek').toDate(),
+      started_before: moment().endOf('isoWeek').toDate(),
+      status: 'FAILED',
+      triggered_by: null,
+      commit_hash: null
+    });
+    this.onSearch();
   }
 
   onSearch(): void {

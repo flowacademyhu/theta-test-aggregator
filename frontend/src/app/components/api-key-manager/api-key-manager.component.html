@@ -1,5 +1,5 @@
-<div>
-<button mat-raised-button class="addbutton">Add ApiKey</button><br>
+<div class="top-margin">
+  <button mat-raised-button class="addbutton">Add ApiKey</button><br>
   <mat-accordion>
     <mat-card *ngFor="let apikey of apikeys" class="header">
       <div class="apiKey-data">
@@ -9,10 +9,10 @@
         <p>Created_at: {{apikey.created_at}}</p>
         </div>
         <mat-action-row>
-          <button mat-raised-button color="primary">Extend</button>
-          <button mat-raised-button color="warn">Delete</button>
+          <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary">Extend</button>
+          <button mat-raised-button (click)="toggleDeleteModal(apikey)" color="warn">Delete</button>
         </mat-action-row>
     </mat-card><br>
   </mat-accordion>
-<button [routerLink]="['/logged-in']" routerLinkActive="router-link-active" mat-raised-button class="backbutton">Back</button>
+<button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button class="backbutton">Back</button>
 </div>

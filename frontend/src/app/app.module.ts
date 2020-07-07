@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -24,10 +23,16 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
-import { TestsResolver } from './resolvers/tests.resolver';
+import { ApiKeyResolver } from './resolvers/apiKeys.resolver';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
 import { TestResolver } from './resolvers/test.resolver';
+import { AddApikeyModalComponent } from './modals/add-apikey-modal/add-apikey-modal.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { environment } from 'src/environments/environment';
+import { ConfirmInvalidateModalComponent } from "./modals/confirm-invalidate-modal/confirm-invalidate-modal.component";
+import { PayloadTextPrettifyPipe } from './pipes/payload-text-prettify.pipe';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -35,8 +40,8 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}, canActivate: [AuthGuard] },
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'api-key-manager', component: ApiKeyManagerComponent, canActivate: [AuthGuard]},
-  { path: 'index', component: TestResultsComponent, resolve: {tests: TestsResolver}, canActivate: [AuthGuard] },
+  { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: {apikeys: ApiKeyResolver}, canActivate: [AuthGuard]},
+  { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
   { path: '**', redirectTo: '' }
 ];
@@ -58,8 +63,12 @@ const routes: Routes = [
     ProfileUpdateModalComponent,
     TestResultsComponent,
     TestStatusDirective,
+    TestDetailsComponent,
+    AddApikeyModalComponent,
     FiltersComponent,
-    TestDetailsComponent
+    TestDetailsComponent,
+    ConfirmInvalidateModalComponent,
+    PayloadTextPrettifyPipe
   ],
   imports: [
     BrowserModule,
@@ -68,7 +77,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    SocialLoginModule,
+    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
   providers: [
@@ -76,6 +86,20 @@ const routes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue:
+      {
+        autoLogin: false,
+        providers:
+        [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider (environment.GoogleLoginProvider)
+          },
+        ],
+      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]

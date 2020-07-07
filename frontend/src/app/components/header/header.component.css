@@ -4,6 +4,7 @@
   top: 10px;
   right: 70px;
 }
+
 .matButton {
   background-color: #243441;
   color: white;
@@ -25,22 +26,28 @@
 
 .navbar {
   background-color: #243441;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
 ::ng-deep .mat-menu-content {
   padding-top: 0px !important;
   padding-bottom: 0px !important;
 }
-.mat-menu-item{
-  line-height:35px;
-  height:35px;
-  background-color: #243441 ;
+
+.mat-menu-item {
+  line-height: 35px;
+  height: 35px;
+  background-color: #243441;
   color: white;
   position: relative;
   display: block;
   cursor: pointer;
 }
-.mat-menu-item:hover{
+
+.mat-menu-item:hover {
   display: block;
   background-color: #243441d2;
 }
