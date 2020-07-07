@@ -8,3 +8,29 @@
 .form-field {
   margin-top: 50pt;
 }
+
+::ng-deep .mat-select-panel {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .endpointInput {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .autocomplete {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .option {
+  color: whitesmoke !important;
+}
+
+::ng-deep .label {
+  color: whitesmoke;
+}
