@@ -11,4 +11,4 @@ export interface CustomFilter {
   started_before?: number;
   created_at?: string;
   updated_at?: string;
-}
+};

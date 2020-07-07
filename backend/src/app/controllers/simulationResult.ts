@@ -8,7 +8,11 @@ import { filterHandler } from '../../lib/queryParamHandlers/filterHandler';
 import { tableName } from '../../lib/tableName';
 import { SimulationResultValidity, SimulationResultStatus, StatisticValidity } from '../../lib/enums';
 import { Statistic } from '../models/statistic';
-import * as SimulationResultSerializer from '../serializers/simulationResult';
+import * as simulationResultSerializer from '../serializers/simulationResult';
+​
+interface CountQuery {
+  'numberOfResults': number;
+};
 
 export const index = async (req: Request, res: Response) => {
   try {
@@ -16,22 +20,25 @@ export const index = async (req: Request, res: Response) => {
       .select()
       .whereNot({ invalid: SimulationResultValidity.INVALID })
       .orderBy('sequence_number', 'desc');
+    let countQuery: QueryBuilder = database(tableName.SIMULATION_RESULTS).count('* as numberOfResults');
     limitQuery(req, query);
     offsetQuery(req, query);
     filterHandler(req, query);
+    filterHandler(req, countQuery);
     const simulationResults: Array<SimulationResult> = await query;
-    res.json(SimulationResultSerializer.index(simulationResults));
+    const count: CountQuery = await countQuery.whereNot({ invalid: SimulationResultValidity.INVALID }).first();
+    res.json(simulationResultSerializer.index(count.numberOfResults, simulationResults));
   } catch (error) {
     console.error(error);
     res.sendStatus(500);
   }
 };
-
+​
 export const show = async (req: Request, res: Response) => {
   try {
     const simulationResult: SimulationResult = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
     if (simulationResult) {
-      res.json(SimulationResultSerializer.show(simulationResult));
+      res.json(simulationResultSerializer.show(simulationResult));
     } else {
       res.sendStatus(404);
     }
@@ -40,14 +47,17 @@ export const show = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
+​
 export const initialize = async (req: Request, res: Response) => {
   try {
     const initializedSimulationResult: Partial<SimulationResult> = {
       id: req.body.id,
       triggered_by: req.body.triggered_by,
       branch_name: req.body.branch_name,
-      status: SimulationResultStatus.UNKNOWN
+      start_timestamp: req.body.start_timestamp,
+      commit_hash: req.body.commit_hash,
+      status: SimulationResultStatus.UNKNOWN,
+      invalid: SimulationResultValidity.VALID
     }
     await database(tableName.SIMULATION_RESULTS).insert(initializedSimulationResult);
     res.sendStatus(201)
@@ -56,11 +66,11 @@ export const initialize = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
+​
 const decodeBase64 = (data: string): string => {
   return Buffer.from(data, 'base64').toString();
 };
-
+​
 const decodePayload = (req: Request): SimulationResultPayload => {
   try {
     const decodedData = decodeBase64(req.body.payload.data);
@@ -70,7 +80,7 @@ const decodePayload = (req: Request): SimulationResultPayload => {
     throw error;
   }  
 };
-
+​
 const convertTimeToNanosec = (measurementAsString: string): number => {  // 1234.55ms
   const index = measurementAsString.search(/[a-zA-Z]+/);
   let measurementValue = parseFloat(measurementAsString.substring(0, index));
@@ -86,7 +96,7 @@ const convertTimeToNanosec = (measurementAsString: string): number => {  // 1234
   }
   return measurementValue;
 };
-
+​
 const createStatistic = async (simulationResult: SimulationResult) => {
   try {
     const payload_data = JSON.parse(simulationResult.payload_data);
@@ -116,7 +126,7 @@ const createStatistic = async (simulationResult: SimulationResult) => {
     console.log(error);
   }
 };
-
+​
 const getUpdatedSimulationResult = (req: Request): SimulationResult =>{
   try {
     const decodedPayload: SimulationResultPayload = decodePayload(req);
@@ -138,7 +148,7 @@ const getUpdatedSimulationResult = (req: Request): SimulationResult =>{
     throw error;
   }  
 };
-
+​
 export const update = async (req: Request, res: Response) => {
   try {
     const initializedSimulationResult: Partial<SimulationResult> = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
@@ -160,7 +170,7 @@ export const update = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
+​
 export const destroy = async (req: Request, res: Response) => {
   try {
     const simulation_result: Partial<SimulationResult> = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
@@ -175,7 +185,7 @@ export const destroy = async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 };
-
+​
 const invalidateStatistic = async (simulation_result: Partial<SimulationResult>) => {
   try {
     const statistics: Array<Statistic> = await database(tableName.STATISTICS).select().where({ simulation_result_id: simulation_result.id });
@@ -186,7 +196,7 @@ const invalidateStatistic = async (simulation_result: Partial<SimulationResult>)
     console.log(error);
   }
 };
-
+​
 export const invalidate = async (req: Request, res: Response) => {
   try {
     const simulation_result: Partial<SimulationResult> = await database(tableName.SIMULATION_RESULTS).select().where({ id: req.params.id }).first();
