@@ -2,7 +2,7 @@
   <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
 </mat-toolbar>
 <div class="simulations top-margin">
-  <mat-card *ngFor="let test of tests$ | async" class="header" [routerLink]="['/test', test.id]">
+  <mat-card *ngFor="let test of obs | async" class="header" [routerLink]="['/test', test.id]">
     <div class="status-desc">
       <mat-card-header>
         <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p>
