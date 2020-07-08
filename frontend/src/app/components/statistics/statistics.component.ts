@@ -31,13 +31,10 @@ export class StatisticsComponent implements OnInit {
 
   public barChartLabels: Label[] = [];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = false;
-  public barChartPlugins = [];
   public barChartData: ChartDataSets[] = [{data: [], label: 'Average runtime: '}];
   public barChartColors: Color[] =[{ backgroundColor: '#00aaef'}];
 
-  public testIDs: string[] = [];
-  public endpoints: string[] = [];
+  private testIDs: string[] = [];
   public filteredEndpoints: Observable<string[]>;
   public endpointInputControl = new FormControl();
   public methodInputControl = new FormControl();
@@ -47,21 +44,19 @@ export class StatisticsComponent implements OnInit {
   };
 
   private createChartLabels(statistics: Statistic[]) {
-    this.barChartLabels = [];
-    statistics.forEach(s => {
-      const date = this.convertUnixDate(s);
-      if (!this.barChartLabels.includes(date)) {
-        this.barChartLabels.push(date);
-      }
-    })
+    return [...new Set(statistics.map(s => { return this.convertUnixDate(s)}))]
   };
 
   private calcMeasurementAvg(statistics: Statistic[]) {
     this.barChartData[0].data = [];
-    this.barChartLabels.forEach(l => {
+    this.barChartLabels.map(l => {
       const filteredStats = statistics.filter(s => this.convertUnixDate(s) === l);
       const sum = filteredStats.reduce((a, b) => a + b.measurement, 0);
-      this.barChartData[0].data.push(sum / filteredStats.length);
+      if (filteredStats.length === 0 ) {
+        this.barChartData[0].data.push(sum);
+      } else {
+        this.barChartData[0].data.push(sum / filteredStats.length);
+      }
     })
   }
 
@@ -71,8 +66,7 @@ export class StatisticsComponent implements OnInit {
   };
 
   private storeTestIDs(statistics: Statistic[]) {
-    this.testIDs = statistics.map(s => { return s.simulation_result_id })
-    .reduce((unique, s) => unique.includes(s) ? unique : [...unique, s], []);
+    return [...new Set(statistics.map(s => s.simulation_result_id ))];
   }
 
   public clickChart(event) {
@@ -80,34 +74,29 @@ export class StatisticsComponent implements OnInit {
   };
 
   private storeEndpoints(statistics: Statistic[]) {
-    statistics.forEach(s => {
-      if (!this.endpoints.includes(s.endpoint)) {
-        this.endpoints.push(s.endpoint);
-      }
-    })
+    return [...new Set(statistics.map(s => s.endpoint))];
   };
 
   public showStatistics() {
     this.statisticsService.fetchStatisticsByEndPointAndMethod(`${this.endpointInputControl.value}`, `${this.methodInputControl.value}`)
     .subscribe((data) => {
       const statistics = this.sortStatistics(data);
-      this.createChartLabels(statistics);
+      this.barChartLabels = this.createChartLabels(statistics);
       this.calcMeasurementAvg(statistics);
-      this.storeTestIDs(statistics);
+      this.testIDs = this.storeTestIDs(statistics);
     })
   };
 
-  private filter(value: string): string[] {
+  private filter(value: string, data): string[] {
     const filterValue = value.toLowerCase();
-    return this.endpoints.filter(endpoint => endpoint.toLowerCase().indexOf(filterValue) === 0);
+    return this.storeEndpoints(data).filter(endpoint => endpoint.toLowerCase().indexOf(filterValue) === 0);
   };
 
   ngOnInit(): void {
     this.statisticsService.fetchStatistics().subscribe((data) => {
-      this.storeEndpoints(data);
       this.filteredEndpoints = this.endpointInputControl.valueChanges.pipe(
         startWith(''),
-        map(value => this.filter(value))
+        map(value => this.filter(value, data))
       )
     })
   }

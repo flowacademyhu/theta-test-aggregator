@@ -30,10 +30,9 @@ mat-raised-button color="primary"
   [datasets]="barChartData"
   [labels]="barChartLabels"
   [options]="barChartOptions"
-  [plugins]="barChartPlugins"
-  [legend]="barChartLegend"
+  [legend]="false"
   [colors]="barChartColors"
-  [chartType]="barChartType"
+  chartType="bar"
   (chartClick)="clickChart($event)">
   </canvas>
 </div>
