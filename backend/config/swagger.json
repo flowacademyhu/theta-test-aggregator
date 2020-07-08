@@ -298,7 +298,12 @@
           },
           {
             "in": "query",
-            "name": "started_after, started_before",
+            "name": "started_after",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "started_before",
             "type": "string"
           },
           {
