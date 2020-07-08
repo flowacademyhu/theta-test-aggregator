@@ -41,7 +41,7 @@
   [formControl]="customFilterControl" 
   (selectionChange)="onSelectCustomFilter($event.value)">
     <mat-option 
-    *ngFor="let filter of customFilters" 
+    *ngFor="let filter of customFilters2" 
     [value]="filter.name" >
       {{filter.name}}
     </mat-option>

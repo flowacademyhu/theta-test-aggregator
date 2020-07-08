@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FilterParamsModel } from '../../models/filter-params-model';
 import * as moment from 'moment';
+import { CustomFilterService } from 'src/app/services/custom-filter.service';
 
 @Component({
   selector: 'app-filters',
@@ -12,7 +13,7 @@ export class FiltersComponent implements OnInit {
   @Output() filters: EventEmitter<FilterParamsModel> = new EventEmitter<FilterParamsModel>();
   public filterForm: FormGroup;
 
-  constructor() { }
+  constructor(private customFilterService: CustomFilterService) { }
 
   public customFilters = [
     {
@@ -33,22 +34,36 @@ export class FiltersComponent implements OnInit {
     }
   ];
 
+  public customFilters2: Array<any>;
+
   public customFilterControl = new FormControl();
+
   public onSelectCustomFilter(name: string) {
-    const filter = this.customFilters.find(f => f.name === name);
+    const filter = this.customFilters2.find(f => f.name === name);
     this.filterForm.patchValue(
       {
-        triggered_by: filter.triggered_by, 
-        commit_hash: filter.commit_hash, 
-        started_after: filter.started_after, 
-        started_before: filter.started_before, 
+        triggered_by: filter.triggered_by,
+        commit_hash: filter.commit_hash,
+        started_after: filter.started_after,
+        started_before: filter.started_before,
         status: filter.status
       }
     )
     console.log(this.filterForm.value);
   }
 
+  public convertUnixDate(data) {
+    data.start_before = new Date(data.start_before/1000000).toLocaleString();
+    data.start_after = new Date(data.start_after/1000000).toLocaleString();
+  }
+
   ngOnInit(): void {
+    this.customFilterService.fetchCustomFilters().subscribe((data) => {
+      this.customFilters2 = data;
+      console.log(data);
+      this.customFilters2.forEach(f => this.convertUnixDate(f));
+      console.log(this.customFilters2);
+    });
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
       commit_hash: new FormControl(null),
