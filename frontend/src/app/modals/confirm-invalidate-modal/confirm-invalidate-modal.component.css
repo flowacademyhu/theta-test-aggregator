@@ -11,3 +11,8 @@
   z-index: 1050;
   padding: 1rem;
 }
+
+::ng-deep .mat-dialog-container {
+  background-color: #2d4152;
+  color: white
+}

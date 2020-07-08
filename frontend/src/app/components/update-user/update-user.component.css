@@ -1,5 +1,34 @@
-.parent {
-  margin: 0 auto 0 auto;
+::ng-deep .mat-dialog-container {
+  background: #2d4152;
   text-align: center;
-  width: 200pt;
+}
+
+::ng-deep .mat-form-field-empty.mat-form-field-label,
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep .mat-form-field-infix {
+  color: white;
+  width: 400px;
+}
+
+::ng-deep .mat-dialog-actions {
+  justify-content: center;
+}
+
+::ng-deep .mat-select-value-text {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+ width: 230px;
+}
+
+::ng-deep .mat-select-arrow {
+  color:white;
 }

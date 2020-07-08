@@ -1,44 +1,42 @@
-<!-- <mat-dialog-content class="parent">
- -->  <form [formGroup]="addForm" class="form">
-    <div>
-      <mat-form-field>
-      <mat-label for="password">Password</mat-label><br>
-      <input matInput type="password" name="password" formControlName="password">
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-      <mat-label for="email">Email</mat-label><br>
-      <input matInput type="email" name="email" formControlName="email">
+<form [formGroup]="addForm" class="form">
+  <div>
+    <mat-form-field>
+    <mat-label for="password">Password</mat-label><br>
+    <input matInput type="password" name="password" formControlName="password">
     </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-      <mat-label for="git_user">Git user</mat-label><br>
-      <input matInput type="text" name="git_user" formControlName="git_user">
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="email">Email</mat-label><br>
+    <input matInput type="email" name="email" formControlName="email">
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="git_user">Git user</mat-label><br>
+    <input matInput type="text" name="git_user" formControlName="git_user">
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="role">Role</mat-label><br>
+    <mat-select name="role" formControlName="role">
+      <mat-option value="{{roles[1]}}">User</mat-option>
+      <mat-option value="{{roles[0]}}">Admin</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+    <mat-label for="notification">Notification</mat-label><br>
+    <mat-select name="notification" formControlName="notification">
+      <mat-option [value]="1">ON</mat-option>
+      <mat-option [value]="0">OFF</mat-option>
+    </mat-select>
     </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-      <mat-label for="role">Role</mat-label><br>
-      <mat-select name="role" formControlName="role">
-        <mat-option value="{{roles[1]}}">User</mat-option>
-        <mat-option value="{{roles[0]}}">Admin</mat-option>
-      </mat-select>
-    </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-      <mat-label for="notification">Notification</mat-label><br>
-      <mat-select name="notification" formControlName="notification">
-        <mat-option [value]="1">ON</mat-option>
-        <mat-option [value]="0">OFF</mat-option>
-      </mat-select>
-      </mat-form-field>
-    </div><br><br>
-    <mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close >Back</button>
-    <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)=onAdd() [disabled]="addForm.invalid">Add</button>
-    </mat-dialog-actions>
-  </form>
-<!-- </mat-dialog-content> -->
+  </div><br><br>
+  <mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close >Back</button>
+  <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)=onAdd() [disabled]="addForm.invalid">Add</button>
+  </mat-dialog-actions>
+</form>
