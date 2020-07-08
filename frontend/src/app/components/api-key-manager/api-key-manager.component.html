@@ -1,5 +1,5 @@
 <div class="top-padding">
-  <button mat-raised-button class="addbutton">Add ApiKey</button><br>
+  <button mat-raised-button (click)="toggleAddApiKey()" class="addbutton">Add ApiKey</button><br>
   <mat-accordion>
     <mat-card *ngFor="let apikey of apikeys" class="header">
       <div class="apiKey-data">

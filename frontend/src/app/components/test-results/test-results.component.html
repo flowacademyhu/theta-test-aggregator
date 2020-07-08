@@ -1,8 +1,8 @@
 <mat-toolbar class="navbar">
-  <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
+  <app-filters (filters)="onSearch($event)"></app-filters>
 </mat-toolbar>
 <div class="simulations top-padding">
-  <mat-card *ngFor="let test of tests$ | async" class="header" [routerLink]="['/test', test.id]">
+  <mat-card *ngFor="let test of obs | async" class="header" [routerLink]="['/test', test.id]">
     <div class="status-desc">
       <mat-card-header>
         <p [appTestStatus]="test.status" class="title"> {{test.commit_hash}}</p>
@@ -20,5 +20,5 @@
   </mat-card>
 </div>
 <div class="footer">
-  <mat-paginator fixed [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [length]="count" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons (page)="pageEvent()"></mat-paginator>
 </div>
