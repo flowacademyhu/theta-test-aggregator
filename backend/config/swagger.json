@@ -735,9 +735,150 @@
           }
         }
       }
+    },
+    "/api/customFilter": {
+      "get": {
+        "summary": "Custom filters index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All custom filters",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/CustomFilter"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create custom filter",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/CustomFilterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CustomFilter created"
+          }
+        }
+      }
+    },
+    "/api/customFilter/{id}": {
+      "delete": {
+        "summary": "Delete custom filter",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete successful"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "CustomFilter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
+        },
+        "started_after": {
+          "type": "number"
+        },
+        "started_before": {
+          "type": "number"
+        }
+      }
+    },
+    "CustomFilterRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
+        },
+        "started_after": {
+          "type": "number"
+        },
+        "started_before": {
+          "type": "number"
+        }
+      }
+    },
     "UserRequest": {
       "type": "object",
       "properties": {
