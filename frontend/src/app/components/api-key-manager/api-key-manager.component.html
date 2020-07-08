@@ -1,7 +1,7 @@
 <div class="top-margin">
   <button mat-raised-button (click)="toggleAddApiKey()" class="addbutton">Add ApiKey</button><br>
   <mat-accordion>
-    <mat-card *ngFor="let apikey of apikeys" class="header">
+    <mat-card *ngFor="let apikey of apikeys, let i = index" class="header">
       <div class="apiKey-data">
         <p>Id: {{apikey.id}}</p>
         <p>Key: {{apikey.key}}</p>
@@ -9,7 +9,7 @@
         <p>Created_at: {{apikey.created_at}}</p>
         </div>
         <mat-action-row>
-          <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary">Extend</button>
+          <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary" [disabled]="disableExtend(i)">Extend</button>
           <button mat-raised-button (click)="toggleDeleteModal(apikey)" color="warn">Delete</button>
         </mat-action-row>
     </mat-card><br>
