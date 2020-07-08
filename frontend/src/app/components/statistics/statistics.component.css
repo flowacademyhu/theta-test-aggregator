@@ -1,0 +1,37 @@
+.chart {
+  display: block;
+  margin-top: 15px;
+  width: 50rem;
+  height: 50rem;
+}
+
+.form-field {
+  margin-top: 50pt;
+}
+
+::ng-deep .mat-select-panel {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .endpointInput {
+  border-radius: 5px;
+  font-size: 50px;
+  background-color: #243441;
+}
+
+::ng-deep .autocomplete {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+}
+
+::ng-deep .option {
+  color: whitesmoke !important;
+  background-color: #243441;
+}
+
+::ng-deep .label {
+  color: whitesmoke;
+}
