@@ -1,18 +1,19 @@
 <div class="top-margin">
   <button mat-raised-button (click)="toggleAddApiKey()" class="addbutton">Add ApiKey</button><br>
   <mat-accordion>
-    <mat-card *ngFor="let apikey of apikeys, let i = index" class="header">
-      <div class="apiKey-data">
-        <p>Id: {{apikey.id}}</p>
-        <p>Key: {{apikey.key}}</p>
-        <p>Expires_at: {{apikey.expires_at}}</p>
-        <p>Created_at: {{apikey.created_at}}</p>
-        </div>
-        <mat-action-row>
+    <div class="grid">
+        <mat-card *ngFor="let apikey of apikeys, let i=index" class="header">
+          <div class="apiKey-data">
+            <p>Key: {{apikey.key}}</p>
+            <p>Expires_at: {{apikey.expires_at | date : 'short'}}</p>
+            <p>Created_at: {{apikey.created_at | date : 'short'}}</p>
+          </div>
+          <mat-action-row>
           <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary" [disabled]="disableExtend(i)">Extend</button>
           <button mat-raised-button (click)="toggleDeleteModal(apikey)" color="warn">Delete</button>
-        </mat-action-row>
-    </mat-card><br>
+          </mat-action-row>
+        </mat-card><br>
+    </div>
   </mat-accordion>
 <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button class="backbutton">Back</button>
 </div>
