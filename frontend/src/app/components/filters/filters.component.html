@@ -41,9 +41,10 @@
   [formControl]="customFilterControl" 
   (selectionChange)="onSelectCustomFilter($event.value)">
     <mat-option 
-    *ngFor="let filter of customFilters2" 
+    *ngFor="let filter of customFilters" 
     [value]="filter.name" >
       {{filter.name}}
     </mat-option>
   </mat-select>
 </mat-form-field>
+<button mat-raised-button color="primary" type="button" (click)="saveFilter()">Save Filter</button>

@@ -3,6 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { FilterParamsModel } from '../../models/filter-params-model';
 import * as moment from 'moment';
 import { CustomFilterService } from 'src/app/services/custom-filter.service';
+import { CustomFilter } from 'src/app/models/custom-filter.model';
+import { catchError } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-filters',
@@ -15,31 +19,12 @@ export class FiltersComponent implements OnInit {
 
   constructor(private customFilterService: CustomFilterService) { }
 
-  public customFilters = [
-    {
-      name: 'own success',
-      triggered_by: 'ehumphery48',
-      commit_hash: null,
-      started_after: new Date('Wed Jul 01 2020 00:00:00 GMT+0200 (Central European Summer Time)'),
-      started_before: new Date('Sat Jun 06 2020 00:00:00 GMT+0200 (Central European Summer Time)'),
-      status: 'SUCCESS'
-    },
-    {
-      name: 'greenFAILED',
-      triggered_by: 'tgreenhalfcg',
-      commit_hash: null,
-      started_after: null,
-      started_before: null,
-      status: 'FAILED'
-    }
-  ];
-
-  public customFilters2: Array<any>;
+  public customFilters: CustomFilter[];
 
   public customFilterControl = new FormControl();
 
   public onSelectCustomFilter(name: string) {
-    const filter = this.customFilters2.find(f => f.name === name);
+    const filter = this.customFilters.find(f => f.name === name);
     this.filterForm.patchValue(
       {
         triggered_by: filter.triggered_by,
@@ -66,12 +51,30 @@ export class FiltersComponent implements OnInit {
     }
   }
 
+  public saveFilter() {
+    const customFilter: CustomFilter = {
+      name: 'custom filter',
+      triggered_by: this.filterForm.value.triggered_by,
+      commit_hash: this.filterForm.value.commit_hash,
+      status: this.filterForm.value.status,
+      started_after: this.filterForm.value.started_after,
+      started_before: this.filterForm.value.started_before
+    }
+    console.log(customFilter);
+    this.customFilterService.addCustomFilter(customFilter).pipe( catchError((error: HttpErrorResponse) => {
+      return throwError(error.error.message);
+    })).subscribe((data) => {}, (error) => {console.log(error)});
+    this.customFilterService.fetchCustomFilters().subscribe((data) => {
+      data.forEach(f => this.convertUnixDate(f));
+      this.customFilters = data;
+    });
+  }
+
   ngOnInit(): void {
     this.customFilterService.fetchCustomFilters().subscribe((data) => {
-      this.customFilters2 = data;
       console.log(data);
-      this.customFilters2.forEach(f => this.convertUnixDate(f));
-      console.log(this.customFilters2);
+      data.forEach(f => this.convertUnixDate(f));
+      this.customFilters = data;
     });
     this.filterForm = new FormGroup({
       triggered_by: new FormControl(null),
