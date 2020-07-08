@@ -1,5 +1,7 @@
 exports.seed = async (knex) => {
+  await knex.raw('SET FOREIGN_KEY_CHECKS = 0');
   await knex('users').del();
+  await knex.raw('ALTER TABLE ' + 'users' + ' AUTO_INCREMENT = 1');
   await knex('users').insert([
     {
       id: 'user1',
@@ -42,4 +44,5 @@ exports.seed = async (knex) => {
       notification: true
     }
   ]);
+  await knex.raw('SET FOREIGN_KEY_CHECKS = 1');
 };

@@ -1,7 +1,7 @@
 import { SimulationResultStatus } from "../../lib/enums";
 
 export interface CustomFilter {
-  id: number;
+  id?: number;
   name: string;
   user_id: string;
   triggered_by?: string;
