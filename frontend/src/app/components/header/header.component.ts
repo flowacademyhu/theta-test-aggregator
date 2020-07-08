@@ -21,11 +21,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((data) => this.user = data);
-    if (sessionStorage.getItem('pic')) {
-      this.image = (sessionStorage.getItem('pic')).toString()
+    if (localStorage.getItem('pic') != undefined) {
+      this.image = localStorage.getItem('pic').toString();
       console.log(this.image)
     } else {
-      this.image = "../../../assets/avatar.png"
+      this.image = "../../../assets/avatar.png";
     }
   }
 }

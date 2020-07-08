@@ -1,4 +1,4 @@
-<mat-dialog-content class="parent">
+
   <form [formGroup]="updateForm">
     <div>
       <mat-form-field>
@@ -24,4 +24,3 @@
     <button mat-raised-button mat-dialog-close>Cancel</button>
     <button mat-raised-button color="primary" [mat-dialog-close] (click)="onUpdate()" [disabled]="updateForm.invalid">Update</button>
   </form>
-</mat-dialog-content>

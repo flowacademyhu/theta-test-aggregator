@@ -1,8 +1,8 @@
-::ng-deep .selectLabel {
+.selectLabel {
   color: white;
 }
 
-::ng-deep .placeholder {
+.placeholder {
   color: white;
 }
 
@@ -13,7 +13,7 @@
   color:white;
 }
 
-::ng-deep .mat-option {
+.mat-option {
   color: whitesmoke;
 }
 

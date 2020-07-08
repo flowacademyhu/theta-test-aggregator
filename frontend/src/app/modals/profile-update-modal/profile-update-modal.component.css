@@ -1,4 +1,22 @@
-.parent {
-  margin: 0 auto 0 auto;
-  text-align: center;
+::ng-deep .mat-option {
+  color: whitesmoke;
+}
+
+::ng-deep .mat-form-field {
+  color: white;
+}
+
+::ng-deep .selectLabel {
+  color: white;
+}
+
+::ng-deep .placeholder {
+  color: white;
+}
+
+::ng-deep .mat-select-panel {
+  border-radius: 5px;
+  font-size: 10px;
+  background-color: #243441;
+  color:white;
 }
