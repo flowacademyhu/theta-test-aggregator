@@ -8,7 +8,6 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
-import { SettingsComponent } from './components/settings/settings.component';
 import { ApiKeyManagerComponent } from './components/api-key-manager/api-key-manager.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserListComponent } from './components/user-list/user-list.component';
@@ -42,7 +41,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}, canActivate: [AuthGuard] },
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: {apikeys: ApiKeyResolver}, canActivate: [AuthGuard]},
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
@@ -61,7 +59,6 @@ const routes: Routes = [
     ConfirmDeleteModalComponent,
     HeaderComponent,
     UserComponent,
-    SettingsComponent,
     ApiKeyManagerComponent,
     AddUserComponent,
     UpdateUserComponent,
