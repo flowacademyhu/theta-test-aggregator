@@ -42,11 +42,11 @@ export class StatisticsComponent implements OnInit {
   public endpointInputControl = new FormControl();
   public methodInputControl = new FormControl();
 
-  public convertUnixDate(statistic: Statistic) {
+  private convertUnixDate(statistic: Statistic) {
     return new Date(statistic.start_timestamp/1000000).toLocaleString();
   };
 
-  public createChartLabels(statistics: Statistic[]) {
+  private createChartLabels(statistics: Statistic[]) {
     this.barChartLabels = [];
     statistics.forEach(s => {
       const date = this.convertUnixDate(s);
@@ -56,7 +56,7 @@ export class StatisticsComponent implements OnInit {
     })
   };
 
-  public calcMeasurementAvg(statistics: Statistic[]) {
+  private calcMeasurementAvg(statistics: Statistic[]) {
     this.barChartData[0].data = [];
     this.barChartLabels.forEach(l => {
       const filteredStats = statistics.filter(s => this.convertUnixDate(s) === l);
@@ -65,12 +65,12 @@ export class StatisticsComponent implements OnInit {
     })
   }
 
-  public sortStatistics(statistics: Statistic[]) {
+  private sortStatistics(statistics: Statistic[]) {
     return statistics.sort((a, b) => 
       a.start_timestamp < b.start_timestamp ? -1 : a.start_timestamp > b.start_timestamp ? 1 : 0)
   };
 
-  public storeTestIDs(statistics: Statistic[]) {
+  private storeTestIDs(statistics: Statistic[]) {
     this.testIDs = statistics.map(s => { return s.simulation_result_id })
     .reduce((unique, s) => unique.includes(s) ? unique : [...unique, s], []);
   }
@@ -79,7 +79,7 @@ export class StatisticsComponent implements OnInit {
     this.router.navigate([`/test/${this.testIDs[event.active[0]._index]}`])
   };
 
-  public storeEndpoints(statistics: Statistic[]) {
+  private storeEndpoints(statistics: Statistic[]) {
     statistics.forEach(s => {
       if (!this.endpoints.includes(s.endpoint)) {
         this.endpoints.push(s.endpoint);

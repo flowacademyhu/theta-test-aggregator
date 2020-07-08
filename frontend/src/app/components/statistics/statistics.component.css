@@ -17,7 +17,7 @@
 
 ::ng-deep .endpointInput {
   border-radius: 5px;
-  font-size: 10px;
+  font-size: 50px;
   background-color: #243441;
 }
 
@@ -29,6 +29,7 @@
 
 ::ng-deep .option {
   color: whitesmoke !important;
+  background-color: #243441;
 }
 
 ::ng-deep .label {
