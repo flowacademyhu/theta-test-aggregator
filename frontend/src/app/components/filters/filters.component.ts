@@ -53,8 +53,17 @@ export class FiltersComponent implements OnInit {
   }
 
   public convertUnixDate(data) {
+    if (data.started_before === 0 && data.started_after === 0) {
+      data.started_before = null;
+      data.started_after = null;
+    } else if(data.started_after === 0) {
+      data.started_after = null;
+    } else if (data.started_before === 0) {
+      data.started_before = null
+    } else {
     data.start_before = new Date(data.start_before/1000000).toLocaleString();
     data.start_after = new Date(data.start_after/1000000).toLocaleString();
+    }
   }
 
   ngOnInit(): void {
