@@ -3,7 +3,7 @@
     <img src="../../../assets/logo.svg" alt="FluidPay logo" [routerLink]="['/index']" id="logo" class="pointer">
   </div>
   <div>
-    <img mat-card-avatar src="../../../assets/avatar.png" [matMenuTriggerFor]="afterMenu" class="pointer">
+    <img mat-card-avatar [src]="image" [matMenuTriggerFor]="afterMenu" class="pointer">
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button routerLink="/profile" mat-menu-item>User profile</button>
       <button *ngIf="user?.role === 'admin'" routerLink="/api-key-manager" mat-menu-item>Manage API keys</button>

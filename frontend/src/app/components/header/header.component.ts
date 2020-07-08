@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user.model';
 export class HeaderComponent implements OnInit {
 
   public user: User;
+  public image;
 
   constructor(private authService: AuthService) { }
 
@@ -20,6 +21,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe((data) => this.user = data);
+    if (sessionStorage.getItem('pic')) {
+      this.image = (sessionStorage.getItem('pic')).toString()
+      console.log(this.image)
+    } else {
+      this.image = "../../../assets/avatar.png"
+    }
   }
-
 }
