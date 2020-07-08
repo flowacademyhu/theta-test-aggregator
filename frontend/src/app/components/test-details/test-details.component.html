@@ -75,7 +75,7 @@
         </div>
       </mat-expansion-panel>
     </mat-accordion>
-    <button appBackButton mat-raised-button>Back</button>
+    <button appBackButton>Back</button>
     <button *ngIf="user.role === 'admin'" mat-raised-button color="warn"
       (click)="toggleInvalidateModal()">Invalidate</button>
   </div>
