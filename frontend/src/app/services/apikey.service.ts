@@ -20,6 +20,14 @@ export class ApikeyService {
     return this.http.get<ApiKey>(environment.baseUrl + `apiKey/${id}`);
   }
 
+  public addApiKey(infinite: string): Observable<string> {
+    return this.http.post<string>(environment.baseUrl + 'apikey', {} , { params:
+    {
+      infinite: `${infinite}`
+    }
+    });
+  }
+
   public updateApiKey(apikey: ApiKey): Observable<string> {
     const httpOptions: object = {responseType: 'text'};
     return this.http.put<string>(environment.baseUrl + `apiKey/${apikey.id}`, apikey, httpOptions);

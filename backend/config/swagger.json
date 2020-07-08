@@ -36,12 +36,13 @@
               "type": "object",
               "properties": {
                 "token": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "JWT Token"
                 },
                 "user": {
                   "type": "object",
                   "properties": {
-                    "password_hash": {
+                    "id": {
                       "type": "string"
                     },
                     "email": {
@@ -76,7 +77,8 @@
               "type": "object",
               "properties": {
                 "token": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Google OAuth idToken"
                 }
               },
               "required": ["token"]
@@ -95,6 +97,9 @@
                 "user": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "string"
+                    },
                     "email": {
                       "type": "string"
                     },
@@ -123,7 +128,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },{
             "in": "query",
             "name": "offset",
@@ -151,6 +158,13 @@
         "summary": "User create",
         "parameters": [
           {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
@@ -172,7 +186,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -196,7 +212,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -224,7 +242,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -247,7 +267,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "query",
@@ -276,7 +298,12 @@
           },
           {
             "in": "query",
-            "name": "started_after, started_before",
+            "name": "started_after",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "started_before",
             "type": "string"
           },
           {
@@ -301,10 +328,16 @@
         "summary": "Simulation result create",
         "parameters": [
           {
+            "in": "header",
+            "name": "ApiKey",
+            "type": "string",
+            "required": true
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#definitions/SimulationResultRequest"
+              "$ref": "#definitions/SimulationResultInitialize"
             }
           }
         ],
@@ -322,7 +355,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -345,8 +380,9 @@
         "parameters": [
           {
             "in": "header",
-            "name": "Authorization",
-            "type": "string"
+            "name": "ApiKey",
+            "type": "string",
+            "required": true
           },
           {
             "in": "path",
@@ -374,7 +410,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -397,7 +435,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -432,7 +472,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "query",
@@ -461,6 +503,13 @@
         "summary": "Apikey create",
         "parameters": [
           {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
             "in": "body",
             "name": "body",
             "schema": {
@@ -487,7 +536,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -511,7 +562,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -539,7 +592,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -562,7 +617,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -586,7 +643,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -616,7 +675,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "query",
@@ -659,7 +720,9 @@
           {
             "in": "header",
             "name": "Authorization",
-            "type": "string"
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
           },
           {
             "in": "path",
@@ -677,9 +740,150 @@
           }
         }
       }
+    },
+    "/api/customFilter": {
+      "get": {
+        "summary": "Custom filters index",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All custom filters",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#definitions/CustomFilter"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create custom filter",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#definitions/CustomFilterRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CustomFilter created"
+          }
+        }
+      }
+    },
+    "/api/customFilter/{id}": {
+      "delete": {
+        "summary": "Delete custom filter",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "type": "string",
+            "description": "JWT Token",
+            "required": true
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete successful"
+          }
+        }
+      }
     }
   },
   "definitions": {
+    "CustomFilter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
+        },
+        "started_after": {
+          "type": "number"
+        },
+        "started_before": {
+          "type": "number"
+        }
+      }
+    },
+    "CustomFilterRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
+        },
+        "started_after": {
+          "type": "number"
+        },
+        "started_before": {
+          "type": "number"
+        }
+      }
+    },
     "UserRequest": {
       "type": "object",
       "properties": {
@@ -738,8 +942,46 @@
           "type": "string",
           "enum": ["SUCCESS", "FAILED", "ERROR", "UNKNOWN"]
         },
-        "sequence_number": {
+        "start_timestamp": {
           "type": "number"
+        },
+        "end_timestamp": {
+          "type": "number"
+        },
+        "commit_hash": {
+          "type": "string"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "short_description": {
+          "type": "string"
+        },
+        "payload_data": {
+          "type": "object"
+        },
+        "payload_text": {
+          "type": "string"
+        }
+      }
+    },
+    "SimulationResultInitialize": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "triggered_by": {
+          "type": "string"
+        },
+        "branch_name": {
+          "type": "string"
+        },
+        "start_timestamp": {
+          "type": "number"
+        },
+        "commit_hash": {
+          "type": "string"
         }
       }
     },
@@ -799,10 +1041,10 @@
         "id": {
           "type": "string"
         },
-        "branch_name": {
+        "commit_hash": {
           "type": "string"
         },
-        "commit_hash": {
+        "triggered_by": {
           "type": "string"
         }
       }

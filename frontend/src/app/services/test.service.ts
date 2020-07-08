@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { FilterParamsModel } from '../models/filter-params-model';
+import { TestsResponseModel } from "../models/testsResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,8 @@ export class TestService {
 
   constructor(private http: HttpClient) { }
 
-  public fetchTests(requestParams: FilterParamsModel): Observable<Test[]> {
+  public fetchTests(requestParams: FilterParamsModel): Observable<TestsResponseModel> {
     let params = new HttpParams();
-
     if (requestParams !== null) {
       Object.keys(requestParams).forEach(key => {
         const value = requestParams[key];
@@ -23,7 +23,7 @@ export class TestService {
         }
       });
     }
-    return this.http.get<Test[]>(environment.baseUrl + 'simulationResult', {
+    return this.http.get<TestsResponseModel>(environment.baseUrl + 'simulationResult', {
       params: params
     });
   }

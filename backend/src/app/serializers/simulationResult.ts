@@ -1,6 +1,11 @@
 import { SimulationResultStatus } from '../../lib/enums';
 import { SimulationResult } from '../models/simulationResult';
 
+interface SimulationResultIndexResponse {
+  count: number;
+  results: Array<SimulationResultIndexSerializer>;
+};
+
 interface SimulationResultIndexSerializer {
   id: string;
   triggered_by: string;
@@ -38,13 +43,16 @@ export const show = (simulationResult: SimulationResult): SimulationResultShowSe
   };
 };
 
-export const index = (simulationResults: Array<SimulationResult>): Array<SimulationResultIndexSerializer> => {
-  return simulationResults.map((simulationResult: SimulationResult) => {
-    return {
-      id: simulationResult.id,
-      triggered_by: simulationResult.triggered_by,
-      commit_hash: simulationResult.commit_hash,
-      status: simulationResult.status
-    };
-  });
+export const index = (count: number, simulationResults: Array<SimulationResult>): SimulationResultIndexResponse => {
+  return {
+    count: count,
+    results: simulationResults.map((simulationResult: SimulationResult) => {
+      return {
+        id: simulationResult.id,
+        triggered_by: simulationResult.triggered_by,
+        commit_hash: simulationResult.commit_hash,
+        status: simulationResult.status
+      };
+    })
+  }
 };
