@@ -48,15 +48,10 @@ export class StatisticsComponent implements OnInit {
   };
 
   private calcMeasurementAvg(statistics: Statistic[]) {
-    this.barChartData[0].data = [];
-    this.barChartLabels.map(l => {
+    return this.barChartLabels.map(l => {
       const filteredStats = statistics.filter(s => this.convertUnixDate(s) === l);
       const sum = filteredStats.reduce((a, b) => a + b.measurement, 0);
-      if (filteredStats.length === 0 ) {
-        this.barChartData[0].data.push(sum);
-      } else {
-        this.barChartData[0].data.push(sum / filteredStats.length);
-      }
+      return filteredStats.length ? sum / filteredStats.length : sum
     })
   }
 
@@ -82,7 +77,7 @@ export class StatisticsComponent implements OnInit {
     .subscribe((data) => {
       const statistics = this.sortStatistics(data);
       this.barChartLabels = this.createChartLabels(statistics);
-      this.calcMeasurementAvg(statistics);
+      this.barChartData[0].data = this.calcMeasurementAvg(statistics);
       this.testIDs = this.storeTestIDs(statistics);
     })
   };
