@@ -1,6 +1,6 @@
 <div class="container">
 <mat-toolbar class="navbar">
-  <app-filters (filters)="fetchTestsByFilter($event)"></app-filters>
+  <app-filters (filters)="onSearch($event)"></app-filters>
 </mat-toolbar>
 <div class="simulations top-margin">
   <mat-card *ngFor="let test of obs | async" class="header" [routerLink]="['/test', test.id]">
@@ -21,6 +21,5 @@
   </mat-card>
 </div>
 <div class="footer">
-  <mat-paginator fixed [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-</div>
+  <mat-paginator [length]="count" [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons (page)="pageEvent()"></mat-paginator>
 </div>
