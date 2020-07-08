@@ -1,5 +1,5 @@
 <div class="top-padding">
-  <button mat-raised-button (click)="toggleAddUserModal()">Add User</button>
+  <button class="addbutton" mat-raised-button (click)="toggleAddUserModal()">Add User</button>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let user of users; let i=index" class="header">
       <mat-expansion-panel-header>
@@ -19,5 +19,5 @@
       </mat-action-row>
     </mat-expansion-panel><br>
   </mat-accordion>
-  <button appBackButton mat-raised-button>Back</button>
+  <button appBackButton>Back</button>
 </div>
