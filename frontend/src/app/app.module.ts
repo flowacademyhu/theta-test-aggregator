@@ -23,6 +23,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { UsersResolver } from './resolvers/users.resolver';
 import { TestResultsComponent } from './components/test-results/test-results.component';
 import { TestStatusDirective } from './directives/test-status.directive';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { ChartsModule } from 'ng2-charts';
 import { ApiKeyResolver } from './resolvers/apiKeys.resolver';
 import { FiltersComponent } from './components/filters/filters.component';
 import { TestDetailsComponent } from './components/test-details/test-details.component';
@@ -42,6 +44,8 @@ const routes: Routes = [
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
   { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: {apikeys: ApiKeyResolver}, canActivate: [AuthGuard]},
+  { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
+  { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
   { path: '**', redirectTo: '' }
@@ -64,6 +68,7 @@ const routes: Routes = [
     ProfileUpdateModalComponent,
     TestResultsComponent,
     TestStatusDirective,
+    StatisticsComponent,
     TestDetailsComponent,
     AddApikeyModalComponent,
     FiltersComponent,
@@ -78,8 +83,9 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes),
+    ChartsModule,
     SocialLoginModule,
-    RouterModule.forRoot(routes)
   ],
   exports: [RouterModule],
   providers: [
