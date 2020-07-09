@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['index'])
     }, (error: HttpErrorResponse) => {
       this.errors = error;
+      this.isSuccessfulLogin = false;
       console.log(this.errors);
     });
   }
