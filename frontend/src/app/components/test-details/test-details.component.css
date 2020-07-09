@@ -35,12 +35,12 @@ span {
 }
 
 ::ng-deep.error-message{
-  font-size: 10pt;
+  font-size: 12pt;
   color: lightgray;
 }
 
 ::ng-deep.failed-endpoint{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   font-weight: bold;
   color: lightgray;
@@ -54,7 +54,7 @@ span {
 }
 
 ::ng-deep.failed-status-code{
-  font-size: 10pt;
+  font-size: 12pt;
   color: white;
   margin: 1pt;
 }
@@ -67,7 +67,7 @@ span {
 }
 
 ::ng-deep.failed-message{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   color: lightgray;
   margin: 1pt;
@@ -81,7 +81,7 @@ span {
 }
 
 ::ng-deep.failed-request{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   color: rgb(231, 225, 225);
   margin: 10pt;
@@ -96,7 +96,7 @@ span {
 }
 
 ::ng-deep.failed-response{
-font-size: 10pt;
+font-size: 12pt;
 font-style: italic;
 color: lightgray;
 margin: 10pt;
