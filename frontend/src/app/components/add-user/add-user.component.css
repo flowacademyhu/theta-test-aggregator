@@ -28,6 +28,16 @@
   color:white;
 }
 
+::ng-deep .mat-select-panel {
+  background-color: #243441;
+  color:white !important;
+}
+
+::ng-deep .mat-option-text {
+  color: whitesmoke;
+  text-align: left;
+}
+
 .emailTaken {
   color: red;
   font-size: 10pt;

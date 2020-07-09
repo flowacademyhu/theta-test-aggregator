@@ -157,3 +157,13 @@ text-align: center;
   color: white;
   height: 35pt;
 }
+
+::ng-deep .mat-select-panel {
+  background-color: #243441;
+  color:white !important;
+}
+
+::ng-deep .mat-option-text {
+  color: whitesmoke;
+  text-align: left;
+}
