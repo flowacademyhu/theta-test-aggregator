@@ -28,6 +28,11 @@ header {
   text-align: left;
 }
 
+.vcenter {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .login-button {
   display: block;
   margin: 0 auto 0 auto;

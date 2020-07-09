@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 import { AuthResponse } from '../models/auth-response';
 import { environment } from 'src/environments/environment';
 import { switchMap } from 'rxjs/operators';
-import { SocialAuthService } from "angularx-social-login";
+import { SocialAuthService } from 'angularx-social-login';
 
 
 @Injectable({
@@ -16,7 +16,12 @@ import { SocialAuthService } from "angularx-social-login";
 
 export class AuthService {
 
-  constructor(private userService: UserService, private http: HttpClient, private router: Router, private socialAuthService: SocialAuthService) {
+  constructor(
+    private userService: UserService,
+    private http: HttpClient,
+    private router: Router,
+    private socialAuthService: SocialAuthService
+  ) {
   }
 
   private loggedInUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
@@ -33,17 +38,17 @@ export class AuthService {
 
   public login(email: string, password: string, isChecked: boolean) {
     return this.http.post<AuthResponse>(environment.baseUrl + 'login', { email, password })
-    .pipe(
-      switchMap((resp) => {
-        this.loginLogic(isChecked, resp);
-        localStorage.setItem('signedInViaGoogle', "false");
-        return this.loggedInUser$;
-      })
-    );
+      .pipe(
+        switchMap((resp) => {
+          this.loginLogic(isChecked, resp);
+          localStorage.setItem('signedInViaGoogle', 'false');
+          return this.loggedInUser$;
+        })
+      );
   }
 
   public logout() {
-    if (localStorage.getItem('signedInViaGoogle') === "true") {
+    if (localStorage.getItem('signedInViaGoogle') === 'true') {
       this.socialAuthService.signOut();
       localStorage.removeItem('pic');
     }
@@ -67,15 +72,15 @@ export class AuthService {
     });
   }
 
-  loginWithGoogle(token: string,  isChecked: boolean) {
-    return this.http.post<AuthResponse>(environment.baseUrl + 'login/google', {token})
-    .pipe(
-      switchMap((resp) => {
-        this.loginLogic(isChecked, resp);
-        localStorage.setItem('signedInViaGoogle', "true")
-        return this.loggedInUser$;
-      })
-    );
+  loginWithGoogle(token: string, isChecked: boolean) {
+    return this.http.post<AuthResponse>(environment.baseUrl + 'login/google', { token })
+      .pipe(
+        switchMap((resp) => {
+          this.loginLogic(isChecked, resp);
+          localStorage.setItem('signedInViaGoogle', 'true');
+          return this.loggedInUser$;
+        })
+      );
   }
 
   loginLogic(isChecked: boolean, resp: AuthResponse) {
@@ -86,7 +91,7 @@ export class AuthService {
     } else {
       sessionStorage.setItem('accessToken', resp.token);
     }
-    sessionStorage.setItem('id', resp.user.id)
-     this.loggedInUser$.next(resp.user)
+    sessionStorage.setItem('id', resp.user.id);
+    this.loggedInUser$.next(resp.user);
   }
 }
