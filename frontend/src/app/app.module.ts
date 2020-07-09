@@ -48,7 +48,7 @@ const routes: Routes = [
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
-  { path: 'test/:id', component: TestDetailsComponent, resolve: { test: TestResolver } },
+  { path: 'test/:id', component: TestDetailsComponent, resolve: { test: TestResolver }, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
 
