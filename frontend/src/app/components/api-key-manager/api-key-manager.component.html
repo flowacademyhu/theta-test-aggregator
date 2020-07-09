@@ -1,4 +1,4 @@
-<div class="top-margin">
+<div class="top-padding">
   <button mat-raised-button (click)="toggleAddApiKey()" class="addbutton">Add ApiKey</button><br>
   <mat-accordion>
     <div class="grid">
@@ -15,5 +15,5 @@
         </mat-card><br>
     </div>
   </mat-accordion>
-<button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button class="backbutton">Back</button>
+  <button appBackButton>Back</button>
 </div>

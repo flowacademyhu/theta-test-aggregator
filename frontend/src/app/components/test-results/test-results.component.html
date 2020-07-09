@@ -1,7 +1,7 @@
 <mat-toolbar class="navbar">
   <app-filters (filters)="onSearch($event)"></app-filters>
 </mat-toolbar>
-<div class="simulations top-margin">
+<div class="simulations top-padding">
   <mat-card *ngFor="let test of obs | async" class="header" [routerLink]="['/test', test.id]">
     <div class="status-desc">
       <mat-card-header>
