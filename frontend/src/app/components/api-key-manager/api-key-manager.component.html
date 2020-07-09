@@ -5,8 +5,8 @@
         <mat-card *ngFor="let apikey of apikeys, let i=index" class="header">
           <div class="apiKey-data">
             <p>Key: {{apikey.key}}</p>
-            <p>Expires_at: {{apikey.expires_at | date : 'short'}}</p>
-            <p>Created_at: {{apikey.created_at | date : 'short'}}</p>
+            <p>Expires at: {{apikey.expires_at | date : 'medium'}}</p>
+            <p>Created at: {{apikey.created_at | date : 'medium'}}</p>
           </div>
           <mat-action-row>
           <button mat-raised-button (click)="extendExpirationDay(apikey)" color="primary" [disabled]="disableExtend(i)">Extend</button>
