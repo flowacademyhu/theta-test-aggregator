@@ -26,11 +26,11 @@ button {
   color: white;
 }
 
-::ng-deep .endpointInput {
+/* ::ng-deep .endpointInput {
   border-radius: 5px;
   background-color: #243441;
 }
-
+*/
 ::ng-deep .autocomplete {
   border-radius: 5px;
   font-size: 10px;
@@ -55,6 +55,7 @@ button {
   
 ::ng-deep .mat-option{
   text-align: center;
+  background-color: #243441 !important;
 }
 
 ::ng-deep .mat-form-field-empty.mat-form-field-label,

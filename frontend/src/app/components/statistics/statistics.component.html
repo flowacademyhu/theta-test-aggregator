@@ -7,7 +7,7 @@
   </mat-select>
 </mat-form-field>
 <mat-form-field class="form-field">
-  <mat-label class="label" for="endpoint">Endpoint: </mat-label>
+  <mat-label for="endpoint">Endpoint: </mat-label>
   <input 
   class="endpointInput" 
   required 
@@ -16,7 +16,7 @@
   [formControl]="endpointInputControl" 
   [matAutocomplete]="auto">
   <mat-autocomplete #auto="matAutocomplete" class="autocomplete">
-    <mat-option  class="option" *ngFor="let endpoint of filteredEndpoints | async" [value]="endpoint">
+    <mat-option *ngFor="let endpoint of filteredEndpoints | async" [value]="endpoint">
       {{endpoint}}
     </mat-option>
   </mat-autocomplete>
