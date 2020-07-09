@@ -10,7 +10,6 @@
   background-color: #2d4152;
   color: white;
   left: 10pt;
-  text-align: center;
   box-shadow: 0pt 0pt 5pt 0pt rgb(90, 90, 90), 
   0pt 0pt 5pt 0pt rgb(121, 121, 121), 
   0pt 0pt 5pt 0pt rgb(255, 251, 251);
@@ -21,12 +20,14 @@
   color:white;
 }
 
-.mat-option {
+::ng-deep .mat-option-text {
   color: whitesmoke;
+  text-align: left;
 }
 
-.mat-select {
+::ng-deep .mat-select-value {
   color: white;
+  text-align: left;
 }
 
 ::ng-deep .mat-select-arrow {

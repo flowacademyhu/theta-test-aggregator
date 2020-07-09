@@ -6,6 +6,10 @@
   margin-left: 30pt;
 }
 
+button {
+  margin-left: 45pt;
+}
+
 ::ng-deep .chartjs-render-monitor {
   background-color: rgb(188, 203, 206);
 }
@@ -24,7 +28,6 @@
 
 ::ng-deep .endpointInput {
   border-radius: 5px;
-  font-size: 50px;
   background-color: #243441;
 }
 

@@ -2,7 +2,7 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
-.confirm-modal {
+::ng-deep .confirm-modal {
   position: fixed;
   width: 50vw;
   left: 25vw;
