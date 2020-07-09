@@ -6,6 +6,7 @@ import { ApikeyService } from '../../services/apikey.service';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmDeleteModalComponent } from 'src/app/modals/confirm-delete-modal/confirm-delete-modal.component';
 import { AddApikeyModalComponent } from 'src/app/modals/add-apikey-modal/add-apikey-modal.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-api-key-manager',
@@ -56,6 +57,10 @@ export class ApiKeyManagerComponent implements OnInit, DoCheck, OnDestroy {
         this.getApiKeys();
       }
     });
+  }
+
+  public disableExtend(i: number): boolean {
+    return moment().diff(this.apikeys[i].expires_at, 'days') < -30;
   }
 
   ngOnInit(): void {
