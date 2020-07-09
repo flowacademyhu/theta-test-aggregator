@@ -108,3 +108,7 @@ a:hover {
   color: #aaaaaa;
   text-decoration: underline;
 }
+
+.unsuccessfulLogin {
+  color: #ff0000;
+}

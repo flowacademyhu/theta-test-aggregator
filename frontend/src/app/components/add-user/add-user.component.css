@@ -2,3 +2,8 @@
   margin: 0 auto 0 auto;
   text-align: center;
 }
+
+.emailTaken {
+  color: red;
+  font-size: 10pt;
+}
