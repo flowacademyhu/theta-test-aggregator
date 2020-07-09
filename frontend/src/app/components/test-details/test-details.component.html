@@ -1,4 +1,4 @@
-<div class="body top-margin">
+<div class="body top-padding">
   <p class="branch-name">{{test.branch_name}}</p>
   <div>
     <mat-accordion multi>
@@ -76,9 +76,9 @@
       </mat-expansion-panel>
       <mat-action-row>
         <div class="buttons">
-          <button [routerLink]="['/index']" routerLinkActive="router-link-active" mat-raised-button>Back</button>
+          <button appBackButton>Back</button>
           <button *ngIf="user.role === 'admin'" mat-raised-button color="warn"
-                  (click)="toggleInvalidateModal()">Invalidate</button>
+            (click)="toggleInvalidateModal()">Invalidate</button>
         </div>
       </mat-action-row>
     </mat-accordion>

@@ -27,3 +27,8 @@
 ::ng-deep .mat-select-arrow {
   color:white;
 }
+
+.emailTaken {
+  color: red;
+  font-size: 10pt;
+}

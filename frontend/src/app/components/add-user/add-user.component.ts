@@ -5,6 +5,7 @@ import { UserRole } from 'src/app/models/user.model';
 import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError } from 'rxjs';
+import { nextTick } from 'process';
 
 @Component({
   selector: 'app-add-user',
@@ -16,7 +17,8 @@ export class AddUserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   roles: UserRole[] = [UserRole.ADMIN, UserRole.USER];
-  public errors: string[] = [];
+  public errors: any;
+  public emailTaken = false;
 
   public addForm: FormGroup  = new FormGroup({
     password: new FormControl(null, [Validators.minLength(8)]),
@@ -28,6 +30,12 @@ export class AddUserComponent implements OnInit {
 
   public onAdd() {
     this.userService.addUser(this.addForm.value).pipe( catchError((error: HttpErrorResponse) => {
+      if (error.status === 500) {
+        this.emailTaken = true;
+      } else {
+        this.addForm.reset();
+        this.emailTaken = false;
+      }
       return throwError(error.error.message);
     })).subscribe((data) => {}, (error) => {this.errors = error});
     this.userService.fetchUsers();

@@ -60,3 +60,7 @@
 ::ng-deep .mat-select-arrow-wrapper {
   color: white;
 }
+
+.backBtn {
+  margin-top: 6em;
+}
