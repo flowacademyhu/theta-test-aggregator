@@ -48,15 +48,27 @@ Now you can see it in action in your browser on [`http://localhost:4200`].
 
 ## Design
 
-This project contains 4 essential parts:
+This project contains 3 essential parts:
 
-- A MYSQL database recieveing / updating all the incoming test results.
-
-- A MYSQL database containing / updating / managing users.
+- A MYSQL database that recieves / updates and stores data about incoming test results and users.
 
 - Express js for the backend logic.
 
 - An Angular frontend as an interface for users.
+
+### Express structure
+
+The backend structure is divided into different modules, which are the following:
+
+- Routers to forward the supported requests (and any information in request URLs and body) to the appropriate controller functions.
+
+- Controller functions to get or modify the requested data from the database through the models.They also construct unformatted HTTP responses.
+
+- Serializers format the HTTP response to the appropriate scheme.
+
+- Middlewares handling authentication, authorization and many integral parts of the project.
+
+![Backend](media/backend.png)
 
 ## Development
 
