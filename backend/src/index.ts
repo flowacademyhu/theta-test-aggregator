@@ -7,8 +7,6 @@
   'CLIENT_ID'
  ].forEach(e => { if (!process.env[e]) throw Error(`${e} missign`); });
 
-
- 
 import * as express from 'express';
 import { Application } from 'express';
 import * as createMiddleware from 'swagger-express-middleware';
