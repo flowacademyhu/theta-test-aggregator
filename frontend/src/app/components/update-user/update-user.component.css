@@ -8,10 +8,6 @@
   color: white;
 }
 
-::ng-deep .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
-  color: white;
-}
-
 ::ng-deep .mat-form-field-infix {
   color: white;
   width: 400px;
