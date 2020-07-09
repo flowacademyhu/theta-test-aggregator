@@ -4,7 +4,7 @@
 ## Problem and Importance
 
 
-Fluidpay has a simulation tool over on it’s API that simulates the users behaviour to test the correctness of the API and make sure future development in the API doesn’t break anything. This is an aggregator tool, the purpose of which is to get the results of these tests, save them properly into a database (MySQL) and visualize on the front side.
+Fluidpay has a simulation tool over on it’s API that simulates the users behaviour to test the correctness of the API and make sure future development in the API doesn’t break anything. This project is an aggregator tool, the purpose of which is to get the results of these tests, save them properly into a database (MySQL) and visualize it on the frontend side.
 
 ## Usage
 
