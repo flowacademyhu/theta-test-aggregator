@@ -19,17 +19,17 @@
       is required.</span>
     <br />
     <div *ngIf="!isSuccessfulLogin">
-    <span class="unsuccessfulLogin">You have entered an invalid email or password</span>
-    <br><br> 
-  </div>
+      <span class="unsuccessfulLogin">You have entered an invalid email or password</span>
+      <br>
+    </div>
     <div class="login-options">
-      <div>
+      <div class="vcenter">
         <mat-checkbox color="primary" name="remember" id="remember" (change)="rememberMe()">Remember me</mat-checkbox>
-        <br />
       </div>
       <div>
         <a routerLink="#">
-          <img (click)="signInWithGoogle()" src="assets/btn_google_signin_dark_normal_web.png" alt="Sign in with Google" />
+          <img (click)="signInWithGoogle()" src="assets/btn_google_signin_dark_normal_web.png"
+            alt="Sign in with Google" />
         </a>
       </div>
     </div>
