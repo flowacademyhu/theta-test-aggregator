@@ -1,5 +1,4 @@
-<mat-dialog-content class="parent">
-  <form [formGroup]="updateForm">
+<form [formGroup]="updateForm" class="updateFormClass">
     <div>
       <mat-form-field>
         <mat-label for="password">Password</mat-label>
@@ -23,5 +22,4 @@
     </div><br><br>
     <button mat-raised-button mat-dialog-close>Cancel</button>
     <button mat-raised-button color="primary" [mat-dialog-close] (click)="onUpdate()" [disabled]="updateForm.invalid">Update</button>
-  </form>
-</mat-dialog-content>
+</form>

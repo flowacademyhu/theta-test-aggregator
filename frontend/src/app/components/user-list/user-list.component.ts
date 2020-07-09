@@ -47,8 +47,8 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
   public toggleAddUserModal() {
     const dialogRef = this.dialog.open(AddUserComponent, {
-      height: '500px',
-      width: '300px'
+      height: 'auto',
+      width: '300px',
     });
     dialogRef.afterClosed().subscribe(result => {
       this.filterUsers();
@@ -57,6 +57,8 @@ export class UserListComponent implements OnInit, DoCheck, OnDestroy {
 
   public toggleUpdateModal(userToDelete) {
     const dialogRef = this.dialog.open(UpdateUserComponent, {
+      height: 'auto',
+      width: '350px',
       data: { user: userToDelete }
     });
     dialogRef.afterClosed().subscribe(result => {

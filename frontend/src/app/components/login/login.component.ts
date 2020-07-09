@@ -56,8 +56,8 @@ export class LoginComponent implements OnInit {
     };
     this.loggedIn = (this.user != null);
     this.authService.loginWithGoogle(this.user.idToken, this.isChecked).subscribe(() => {
-      sessionStorage.setItem('pic', this.user.photoUrl);
-      this.router.navigate(['index']);
+      localStorage.setItem('pic', this.user.photoUrl)
+      this.router.navigate(['index'])
     }, (error: HttpErrorResponse) => {
       this.errors = error;
       this.isSuccessfulLogin = false;

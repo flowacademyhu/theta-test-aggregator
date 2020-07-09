@@ -10,20 +10,10 @@
   align-self: center;
 }
 
-.header:hover {
-  margin: 30pt;
-  background-color: #2f4455;
-}
-
 .title {
   color: whitesmoke;
-  margin: 0pt;
   font-weight: bold;
   font-size: 15pt;
-}
-
-.user-data {
-  color: whitesmoke;
 }
 
 mat-panel-title,
@@ -41,16 +31,16 @@ span {
 
 ::ng-deep.success {
   font-size: 15pt;
-  color: rgb(85, 158, 95);
+  color: #8dc63f;
 }
 
 ::ng-deep.error-message{
-  font-size: 10pt;
+  font-size: 12pt;
   color: lightgray;
 }
 
 ::ng-deep.failed-endpoint{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   font-weight: bold;
   color: lightgray;
@@ -64,7 +54,7 @@ span {
 }
 
 ::ng-deep.failed-status-code{
-  font-size: 10pt;
+  font-size: 12pt;
   color: white;
   margin: 1pt;
 }
@@ -77,7 +67,7 @@ span {
 }
 
 ::ng-deep.failed-message{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   color: lightgray;
   margin: 1pt;
@@ -91,7 +81,7 @@ span {
 }
 
 ::ng-deep.failed-request{
-  font-size: 10pt;
+  font-size: 12pt;
   font-style: italic;
   color: rgb(231, 225, 225);
   margin: 10pt;
@@ -106,7 +96,7 @@ span {
 }
 
 ::ng-deep.failed-response{
-font-size: 10pt;
+font-size: 12pt;
 font-style: italic;
 color: lightgray;
 margin: 10pt;
@@ -122,12 +112,12 @@ color: white;
 
 ::ng-deep.error{
   font-size: 15pt;
-  color: rgb(221, 167, 19);
+  color: #fbb034;
 }
 
 ::ng-deep.failed{
   font-size: 15pt;
-  color: rgb(212, 32, 32);
+  color: #f23a3a;
 }
 
 .test-data{
@@ -147,19 +137,16 @@ table {
   border-spacing: 20pt;
 }
 
-.header:not([class*=mat-elevation-z]) {
-  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
-              0pt 0pt 5pt 0pt rgb(124, 123, 123), 
-              0pt 0pt 5pt 0pt rgb(146, 146, 146);
+.buttons {
+  margin-bottom: 1rem;
 }
 
 .mat-raised-button {
   float: right;
   background-color: rgb(30, 37, 139);
   color: white;
-  margin-right: 30pt;
+  margin-right: 1rem;
   margin-top: 1rem;
-  margin-bottom: 3rem;
 }
 .innerHTML {
   overflow-wrap: break-word;

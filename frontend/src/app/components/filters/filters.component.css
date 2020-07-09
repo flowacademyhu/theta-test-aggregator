@@ -1,8 +1,8 @@
-::ng-deep .selectLabel {
+.selectLabel {
   color: white;
 }
 
-::ng-deep .placeholder {
+.placeholder {
   color: white;
 }
 
@@ -10,12 +10,25 @@
   border-radius: 5px;
   font-size: 10px;
   background-color: #243441;
+  color:white;
 }
 
-::ng-deep .mat-option {
+.mat-option {
   color: whitesmoke;
+}
+
+.mat-form-field {
+  color: white;
 }
 
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
+}
+
+.mat-raised-button {
+  margin: 5pt;
+}
+
+mat-datepicker-toggle {
+  color: white !important;
 }

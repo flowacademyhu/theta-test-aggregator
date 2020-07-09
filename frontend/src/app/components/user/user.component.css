@@ -3,6 +3,10 @@
   text-align: right;
   width: 500px;
   top: 50px;
+  background-color: #243441;
+  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91), 
+  0pt 0pt 5pt 0pt rgb(124, 123, 123), 
+  0pt 0pt 5pt 0pt rgb(146, 146, 146);
 }
 
 .mat-card-avatar {
@@ -24,14 +28,17 @@
 
 .title {
   font-size: 1.5em;
+  color: white;
 }
 
 .subtitle {
   font-size: 1.5em;
+  color: white;
 }
 
 .content {
   text-align: left;
+  color: white;
 }
 
 .data {
@@ -40,6 +47,18 @@
 
 .fieldname {
   font-weight: bold;
+}
+
+::ng-deep .mat-select-value-text {
+  color: white !important;
+}
+
+::ng-deep .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep .mat-select-arrow-wrapper {
+  color: white;
 }
 
 .backBtn {

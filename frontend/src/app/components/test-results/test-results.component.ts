@@ -74,5 +74,6 @@ export class TestResultsComponent implements OnInit {
     filters.limit = this.getLimit();
     filters.offset = this.getOffset();
     this.fetchTests(filters);
+    window.scroll(0, 0);
   }
 }

@@ -1,4 +1,4 @@
-.header.mat-card {
+mat-card {
   margin: 35px;
   background-color: #243441;
   width: 90%;
@@ -64,22 +64,21 @@
   margin-top: 0rem;
 }
 
-.simulations {
-  margin-left: 100pt;
+.simulations{
+  margin-left: 200pt;
   margin-right: 100pt;
   margin-bottom: 60pt;
 }
 
-.mat-card:not([class*=mat-elevation-z]) {
-  box-shadow: 0pt 0pt 5pt 0pt rgb(92, 91, 91),
-    0pt 0pt 5pt 0pt rgb(124, 123, 123),
-    0pt 0pt 5pt 0pt rgb(146, 146, 146);
+mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.header.mat-card:hover {
-  display: flex;
-  background-color: rgb(2, 119, 119);
+mat-card:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+
 
 .desc {
   margin-left: 30pt;
@@ -90,26 +89,28 @@
   left: 0;
   bottom: 0;
   width: 100%;
+  z-index: 500;
 }
 
 .navbar {
-  height: 50pt;
+  height: 100%;
+  align-items: flex-start;
   position: fixed;
-  width: 100%;
+  width: 200pt;
   z-index: 999;
   display: block;
   padding: 5px 10px;
-  top: 47pt;
-  background-color: #304b61;
-  /*   background: linear-gradient(to right, #00aaef, #00aaef, #00aaef,#8dc63f, #8dc63f, #fbb034);
- */
-  box-shadow: 0pt 10pt 5pt 0pt rgb(92, 91, 91),
-    0pt 0pt 5pt 0pt rgb(124, 123, 123),
-    0pt 0pt 5pt 0pt rgb(146, 146, 146);
+  top: 10%;
+  background-color: #2d4152;
+  box-shadow: 0pt 0pt 2pt 1pt rgb(19, 18, 18), 
+  0pt 0pt 2pt 1pt rgb(59, 59, 59), 
+  0pt 0pt 2pt 2pt rgb(161, 160, 160);
+
+ display: flex;
 }
 
 div.top-padding {
-  padding-top: 107pt;
+  padding-top: 67pt;
   z-index: 1;
 }
 
@@ -125,4 +126,44 @@ div.top-padding {
 
 .results {
   margin-bottom: 60pt;
+}
+
+::ng-deep .mat-paginator-page-size-select {
+  width: 40pt;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: #243441;
+}
+
+::ng-deep .mat-select-value {
+color: white;
+text-align: center;
+}
+::ng-deep .mat-select-arrow {
+  color:white;
+}
+
+::ng-deep .mat-option{
+text-align: center;
+}
+
+::ng-deep .mat-option-text {
+  text-align: center;
+}
+
+::ng-deep .mat-paginator {
+  background-color: #283b49;
+  color: white;
+  height: 35pt;
+}
+
+::ng-deep .mat-select-panel {
+  background-color: #243441;
+  color:white !important;
+}
+
+::ng-deep .mat-option-text {
+  color: whitesmoke;
+  text-align: left;
 }
