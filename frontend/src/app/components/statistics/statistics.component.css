@@ -3,16 +3,23 @@
   margin-top: 15px;
   width: 50rem;
   height: 50rem;
+  margin-left: 30pt;
+}
+
+::ng-deep .chartjs-render-monitor {
+  background-color: rgb(188, 203, 206);
 }
 
 .form-field {
-  margin-top: 50pt;
+  padding-top: 80pt;
+  left: 30pt;
 }
 
 ::ng-deep .mat-select-panel {
   border-radius: 5px;
   font-size: 10px;
   background-color: #243441;
+  color: white;
 }
 
 ::ng-deep .endpointInput {
@@ -27,11 +34,36 @@
   background-color: #243441;
 }
 
-::ng-deep .option {
-  color: whitesmoke !important;
-  background-color: #243441;
+::ng-deep .mat-select-value-text {
+  color: white !important;
 }
 
-::ng-deep .label {
-  color: whitesmoke;
+::ng-deep .mat-option-text{
+  color: white !important;
+  }
+
+::ng-deep .mat-select-value {
+  color: white;
+  text-align: center;
 }
+::ng-deep .mat-select-arrow {
+  color:white;
+}
+  
+::ng-deep .mat-option{
+  text-align: center;
+}
+
+::ng-deep .mat-form-field-empty.mat-form-field-label,
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  color: white;
+}
+
+::ng-deep .mat-form-field-infix {
+  color: white;
+}
+

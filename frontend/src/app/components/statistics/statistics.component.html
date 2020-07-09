@@ -1,9 +1,9 @@
 <mat-form-field class="form-field">
-  <mat-label class="label" for="method">Method: </mat-label>
-  <mat-select class="select" required [formControl]="methodInputControl">
-    <mat-option class="option" value="POST">POST</mat-option>
-    <mat-option class="option" value="GET">GET</mat-option>
-    <mat-option class="option" value="PUT">PUT</mat-option>
+  <mat-label for="method">Method: </mat-label>
+  <mat-select required [formControl]="methodInputControl">
+    <mat-option value="POST">POST</mat-option>
+    <mat-option value="GET">GET</mat-option>
+    <mat-option value="PUT">PUT</mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field class="form-field">
