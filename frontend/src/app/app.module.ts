@@ -39,17 +39,17 @@ import { BackButtonDirective } from './directives/back-button.directive';
 import { RouteReuseService } from './services/route-reuse.service';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'users', component: UserListComponent, resolve: {users: UsersResolver}, canActivate: [AuthGuard] },
+  { path: 'users', component: UserListComponent, resolve: { users: UsersResolver }, canActivate: [AuthGuard] },
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: {apikeys: ApiKeyResolver}, canActivate: [AuthGuard]},
+  { path: 'api-key-manager', component: ApiKeyManagerComponent, resolve: { apikeys: ApiKeyResolver }, canActivate: [AuthGuard] },
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
   { path: 'index', component: TestResultsComponent, canActivate: [AuthGuard] },
-  { path: 'test/:id', component: TestDetailsComponent, resolve: {test: TestResolver} },
-  { path: '**', redirectTo: '' }
+  { path: 'test/:id', component: TestDetailsComponent, resolve: { test: TestResolver } },
+  { path: '**', redirectTo: 'index', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -99,16 +99,16 @@ const routes: Routes = [
     {
       provide: 'SocialAuthServiceConfig',
       useValue:
-      {
-        autoLogin: false,
-        providers:
-        [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider (environment.GoogleLoginProvider)
-          },
-        ],
-      } as SocialAuthServiceConfig,
+        {
+          autoLogin: false,
+          providers:
+            [
+              {
+                id: GoogleLoginProvider.PROVIDER_ID,
+                provider: new GoogleLoginProvider(environment.GoogleLoginProvider)
+              },
+            ],
+        } as SocialAuthServiceConfig,
     },
     {
       provide: RouteReuseStrategy,
