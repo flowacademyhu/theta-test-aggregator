@@ -18,11 +18,14 @@
     <span class="login-warning" *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">Password
       is required.</span>
     <br />
+    <div *ngIf="!isSuccessfulLogin">
+    <span class="unsuccessfulLogin">You have entered an invalid email or password</span>
+    <br><br> 
+  </div>
     <div class="login-options">
       <div>
         <mat-checkbox color="primary" name="remember" id="remember" (change)="rememberMe()">Remember me</mat-checkbox>
         <br />
-        <a routerLink="#">Forgot your password?</a>
       </div>
       <div>
         <a routerLink="#">
