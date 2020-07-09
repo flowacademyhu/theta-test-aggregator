@@ -5,7 +5,7 @@
   'APIKEY_EXTENSION_DAYS',
   'APIKEY_EXP_DAYS',
   'CLIENT_ID'
- ].forEach(e => { if (!process.env[e]) throw Error(`${e} missign`); });
+ ].forEach(e => { if (!process.env[e]) throw Error(`${e} missing`); });
 
 import * as express from 'express';
 import { Application } from 'express';
