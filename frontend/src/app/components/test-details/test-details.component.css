@@ -28,6 +28,9 @@ span {
   font-size: 25pt;
   color: whitesmoke;
 }
+::ng-deep.mat-expansion-indicator::after {
+  color: whitesmoke;
+}
 
 ::ng-deep.success {
   font-size: 15pt;
