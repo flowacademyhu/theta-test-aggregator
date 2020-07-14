@@ -3,6 +3,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
+#[macro_use] extern crate validator_derive;
 
 use rocket::config::{Config, Environment};
 
@@ -18,7 +19,7 @@ fn main() {
         Ok(config) => config,
         Err(e) => panic!(e),
     };
-    
+
     rocket::custom(config)
         .mount("/api", routes![aggregator::init_simulation])
         .manage(store::init())

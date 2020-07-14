@@ -15,7 +15,7 @@ pub fn init() -> Pool {
     r2d2::Pool::new(manager).unwrap()
 }
 
-pub fn execute(db: State<Pool>, query: &str, params: &[&(dyn ToSql + Sync)]) -> String {
+pub fn execute(db: Pool, query: &str, params: &[&(dyn ToSql + Sync)]) -> String {
     let mut client = match db.clone().get() {
         Ok(c) => c,
         Err(e) => return format!("ERROR: getting database connection: {}", e),
@@ -23,15 +23,5 @@ pub fn execute(db: State<Pool>, query: &str, params: &[&(dyn ToSql + Sync)]) -> 
     match client.execute(query, params) {
         Ok(_) => format!("done"),
         Err(e) => format!("ERROR: performing database operation: {}", e),
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::store;
-
-    #[test]
-    fn storage_put() {
-        // store::put()
     }
 }
