@@ -5,7 +5,7 @@
   'APIKEY_EXTENSION_DAYS',
   'APIKEY_EXP_DAYS',
   'CLIENT_ID'
- ].forEach(e => { if (!process.env[e]) throw Error(`${e} missing`); });
+].forEach(e => { if (!process.env[e]) throw Error(`${e} missing`); });
 
 import * as express from 'express';
 import { Application } from 'express';
@@ -17,6 +17,11 @@ import * as swaggerDocument from '../config/swagger.json';
 import { router } from './app/routers';
 
 const app: Application = express();
+const dist = 'dist/frontend';
+app.get('*.*', express.static(dist, { maxAge: '1y' }));
+app.all('*', function (req, res) {
+  res.sendFile(`/`, { root: dist });
+});
 
 createMiddleware('config/swagger.json', app, (err, middleware: SwaggerMiddleware) => {
   if (err) {
