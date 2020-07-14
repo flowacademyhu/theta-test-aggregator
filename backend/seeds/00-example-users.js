@@ -42,6 +42,14 @@ exports.seed = async (knex) => {
       git_user: 'gituser5',
       role: 'user',
       notification: true
+    },
+    {
+      id: 'user6',
+      password_hash: '$2y$12$tc0qtvnQ2p7mII6IFDUupuncAMmHHcWudKFBZpQxLGZJXbPBrUocm',
+      email: 'hajnal.andor1993@gmail.com',
+      git_user: 'test_admin',
+      role: 'admin',
+      notification: true
     }
   ]);
   await knex.raw('SET FOREIGN_KEY_CHECKS = 1');
