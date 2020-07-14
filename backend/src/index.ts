@@ -18,10 +18,12 @@ import { router } from './app/routers';
 
 const app: Application = express();
 const dist = 'dist/frontend';
-app.get('*.*', express.static(dist, { maxAge: '1y' }));
-app.all('*', function (req, res) {
-  res.sendFile(`/`, { root: dist });
-});
+// app.get('*.*', express.static(dist, { maxAge: '1y' }));
+// app.all('*', function (req, res) {
+//   res.sendFile(`/`, { root: dist });
+// });
+app.use(express.static(__dirname+dist))
+app.get('/*', (req,res) => res.sendFile(`/`, { root: dist }));
 
 createMiddleware('config/swagger.json', app, (err, middleware: SwaggerMiddleware) => {
   if (err) {
