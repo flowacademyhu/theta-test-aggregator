@@ -26,7 +26,7 @@ services:
       MAILER_USER: "mailtester67"
       APIKEY_EXP_DAYS: 30
       APIKEY_EXTENSION_DAYS: 30
-      CLIENT_ID: 878632813836-s16kfkrn6i8bahht4asohntr8f695pbc.apps.googleusercontent.com
+      CLIENT_ID: 479343752100-eum86g5lmrkals8lcaeg0h1m8v9q9ufl.apps.googleusercontent.com
     build:
       context: ./
       dockerfile: Dockerfile.development
