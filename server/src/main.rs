@@ -3,19 +3,26 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
-#[macro_use] extern crate lazy_static;
 
 use rocket::config::{Config, Environment};
 
 mod aggregator;
-mod storage;
+mod store;
 
 fn main() {
-    let config = Config::build(Environment::Staging)
+    let config = match Config::build(Environment::Staging)
         .address("0.0.0.0")
-        .port(9234)
-        .finalize().unwrap();
+        .port(8012)
+        .finalize()
+    {
+        Ok(config) => config,
+        Err(e) => panic!(e),
+    };
     
-    rocket::custom(config).mount("/api", routes![aggregator::init_simulation]).launch();
+    rocket::custom(config)
+        .mount("/api", routes![aggregator::init_simulation])
+        .manage(store::init())
+        .launch();
+
     println!("Hello, world!");
 }
