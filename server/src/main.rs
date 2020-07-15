@@ -9,6 +9,7 @@ use rocket::config::{Config, Environment};
 
 mod aggregator;
 mod store;
+mod context;
 
 fn main() {
     let config = match Config::build(Environment::Staging)
@@ -22,7 +23,9 @@ fn main() {
 
     rocket::custom(config)
         .mount("/api", routes![aggregator::init_simulation])
-        .manage(store::init())
+        .manage(context::Context{
+            pool: store::init(),
+        })
         .launch();
 
     println!("Hello, world!");

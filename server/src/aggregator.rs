@@ -4,10 +4,11 @@ use rocket::State;
 use postgres::types::ToSql;
 use validator::{Validate, ValidationError};
 use crate::store::{init, execute, Pool};
+use crate::context;
 
 #[post("/simulationResult", data = "<result>")]
-pub fn init_simulation(result: Json<SimulationResult>, db: State<Pool>) -> &'static str {
-    match result.insert(db) {
+pub fn init_simulation(result: Json<SimulationResult>, db: State<context::Context>) -> &'static str {
+    match result.insert(db.inner().pool) {
         Ok(_) => "success",
         Err(err) => "error",
     }
