@@ -23,9 +23,6 @@ fn main() {
 
     rocket::custom(config)
         .mount("/api", routes![aggregator::init_simulation])
-        .manage(context::Context{
-            pool: store::init(),
-        })
         .launch();
 
     println!("Hello, world!");
