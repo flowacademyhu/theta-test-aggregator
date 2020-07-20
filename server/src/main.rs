@@ -10,6 +10,7 @@ use rocket::config::{Config, Environment};
 mod aggregator;
 mod store;
 mod context;
+mod mail;
 
 fn main() {
     let config = match Config::build(Environment::Staging)
